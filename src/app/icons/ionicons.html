@@ -1,0 +1,36 @@
+<!-- icons/ionicons -->
+<div class="row">
+    <div class="col">
+        <div class="widget">
+            <div class="row">
+                <div class="col">
+                    <div class="title">Ionicons</div>
+                    <div class="description">Use the <code>.ion-icon {{'{icon}'}}</code> classes for ionicons. Use the <code>.ion-icon-1x</code>, <code>.ion-icon-2x</code> or the <code>.ion-icon-3x</code> classes for custom icon sizes.</div>
+                </div>
+            </div>
+            <div class="row icon-search">
+                <div class="col col-md-6 col-xl-4">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="sli-magnifier"></i>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Search icons" id="search-icons" (keyup)="search($event)">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="ionicons">
+                        <div class="icon" *ngFor="let item of items">
+                            <div class="icons">
+                                <i class="ion-icon ion-icon-3x {{item}}"></i>
+                            </div>
+                            <div class="icon-class">{{item}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end icons/ionicons -->

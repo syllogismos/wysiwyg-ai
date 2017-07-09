@@ -1,0 +1,168 @@
+<!-- plugins/moment-js -->
+<div class="row">
+    <div class="col">
+        <div class="widget">
+            <div class="row">
+                <div class="col">
+                    <div class="title">Moment.js</div>
+                    <div class="description">Parse, validate, manipulate, and display dates in JavaScript.</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="title">Format dates</div>
+                    <div class="description">Use the <code>moment().format()</code> method to format dates.</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Method</th>
+                                <th>Result</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="example-1">
+                                <td class="from">
+                                    <code>moment().format('MMMM Do YYYY, h:mm:ss a')</code>
+                                </td>
+                                <td class="to"></td>
+                            </tr>
+                            <tr id="example-2">
+                                <td class="from">
+                                    <code>moment().format('dddd')</code>
+                                </td>
+                                <td class="to"></td>
+                            </tr>
+                            <tr id="example-3">
+                                <td class="from">
+                                    <code>moment().format("MMM Do YY")</code>
+                                </td>
+                                <td class="to"></td>
+                            </tr>
+                            <tr id="example-4">
+                                <td class="from">
+                                    <code>moment().format()</code>
+                                </td>
+                                <td class="to"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="widget">
+            <div class="row">
+                <div class="col">
+                    <div class="title">Relative time</div>
+                    <div class="description">Use the <code>fromNow()</code>, the <code>startOf()</code> and the <code>endOf()</code> methods for relative time formatting.</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Method</th>
+                                <th>Result</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="example-5">
+                                <td class="from">
+                                    <code>moment("20111031", "YYYYMMDD").fromNow()</code>
+                                </td>
+                                <td class="to"></td>
+                            </tr>
+                            <tr id="example-6">
+                                <td class="from">
+                                    <code>moment("20120620", "YYYYMMDD").fromNow()</code>
+                                </td>
+                                <td class="to"></td>
+                            </tr>
+                            <tr id="example-7">
+                                <td class="from">
+                                    <code>moment().startOf('day').fromNow()</code>
+                                </td>
+                                <td class="to"></td>
+                            </tr>
+                            <tr id="example-8">
+                                <td class="from">
+                                    <code>moment().endOf('day').fromNow()</code>
+                                </td>
+                                <td class="to"></td>
+                            </tr>
+                            <tr id="example-9">
+                                <td class="from">
+                                    <code>moment().startOf('hour').fromNow()</code>
+                                </td>
+                                <td class="to"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="widget">
+            <div class="row">
+                <div class="col">
+                    <div class="title">Calendar time</div>
+                    <div class="description">Use the <code>subtract()</code> and the <code>add()</code> methods with the <code>calendar()</code> to add and subtract dates.</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Method</th>
+                                <th>Result</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="example-10">
+                                <td class="from">
+                                    <code>moment().subtract(10, 'days').calendar()</code>
+                                </td>
+                                <td class="to"></td>
+                            </tr>
+                            <tr id="example-11">
+                                <td class="from">
+                                    <code>moment().subtract(2, 'months').format()</code>
+                                </td>
+                                <td class="to"></td>
+                            </tr>
+                            <tr id="example-12">
+                                <td class="from">
+                                    <code>moment().subtract(15, 'days').startOf('day').fromNow()</code>
+                                </td>
+                                <td class="to"></td>
+                            </tr>
+                            <tr id="example-13">
+                                <td class="from">
+                                    <code>moment().add(10, 'days').calendar()</code>
+                                </td>
+                                <td class="to"></td>
+                            </tr>
+                            <tr id="example-14">
+                                <td class="from">
+                                    <code>moment().add(2, 'months').format()</code>
+                                </td>
+                                <td class="to"></td>
+                            </tr>
+                            <tr id="example-15">
+                                <td class="from">
+                                    <code>moment().add(15, 'days').startOf('day').fromNow()</code>
+                                </td>
+                                <td class="to"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- plugins/moment-js -->

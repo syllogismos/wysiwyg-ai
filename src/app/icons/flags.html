@@ -1,0 +1,38 @@
+<!-- icons/flags -->
+<div class="row">
+    <div class="col">
+        <div class="widget">
+            <div class="row">
+                <div class="col">
+                    <div class="title">Flag icons</div>
+                    <div class="description">Use the <code>.flag-icon-{{'{countryCode}'}}</code> classes for flag icons. Use the <code>.flag-1x</code>, <code>.flag-2x</code> or the <code>.flag-3x</code> classes for custom flag sizes.</div>
+                </div>
+            </div>
+            <div class="row icon-search">
+                <div class="col col-md-6 col-xl-4">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="sli-magnifier"></i>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Search icons" id="search-icons" (keyup)="search($event)">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="flag-icons">
+                        <div class="icon" *ngFor="let item of items">
+                            <div class="icons">
+                                <div class="flag-3x">
+                                    <span class="flag flag-icon-background flag-icon flag-icon-{{item.code}}"></span>
+                                </div>
+                            </div>
+                            <div class="icon-class">{{item.name}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- icons/flags -->

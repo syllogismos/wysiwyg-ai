@@ -1,0 +1,56 @@
+<!-- top-navigation-1 -->
+<div class="top-navigation top-navigation-1">
+    <ul class="menu-bottom list-unstyled">
+        <li class="level-1">
+            <a>
+                <span>Multi level menu</span>
+            </a>
+            <ul class="menu-bottom list-unstyled">
+                <li *ngFor="let number of numbers">
+                    <a class="has-children">
+                        <span>Menu 1</span>
+                    </a>
+                    <ul class="menu-bottom list-unstyled">
+                        <li *ngFor="let number of numbers">
+                            <a class="has-children">
+                                <span>Menu 2</span>
+                            </a>
+                            <ul class="menu-bottom list-unstyled">
+                                <li *ngFor="let number of numbers">
+                                    <a class="has-children">
+                                        <span>Menu 3</span>
+                                    </a>
+                                    <ul class="menu-bottom list-unstyled">
+                                        <li *ngFor="let number of numbers">
+                                            <a class="has-children">
+                                                <span>Menu 4</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <ul *ngFor="let level1 of topNavigation" class="menu-bottom list-unstyled">
+        <li class="level-1">
+            <a *ngIf="level1.items.length === 0" routerLink="{{level1.url}}">
+                <span>{{level1.title}}</span>
+            </a>
+            <a *ngIf="level1.items.length > 0">
+                <span>{{level1.title}}</span>
+            </a>
+            <ul *ngIf="level1.items.length > 0" class="menu-bottom list-unstyled">
+                <li *ngFor="let level2 of level1.items">
+                    <a routerLink="{{level2.url}}">
+                        <span>{{level2.title}}</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<!-- end top-navigation-1 -->

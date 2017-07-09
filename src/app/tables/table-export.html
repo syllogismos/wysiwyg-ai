@@ -1,0 +1,601 @@
+<!-- tables/table-export -->
+<div class="row">
+    <div class="col">
+        <div class="widget">
+            <div class="row">
+                <div class="col">
+                    <div class="title">Export table as XLS</div>
+                    <div class="description">Use the <code>data-type="xls"</code> attribute in the <code>.btn-export</code> button to export the table as xls.</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <table class="table m-b-20 table-striped" id="table-export-xls">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Ticker</th>
+                                <th>Price</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Apple Inc.</td>
+                                <td>AAPL</td>
+                                <td>115.52</td>
+                                <td>0.39</td>
+                            </tr>
+                            <tr>
+                                <td>Google Inc.</td>
+                                <td>GOOG</td>
+                                <td>635.30</td>
+                                <td>-7.38</td>
+                            </tr>
+                            <tr>
+                                <td>Microsoft Corporation</td>
+                                <td>MSFT</td>
+                                <td>46.74</td>
+                                <td>0.12</td>
+                            </tr>
+                            <tr>
+                                <td>LinkedIn Corp</td>
+                                <td>LNKD</td>
+                                <td>190.04</td>
+                                <td>0.53</td>
+                            </tr>
+                            <tr>
+                                <td>Tesla Motors, Inc</td>
+                                <td>TSLA</td>
+                                <td>181.47</td>
+                                <td>-0.41</td>
+                            </tr>
+                            <tr>
+                                <td>Yahoo</td>
+                                <td>YA</td>
+                                <td>37.75</td>
+                                <td>-0.28</td>
+                            </tr>
+                            <tr>
+                                <td>Twitter</td>
+                                <td>TWTR</td>
+                                <td>18.40</td>
+                                <td>0.20</td>
+                            </tr>
+                            <tr>
+                                <td>Amazon.com, Inc</td>
+                                <td>AMZN</td>
+                                <td>740.34</td>
+                                <td>3.82</td>
+                            </tr>
+                            <tr>
+                                <td>Boeing Co</td>
+                                <td>BA</td>
+                                <td>154.40</td>
+                                <td>1.66</td>
+                            </tr>
+                            <tr>
+                                <td>GoPro</td>
+                                <td>GPRO</td>
+                                <td>9.78</td>
+                                <td>-0.73</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button (click)="exportTo('xls')" class="btn-export btn btn-raised btn-primary">Export table</button>
+                </div>
+            </div>
+        </div>
+        <div class="widget">
+            <div class="row">
+                <div class="col">
+                    <div class="title">Export table as JSON</div>
+                    <div class="description">Use the <code>data-type="json"</code> attribute in the <code>.btn-export</code> button to export the table as json.</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <table class="table m-b-20 table-striped" id="table-export-json">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Ticker</th>
+                                <th>Price</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Apple Inc.</td>
+                                <td>AAPL</td>
+                                <td>115.52</td>
+                                <td>0.39</td>
+                            </tr>
+                            <tr>
+                                <td>Google Inc.</td>
+                                <td>GOOG</td>
+                                <td>635.30</td>
+                                <td>-7.38</td>
+                            </tr>
+                            <tr>
+                                <td>Microsoft Corporation</td>
+                                <td>MSFT</td>
+                                <td>46.74</td>
+                                <td>0.12</td>
+                            </tr>
+                            <tr>
+                                <td>LinkedIn Corp</td>
+                                <td>LNKD</td>
+                                <td>190.04</td>
+                                <td>0.53</td>
+                            </tr>
+                            <tr>
+                                <td>Tesla Motors, Inc</td>
+                                <td>TSLA</td>
+                                <td>181.47</td>
+                                <td>-0.41</td>
+                            </tr>
+                            <tr>
+                                <td>Yahoo</td>
+                                <td>YA</td>
+                                <td>37.75</td>
+                                <td>-0.28</td>
+                            </tr>
+                            <tr>
+                                <td>Twitter</td>
+                                <td>TWTR</td>
+                                <td>18.40</td>
+                                <td>0.20</td>
+                            </tr>
+                            <tr>
+                                <td>Amazon.com, Inc</td>
+                                <td>AMZN</td>
+                                <td>740.34</td>
+                                <td>3.82</td>
+                            </tr>
+                            <tr>
+                                <td>Boeing Co</td>
+                                <td>BA</td>
+                                <td>154.40</td>
+                                <td>1.66</td>
+                            </tr>
+                            <tr>
+                                <td>GoPro</td>
+                                <td>GPRO</td>
+                                <td>9.78</td>
+                                <td>-0.73</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button (click)="exportTo('json')" class="btn-export btn btn-raised btn-primary">Export table</button>
+                </div>
+            </div>
+        </div>
+        <div class="widget">
+            <div class="row">
+                <div class="col">
+                    <div class="title">Export table as XML</div>
+                    <div class="description">Use the <code>data-type="xml"</code> attribute in the <code>.btn-export</code> button to export the table as xml.</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <table class="table m-b-20 table-striped" id="table-export-xml">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Ticker</th>
+                                <th>Price</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Apple Inc.</td>
+                                <td>AAPL</td>
+                                <td>115.52</td>
+                                <td>0.39</td>
+                            </tr>
+                            <tr>
+                                <td>Google Inc.</td>
+                                <td>GOOG</td>
+                                <td>635.30</td>
+                                <td>-7.38</td>
+                            </tr>
+                            <tr>
+                                <td>Microsoft Corporation</td>
+                                <td>MSFT</td>
+                                <td>46.74</td>
+                                <td>0.12</td>
+                            </tr>
+                            <tr>
+                                <td>LinkedIn Corp</td>
+                                <td>LNKD</td>
+                                <td>190.04</td>
+                                <td>0.53</td>
+                            </tr>
+                            <tr>
+                                <td>Tesla Motors, Inc</td>
+                                <td>TSLA</td>
+                                <td>181.47</td>
+                                <td>-0.41</td>
+                            </tr>
+                            <tr>
+                                <td>Yahoo</td>
+                                <td>YA</td>
+                                <td>37.75</td>
+                                <td>-0.28</td>
+                            </tr>
+                            <tr>
+                                <td>Twitter</td>
+                                <td>TWTR</td>
+                                <td>18.40</td>
+                                <td>0.20</td>
+                            </tr>
+                            <tr>
+                                <td>Amazon.com, Inc</td>
+                                <td>AMZN</td>
+                                <td>740.34</td>
+                                <td>3.82</td>
+                            </tr>
+                            <tr>
+                                <td>Boeing Co</td>
+                                <td>BA</td>
+                                <td>154.40</td>
+                                <td>1.66</td>
+                            </tr>
+                            <tr>
+                                <td>GoPro</td>
+                                <td>GPRO</td>
+                                <td>9.78</td>
+                                <td>-0.73</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button (click)="exportTo('xml')" class="btn-export btn btn-raised btn-primary">Export table</button>
+                </div>
+            </div>
+        </div>
+        <div class="widget">
+            <div class="row">
+                <div class="col">
+                    <div class="title">Export table as PDF</div>
+                    <div class="description">Use the <code>data-type="pdf"</code> attribute in the <code>.btn-export</code> button to export the table as pdf.</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <table class="table m-b-20 table-striped" id="table-export-pdf">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Ticker</th>
+                                <th>Price</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Apple Inc.</td>
+                                <td>AAPL</td>
+                                <td>115.52</td>
+                                <td>0.39</td>
+                            </tr>
+                            <tr>
+                                <td>Google Inc.</td>
+                                <td>GOOG</td>
+                                <td>635.30</td>
+                                <td>-7.38</td>
+                            </tr>
+                            <tr>
+                                <td>Microsoft Corporation</td>
+                                <td>MSFT</td>
+                                <td>46.74</td>
+                                <td>0.12</td>
+                            </tr>
+                            <tr>
+                                <td>LinkedIn Corp</td>
+                                <td>LNKD</td>
+                                <td>190.04</td>
+                                <td>0.53</td>
+                            </tr>
+                            <tr>
+                                <td>Tesla Motors, Inc</td>
+                                <td>TSLA</td>
+                                <td>181.47</td>
+                                <td>-0.41</td>
+                            </tr>
+                            <tr>
+                                <td>Yahoo</td>
+                                <td>YA</td>
+                                <td>37.75</td>
+                                <td>-0.28</td>
+                            </tr>
+                            <tr>
+                                <td>Twitter</td>
+                                <td>TWTR</td>
+                                <td>18.40</td>
+                                <td>0.20</td>
+                            </tr>
+                            <tr>
+                                <td>Amazon.com, Inc</td>
+                                <td>AMZN</td>
+                                <td>740.34</td>
+                                <td>3.82</td>
+                            </tr>
+                            <tr>
+                                <td>Boeing Co</td>
+                                <td>BA</td>
+                                <td>154.40</td>
+                                <td>1.66</td>
+                            </tr>
+                            <tr>
+                                <td>GoPro</td>
+                                <td>GPRO</td>
+                                <td>9.78</td>
+                                <td>-0.73</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button (click)="exportTo('pdf')" class="btn-export btn btn-raised btn-primary">Export table</button>
+                </div>
+            </div>
+        </div>
+        <div class="widget">
+            <div class="row">
+                <div class="col">
+                    <div class="title">Export table as SQL</div>
+                    <div class="description">Use the <code>data-type="sql"</code> attribute in the <code>.btn-export</code> button to export the table as sql.</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <table class="table m-b-20 table-striped" id="table-export-sql">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Ticker</th>
+                                <th>Price</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Apple Inc.</td>
+                                <td>AAPL</td>
+                                <td>115.52</td>
+                                <td>0.39</td>
+                            </tr>
+                            <tr>
+                                <td>Google Inc.</td>
+                                <td>GOOG</td>
+                                <td>635.30</td>
+                                <td>-7.38</td>
+                            </tr>
+                            <tr>
+                                <td>Microsoft Corporation</td>
+                                <td>MSFT</td>
+                                <td>46.74</td>
+                                <td>0.12</td>
+                            </tr>
+                            <tr>
+                                <td>LinkedIn Corp</td>
+                                <td>LNKD</td>
+                                <td>190.04</td>
+                                <td>0.53</td>
+                            </tr>
+                            <tr>
+                                <td>Tesla Motors, Inc</td>
+                                <td>TSLA</td>
+                                <td>181.47</td>
+                                <td>-0.41</td>
+                            </tr>
+                            <tr>
+                                <td>Yahoo</td>
+                                <td>YA</td>
+                                <td>37.75</td>
+                                <td>-0.28</td>
+                            </tr>
+                            <tr>
+                                <td>Twitter</td>
+                                <td>TWTR</td>
+                                <td>18.40</td>
+                                <td>0.20</td>
+                            </tr>
+                            <tr>
+                                <td>Amazon.com, Inc</td>
+                                <td>AMZN</td>
+                                <td>740.34</td>
+                                <td>3.82</td>
+                            </tr>
+                            <tr>
+                                <td>Boeing Co</td>
+                                <td>BA</td>
+                                <td>154.40</td>
+                                <td>1.66</td>
+                            </tr>
+                            <tr>
+                                <td>GoPro</td>
+                                <td>GPRO</td>
+                                <td>9.78</td>
+                                <td>-0.73</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button (click)="exportTo('sql')" class="btn-export btn btn-raised btn-primary">Export table</button>
+                </div>
+            </div>
+        </div>
+        <div class="widget">
+            <div class="row">
+                <div class="col">
+                    <div class="title">Export table as CSV</div>
+                    <div class="description">Use the <code>data-type="csv"</code> attribute in the <code>.btn-export</code> button to export the table as csv.</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <table class="table m-b-20 table-striped" id="table-export-csv">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Ticker</th>
+                                <th>Price</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Apple Inc.</td>
+                                <td>AAPL</td>
+                                <td>115.52</td>
+                                <td>0.39</td>
+                            </tr>
+                            <tr>
+                                <td>Google Inc.</td>
+                                <td>GOOG</td>
+                                <td>635.30</td>
+                                <td>-7.38</td>
+                            </tr>
+                            <tr>
+                                <td>Microsoft Corporation</td>
+                                <td>MSFT</td>
+                                <td>46.74</td>
+                                <td>0.12</td>
+                            </tr>
+                            <tr>
+                                <td>LinkedIn Corp</td>
+                                <td>LNKD</td>
+                                <td>190.04</td>
+                                <td>0.53</td>
+                            </tr>
+                            <tr>
+                                <td>Tesla Motors, Inc</td>
+                                <td>TSLA</td>
+                                <td>181.47</td>
+                                <td>-0.41</td>
+                            </tr>
+                            <tr>
+                                <td>Yahoo</td>
+                                <td>YA</td>
+                                <td>37.75</td>
+                                <td>-0.28</td>
+                            </tr>
+                            <tr>
+                                <td>Twitter</td>
+                                <td>TWTR</td>
+                                <td>18.40</td>
+                                <td>0.20</td>
+                            </tr>
+                            <tr>
+                                <td>Amazon.com, Inc</td>
+                                <td>AMZN</td>
+                                <td>740.34</td>
+                                <td>3.82</td>
+                            </tr>
+                            <tr>
+                                <td>Boeing Co</td>
+                                <td>BA</td>
+                                <td>154.40</td>
+                                <td>1.66</td>
+                            </tr>
+                            <tr>
+                                <td>GoPro</td>
+                                <td>GPRO</td>
+                                <td>9.78</td>
+                                <td>-0.73</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button (click)="exportTo('csv')" class="btn-export btn btn-raised btn-primary">Export table</button>
+                </div>
+            </div>
+        </div>
+        <div class="widget">
+            <div class="row">
+                <div class="col">
+                    <div class="title">Export table as TXT</div>
+                    <div class="description">Use the <code>data-type="txt"</code> attribute in the <code>.btn-export</code> button to export the table as txt.</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <table class="table m-b-20 table-striped" id="table-export-txt">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Ticker</th>
+                                <th>Price</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Apple Inc.</td>
+                                <td>AAPL</td>
+                                <td>115.52</td>
+                                <td>0.39</td>
+                            </tr>
+                            <tr>
+                                <td>Google Inc.</td>
+                                <td>GOOG</td>
+                                <td>635.30</td>
+                                <td>-7.38</td>
+                            </tr>
+                            <tr>
+                                <td>Microsoft Corporation</td>
+                                <td>MSFT</td>
+                                <td>46.74</td>
+                                <td>0.12</td>
+                            </tr>
+                            <tr>
+                                <td>LinkedIn Corp</td>
+                                <td>LNKD</td>
+                                <td>190.04</td>
+                                <td>0.53</td>
+                            </tr>
+                            <tr>
+                                <td>Tesla Motors, Inc</td>
+                                <td>TSLA</td>
+                                <td>181.47</td>
+                                <td>-0.41</td>
+                            </tr>
+                            <tr>
+                                <td>Yahoo</td>
+                                <td>YA</td>
+                                <td>37.75</td>
+                                <td>-0.28</td>
+                            </tr>
+                            <tr>
+                                <td>Twitter</td>
+                                <td>TWTR</td>
+                                <td>18.40</td>
+                                <td>0.20</td>
+                            </tr>
+                            <tr>
+                                <td>Amazon.com, Inc</td>
+                                <td>AMZN</td>
+                                <td>740.34</td>
+                                <td>3.82</td>
+                            </tr>
+                            <tr>
+                                <td>Boeing Co</td>
+                                <td>BA</td>
+                                <td>154.40</td>
+                                <td>1.66</td>
+                            </tr>
+                            <tr>
+                                <td>GoPro</td>
+                                <td>GPRO</td>
+                                <td>9.78</td>
+                                <td>-0.73</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button (click)="exportTo('txt')" class="btn-export btn btn-raised btn-primary">Export table</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- tables/table-export -->

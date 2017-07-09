@@ -1,0 +1,163 @@
+<!-- forms/steps -->
+<div class="row">
+    <div class="col">
+        <div class="widget">
+            <div class="row">
+                <div class="col">
+                    <div class="title">Basic example</div>
+                    <div class="description">Validate form steps and fields with the ApproveJS validation library</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div id="form-steps-1">
+                        <ul class="nav nav-tabs nav-tabs-justified" id="steps">
+                            <li class="nav-item">
+                                <a class="nav-link active tab-0" data-toggle="tab" data-target="#tab-0">Personal data</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled tab-1" data-toggle="tab" data-target="#tab-1">Education</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled tab-2" data-toggle="tab" data-target="#tab-2">Work experience</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="tab-0">
+                                <form id="step-0">
+                                    <div class="row">
+                                        <div class="col col-xl-6">
+                                            <div class="form-group">
+                                                <label>First name</label>
+                                                <input type="text" class="form-control" id="firstname-0" name="firstname">
+                                                <small class="form-control-feedback"></small>
+                                            </div>
+                                        </div>
+                                        <div class="col col-xl-6">
+                                            <div class="form-group">
+                                                <label>Last name</label>
+                                                <input type="text" class="form-control" id="lastname-0" name="lastname">
+                                                <small class="form-control-feedback"></small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row m-b-20">
+                                        <div class="col col-xl-6">
+                                            <div class="form-group">
+                                                <label>Email</label>
+                                                <input type="email" class="form-control" id="email-0" name="email">
+                                                <small class="form-control-feedback"></small>
+                                            </div>
+                                        </div>
+                                        <div class="col col-xl-6">
+                                            <div class="form-group">
+                                                <label>Age</label>
+                                                <input type="text" class="form-control" id="age-0" name="age">
+                                                <small class="form-control-feedback"></small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <button class="btn btn-primary" type="submit" name="submit">Next step</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="tab-1">
+                                <form id="step-1">
+                                    <div class="row">
+                                        <div class="col col-xl-6">
+                                            <div class="form-group">
+                                                <label>University name</label>
+                                                <input type="text" class="form-control" id="university-name-1" name="university-name-1">
+                                                <small class="form-control-feedback"></small>
+                                            </div>
+                                        </div>
+                                        <div class="col col-xl-6">
+                                            <div class="form-group">
+                                                <label>Degree level</label>
+                                                <input type="text" class="form-control" id="degree-level-1" name="degree-level-1">
+                                                <small class="form-control-feedback"></small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row m-b-20">
+                                        <div class="col col-xl-6">
+                                            <div class="form-group">
+                                                <label>Country</label>
+                                                <select class="form-control" id="country-1" name="country-1">
+                                <option value="">Choose a country</option>
+                                <option value="USA">USA</option>
+                                <option value="Canada">Canada</option>
+                                <option value="Australia">Australia</option>
+                                <option value="UK">UK</option>
+                            </select>
+                                                <small class="form-control-feedback"></small>
+                                            </div>
+                                        </div>
+                                        <div class="col col-xl-6">
+                                            <div class="form-group">
+                                                <label>Language</label>
+                                                <select class="form-control" id="language-1" name="language-1">
+                                <option value="">Choose a language</option>
+                                <option value="English">English</option>
+                                <option value="French">French</option>
+                                <option value="Spanish">Spanish</option>
+                                <option value="German">German</option>
+                            </select>
+                                                <small class="form-control-feedback"></small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <button data-target=".tab-0" class="go-back btn btn-primary btn-outline">Previous step</button>
+                                            <button class="btn btn-primary" type="submit" name="submit">Next step</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="tab-2">
+                                <form id="step-2">
+                                    <div class="row">
+                                        <div class="col col-xl-6">
+                                            <div class="form-group">
+                                                <label>Company name</label>
+                                                <input type="text" class="form-control" id="company-name-2" name="company-name-2">
+                                                <small class="form-control-feedback"></small>
+                                            </div>
+                                        </div>
+                                        <div class="col col-xl-6">
+                                            <div class="form-group">
+                                                <label>Position</label>
+                                                <input type="text" class="form-control" id="position-2" name="position-2">
+                                                <small class="form-control-feedback"></small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row m-b-20">
+                                        <div class="col col-xl-6">
+                                            <div class="form-group">
+                                                <label>Job description</label>
+                                                <textarea class="form-control" rows="3" id="job-description-2" name="job-description-2"></textarea>
+                                                <small class="form-control-feedback"></small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <button data-target=".tab-1" class="go-back btn btn-primary btn-outline">Previous step</button>
+                                            <button class="btn btn-primary" type="submit" name="submit">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end forms/steps -->

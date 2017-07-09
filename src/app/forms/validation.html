@@ -1,0 +1,206 @@
+<!-- forms/validation -->
+<div class="row">
+    <div class="col">
+        <div class="widget">
+            <div class="row">
+                <div class="col">
+                    <div class="title">Form validation states</div>
+                    <div class="description">Use the <code>.has-success</code>, the <code>.has-warning</code> or the <code>.has-danger</code> classes for custom form validation states.</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-lg-4 col-xl-3">
+                    <form>
+                        <div class="form-group has-success">
+                            <label class="form-control-label">Input with success</label>
+                            <input type="text" class="form-control form-control-success">
+                            <div class="form-control-feedback">Success! You've done it.</div>
+                            <small class="form-text text-muted">Example help text that remains unchanged.</small>
+                        </div>
+                        <div class="form-group has-warning">
+                            <label class="form-control-label">Input with warning</label>
+                            <input type="text" class="form-control form-control-warning">
+                            <div class="form-control-feedback">Shucks, check the formatting of that and try again.</div>
+                            <small class="form-text text-muted">Example help text that remains unchanged.</small>
+                        </div>
+                        <div class="form-group has-danger">
+                            <label class="form-control-label">Input with danger</label>
+                            <input type="text" class="form-control form-control-danger">
+                            <div class="form-control-feedback">Sorry, that username's taken. Try another?</div>
+                            <small class="form-text text-muted">Example help text that remains unchanged.</small>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input">
+                                <span class="custom-control-indicator"></span>
+                                <span class="custom-control-description">Check this custom checkbox</span>
+                            </label>
+                        </div>
+                        <div class="form-group has-warning">
+                            <label class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input">
+                                <span class="custom-control-indicator"></span>
+                                <span class="custom-control-description">Check this custom checkbox</span>
+                            </label>
+                        </div>
+                        <div class="form-group has-danger">
+                            <label class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input">
+                                <span class="custom-control-indicator"></span>
+                                <span class="custom-control-description">Check this custom checkbox</span>
+                            </label>
+                        </div>
+                        <div class="form-group has-success">
+                            <label class="custom-control custom-radio">
+                                <input id="radio1" name="radio" type="radio" class="custom-control-input">
+                                <span class="custom-control-indicator"></span>
+                                <span class="custom-control-description">Toggle this custom radio</span>
+                            </label>
+                        </div>
+                        <div class="form-group has-danger">
+                            <label class="custom-control custom-radio">
+                                <input id="radio2" name="radio" type="radio" class="custom-control-input">
+                                <span class="custom-control-indicator"></span>
+                                <span class="custom-control-description">Or toggle this other custom radio</span>
+                            </label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="widget">
+            <div class="row">
+                <div class="col">
+                    <div class="title">Form validation</div>
+                    <div class="description">Validate fields using native Angular form validation</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+
+					<!--
+					<pre><code>{{ output | json }}</code></pre>
+					<pre><code>{{ submittedForm | json }}</code></pre>	
+					-->
+
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                        <div class="row">
+                            <div class="col-12 col-lg-4 col-xl-3">
+                                <div class="form-group" [ngClass]="{'has-danger': form.get('firstname').touched && form.get('firstname').errors, 'has-success': form.get('firstname').touched && form.get('firstname').valid}">
+                                    <label class="form-control-label">First name</label>
+                                    <input type="text" class="form-control" name="firstname" formControlName="firstname" [ngClass]="{'form-control-danger': form.get('firstname').touched && form.get('firstname').errors, 'form-control-success': form.get('firstname').touched && form.get('firstname').valid}">
+                                    <small *ngIf="form.get('firstname').touched && form.get('firstname').errors && form.get('firstname').hasError('required')" class="form-control-feedback text-danger">Please enter a valid first name</small>
+                                    <small *ngIf="form.get('firstname').touched && form.get('firstname').valid" class="form-control-feedback text-success">First name is valid</small>
+
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-4 col-xl-3">
+                                <div class="form-group" [ngClass]="{'has-danger': form.get('lastname').touched && form.get('lastname').errors}">
+                                    <label class="form-control-label">Last name</label>
+                                    <input type="text" class="form-control" name="lastname" formControlName="lastname" [ngClass]="{'form-control-danger': form.get('lastname').touched && form.get('lastname').errors}">
+                                    <small *ngIf="form.get('lastname').touched && form.get('lastname').errors && form.get('lastname').hasError('required')" class="form-control-feedback text-danger">Please enter a valid last name</small>
+                                    <small *ngIf="form.get('lastname').touched && form.get('lastname').valid" class="form-control-feedback text-success">Last name is valid</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-lg-4 col-xl-3">
+                                <div class="form-group" [ngClass]="{'has-danger': form.get('email').touched && form.get('email').errors}">
+                                    <label class="form-control-label">Email</label>
+                                    <input type="email" class="form-control" name="email" formControlName="email" [ngClass]="{'form-control-danger': form.get('email').touched && form.get('email').errors}">
+                                    <small *ngIf="form.get('email').touched && form.get('email').errors && form.get('email').hasError('required')" class="form-control-feedback text-danger">Please enter a valid email</small>
+                                    <small *ngIf="form.get('email').touched && form.get('email').errors && form.get('email').hasError('email')" class="form-control-feedback text-danger">Please enter a valid email</small>
+                                    <small *ngIf="form.get('email').touched && form.get('email').valid" class="form-control-feedback text-success">Email is valid</small>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-4 col-xl-3">
+                                <div class="form-group" [ngClass]="{'has-danger': form.get('password').touched && form.get('password').errors}">
+                                    <label class="form-control-label">Password</label>
+                                    <input type="password" class="form-control" name="password" formControlName="password" [ngClass]="{'form-control-danger': form.get('password').touched && form.get('password').errors}">
+                                    <small *ngIf="form.get('password').touched && form.get('password').errors && form.get('password').hasError('required')" class="form-control-feedback text-danger">Please enter a valid password with at least 4 characters</small>
+                                    <small *ngIf="form.get('password').touched && form.get('password').valid" class="form-control-feedback text-success">Password is valid</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-lg-4 col-xl-3">
+                                <div class="form-group" [ngClass]="{'has-danger': form.get('url').touched && form.get('url').errors}">
+                                    <label class="form-control-label">Url</label>
+                                    <input type="text" class="form-control" name="url" formControlName="url" [ngClass]="{'form-control-danger': form.get('url').touched && form.get('url').errors}">
+                                    <small *ngIf="form.get('url').touched && form.get('url').errors && form.get('url').hasError('required')" class="form-control-feedback text-danger">Please enter a valid url</small>
+                                    <small *ngIf="form.get('url').touched && form.get('url').valid" class="form-control-feedback text-success">URL is valid</small>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-4 col-xl-3">
+                                <div class="form-group" [ngClass]="{'has-danger': form.get('alphanumeric').touched && form.get('alphanumeric').errors}">
+                                    <label class="form-control-label">Alphanumeric</label>
+                                    <input type="text" class="form-control" name="alphanumeric" formControlName="alphanumeric" [ngClass]="{'form-control-danger': form.get('alphanumeric').touched && form.get('alphanumeric').errors}">
+                                    <small *ngIf="form.get('alphanumeric').touched && form.get('alphanumeric').errors && form.get('alphanumeric').hasError('required')" class="form-control-feedback text-danger">Please enter numbers and letters only</small>
+                                    <small *ngIf="form.get('alphanumeric').touched && form.get('alphanumeric').valid" class="form-control-feedback text-success">Alphanumeric value is valid</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-lg-4 col-xl-3">
+                                <div class="form-group" [ngClass]="{'has-danger': form.get('alpha').touched && form.get('alpha').errors}">
+                                    <label class="form-control-label">Letters</label>
+                                    <input type="text" class="form-control" name="alpha" formControlName="alpha" [ngClass]="{'form-control-danger': form.get('alpha').touched && form.get('alpha').errors}">
+                                    <small *ngIf="form.get('alpha').touched && form.get('alpha').errors && form.get('alpha').hasError('required')" class="form-control-feedback text-danger">Please enter letters only</small>
+                                    <small *ngIf="form.get('alpha').touched && form.get('alpha').valid" class="form-control-feedback text-success">Letters field is valid</small>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-4 col-xl-3">
+                                <div class="form-group" [ngClass]="{'has-danger': form.get('numeric').touched && form.get('numeric').errors}">
+                                    <label class="form-control-label">Numbers</label>
+                                    <input type="text" class="form-control" name="numeric" formControlName="numeric" [ngClass]="{'form-control-danger': form.get('numeric').touched && form.get('numeric').errors}">
+                                    <small *ngIf="form.get('numeric').touched && form.get('numeric').errors && form.get('numeric').hasError('required')" class="form-control-feedback text-danger">Please enter numbers only</small>
+                                    <small *ngIf="form.get('numeric').touched && form.get('numeric').valid" class="form-control-feedback text-success">Numbers field is valid</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-lg-4 col-xl-3">
+                                <div class="form-group" [ngClass]="{'has-danger': form.get('min').touched && form.get('min').errors}">
+                                    <label class="form-control-label">Minimum</label>
+                                    <input type="text" class="form-control" name="min" formControlName="min" [ngClass]="{'form-control-danger': form.get('min').touched && form.get('min').errors}">
+                                    <small *ngIf="form.get('min').touched && form.get('min').errors && form.get('min').hasError('required')" class="form-control-feedback text-danger">Please enter a value</small>
+                                    <small *ngIf="form.get('min').touched && form.get('min').errors && form.get('min').hasError('minLength')" class="form-control-feedback text-danger">Please enter at least 4 characters</small>
+                                    <small *ngIf="form.get('min').touched && form.get('min').valid" class="form-control-feedback text-success">Minimum field is valid</small>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-4 col-xl-3">
+                                <div class="form-group" [ngClass]="{'has-danger': form.get('max').touched && form.get('max').errors}">
+                                    <label class="form-control-label">Maximum</label>
+                                    <input type="text" class="form-control" name="max" formControlName="max" [ngClass]="{'form-control-danger': form.get('max').touched && form.get('max').errors}">
+                                    <small *ngIf="form.get('max').touched && form.get('max').errors && form.get('max').hasError('required')" class="form-control-feedback text-danger">Please enter a value</small>
+                                    <small *ngIf="form.get('max').touched && form.get('max').errors && form.get('max').hasError('maxLength')" class="form-control-feedback text-danger">Please enter less than 8 characters</small>
+                                    <small *ngIf="form.get('max').touched && form.get('max').valid" class="form-control-feedback text-success">Maximum field is valid</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-lg-4 col-xl-3">
+                                <div class="form-group" [ngClass]="{'has-danger': form.get('range').touched && form.get('range').errors}">
+                                    <label class="form-control-label">Range</label>
+                                    <input type="text" class="form-control" name="range" formControlName="range" [ngClass]="{'form-control-danger': form.get('range').touched && form.get('range').errors}">
+                                    <small *ngIf="form.get('range').touched && form.get('range').errors && form.get('range').hasError('required')" class="form-control-feedback text-danger">Please enter between 4 and 8 characters</small>
+                                    <small *ngIf="form.get('range').touched && form.get('range').valid" class="form-control-feedback text-success">Range field is valid</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <button class="btn btn-primary" type="submit" name="submit">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- forms/validation -->

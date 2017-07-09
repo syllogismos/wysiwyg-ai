@@ -1,0 +1,36 @@
+<!-- icons/weather-icons -->
+<div class="row">
+    <div class="col">
+        <div class="widget">
+            <div class="row">
+                <div class="col">
+                    <div class="title">Weather icons</div>
+                    <div class="description">Use the <code>.wi wi-{{'{icon}'}}</code> classes for weather icons. Use the <code>.wi-1x</code>, <code>.wi-2x</code> or the <code>.wi-3x</code> classes for custom icon sizes.</div>
+                </div>
+            </div>
+            <div class="row icon-search">
+                <div class="col col-md-6 col-xl-4">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="sli-magnifier"></i>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Search icons" id="search-icons" (keyup)="search($event)">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="weather-icons">
+                        <div class="icon" *ngFor="let item of items">
+                            <div class="icons">
+                                <i class="wi wi-3x {{item}}"></i>
+                            </div>
+                            <div class="icon-class">{{item}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- icons/weather-icons -->

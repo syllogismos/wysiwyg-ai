@@ -1,0 +1,139 @@
+<!-- documentation/code-structure -->
+<div class="row">
+    <div class="col">
+        <div class="widget">
+            <div class="row">
+                <div class="col">
+                    <div class="title">Naming conventions</div>
+                    <div class="description">File and folder name definitions and conventions used in the template</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>Every component included in the template follows the <code>{{'{controller}'}}/{{'{view}'}}</code> naming convention.</p>
+                    <p>For example, for the <code>ui-elements/tooltips</code> demo url, located at url: <a href="http://delta-angular.batchthemes.com/ui-elements/tooltips" target="_blank"><code>http://delta-angular.batchthemes.com/ui-elements/tooltips</code></a>:</p>
+                    <ol class="naming-conventions">
+                        <li><code>.html</code> files are located in the <code>src/app/ui-elements</code> folder</li>
+                        <li><code>.scss</code> files are located in the <code>src/app/styles/ui-elements</code> folder</li>
+                        <li><code>.ts</code> files are located in the <code>src/app/ui-elements</code> folder</li>
+                        <li>
+                            <p>For this example, the file locations are the following:</p>
+                            <ol>
+                                <li> <code>src/app/ui-elements/tooltips.html</code>
+                                </li>
+                                <li> <code>src/app/styles/ui-elements/tooltips.scss</code>
+                                </li>
+                                <li> <code>src/app/ui-elements/tooltips.ts</code>
+                                </li>
+                            </ol>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <div class="widget">
+            <div class="row">
+                <div class="col">
+                    <div class="title">Folders</div>
+                    <div class="description">Important folders in the template</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <ol class="questions">
+                        <li>
+                            <p> <b>src/app</b>
+                            </p>
+                            <p>Includes all the typescript and html files used in the template.</p>
+                        </li>
+                        <li>
+                            <p> <b>src/styles</b>
+                            </p>
+                            <p>Includes all the <code>.scss</code> files used in the template.</p>
+                        </li>
+                        <li>
+                            <p> <b>src/scripts</b>
+                            </p>
+                            <p>Includes all external javascript and typescript files that were not installed using bower or npm.</p>
+                        </li>
+                        <li>
+                            <p> <b>src/assets</b>
+                            </p>
+                            <p>Includes all static assets used in the template. This includes <code>images</code>, <code>.json</code> and <code>.svg</code> files.</p>
+                        </li>
+                        <li>
+                            <p> <b>bower_components</b>
+                            </p>
+                            <p>Includes all the dependencies installed with bower.</p>
+                        </li>
+                        <li>
+                            <p> <b>node_modules</b>
+                            </p>
+                            <p>Includes all node packages, components and dependencies installed with NPM.</p>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <div class="widget">
+            <div class="row">
+                <div class="col">
+                    <div class="title">Files</div>
+                    <div class="description">Important files in the template</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <ol class="questions">
+                        <li>
+                            <p> <b>src/index.html</b>
+                            </p>
+                            <p>Template home page</p>
+                        </li>
+                        <li>
+                            <p> <b>src/app/app.module.ts</b>
+                            </p>
+                            <p>Module definitions and routes are defined here.</p>
+                        </li>
+                        <li>
+                            <p> <b>src/app/app.component.ts. src/app/app.component.html</b>
+                            </p>
+                            <p>Typescript and html initialization files files. Layouts, colors and components shown are defined here.</p>
+                        </li>
+                        <li>
+                            <p> <b>src/app/services/colors.ts</b>
+                            </p>
+                            <p>Global colors and palettes are defined here</p>
+                        </li>
+                        <li>
+                            <p> <b>src/app/styles/_variables.scss</b>
+                            </p>
+                            <p>Global <code>.scss</code> variables are imported and defined here</p>
+                        </li>
+                        <li>
+                            <p> <b>src/app/styles/_colors.scss</b>, <b>src/app/styles/_palettes.scss</b> and <b>src/app/styles/palettes/*.scss</b>
+                            </p>
+                            <p>Colors and palettes are defined in this files and folder</p>
+                        </li>
+                        <li>
+                            <p> <b>src/app/styles/layouts/*.scss</b>
+                            </p>
+                            <p>Template layouts are defined in this folder</p>
+                        </li>
+                        <li>
+                            <p> <b>src/app/styles/_mixins.scss</b>
+                            </p>
+                            <p><code>.scss</code> mixins are defined here</p>
+                        </li>
+                        <li>
+                            <p> <b>src/app/styles/helpers/*.scss</b>
+                            </p>
+                            <p>Includes global <code>.scss</code> helpers</p>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end documentation/code-structure -->

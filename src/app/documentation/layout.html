@@ -1,0 +1,66 @@
+<!-- documentation/layout -->
+<div class="row">
+    <div class="col">
+        <div class="widget">
+            <div class="row">
+                <div class="col">
+                    <div class="title">Layout</div>
+                    <div class="description">Frequently asked questions</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <ol class="questions">
+                        <li>
+                            <p> How do I change the page layout? </p>
+                            <p>Every page has a <code>data-layout</code> attribute in the <code>&lt;body&gt;</code> tag. If you want to change the layout you need to change this attribute. You can do it in the <code>html</code> files or you can do it using
+                                <code>javascript</code>. There are 6 layout options: </p>
+                            <ul>
+                                <li><code>default-sidebar-1</code></li>
+                                <li><code>collapsed-sidebar-1</code></li>
+                                <li><code>top-navigation-1</code></li>
+                                <li><code>top-navigation-2</code></li>
+                                <li><code>off-canvas-1</code></li>
+                                <li><code>sidebar-over-1</code></li>
+                            </ul>
+                            <p>For demo purposes, the layout is also set with javascript in the <code>scripts/app.js</code> file in the following lines: </p>
+                            <pre>
+<code>$('body').attr('data-background', config.background);
+$('body').attr('data-navbar', config.navbar);
+$('body').attr('data-sidebar', config.sidebar);
+$('body').attr('data-top-navigation', config.topNavigation);
+$('html').attr('class', 'loading')</code></pre>
+                            <p>Make sure you remove or comment this lines when you build your files for production.</p>
+                            <p>Also the <code>index.html</code> and the views inside the <code>pages</code> folders use the following layouts:</p>
+                            <ul>
+                                <li><code>empty-view-1</code></li>
+                            </ul>
+                            <p>The style for each layout is defined in the <code>src/app/styles/layouts</code> folder using the following naming convention: </p>
+                            <p>For example, for the <code>default-sidebar-1</code>, the <code>.scss</code> file is located at <code>src/app/styles/layouts/default-sidebar-1.scss</code> and will get compiled to <code>css/layouts/default-sidebar-1.css</code>. The
+                                colors for this layout are defined in the <code>src/app/styles/palettes</code> folder.</p>
+                        </li>
+                        <li>
+                            <p>How can I modify the layout elements widths and heights?</p>
+                            <p>Layout variables are defined in the <code>src/app/styles/_variables.scss</code> file. Here you can modify the sidebar width, navbar height, top navigation height and other global variables.</p>
+                        </li>
+                        <li>
+                            <p>How do I change the navbar?</p>
+                            <p>The navbar content is defined inside the <code>&lt;nav&gt;</code> element with the <code>.navbar-1</code> class. The layout and position of the navbar for each layout is defined in the <code>src/app/styles/layouts/*.scss</code> files
+                                and the height of the <code>.navbar-1</code> element is defined in the <code>src/app/styles/_variables.scss</code> file</p>
+                        </li>
+                        <li>
+                            <p>How do I change the top navigation elements?</p>
+                            <p>The top navigation elements are defined inside the <code>.top-navigation</code> class. The layout and position of the top navigation elements for each layout is defined in the <code>src/app/styles/layouts/*.scss</code> files and the
+                                height of the <code>.top-navigation-1</code> and <code>.top-navigation-2</code> elements is defined in the <code>src/app/styles/_variables.scss</code> file</p>
+                        </li>
+                        <li>
+                            <p>How do I change the left sidebar?</p>
+                            <p>The left sidebar is defined inside the <code>.left-sidebar</code> class. The layout and position of the left sidebar for each layout is defined in the <code>src/app/styles/layouts/*.scss</code> files and the width of the <code>.left-sidebar-1</code>                                element is defined in the <code>src/app/styles/_variables.scss</code> file</p>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end documentation/layout -->
