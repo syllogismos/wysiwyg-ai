@@ -102,7 +102,7 @@ export class AppComponent {
       if (val instanceof NavigationStart) {
 
         const copy = Object.assign({}, val);
-        const url =copy.url.split('?')[0];
+        const url = copy.url.split('?')[0];
 
         if (_.includes(emptyView1, url)) {
           self['layout'] = 'empty-view-1';
