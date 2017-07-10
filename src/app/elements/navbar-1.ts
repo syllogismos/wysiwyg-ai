@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Http, Headers } from "@angular/http";
+import { Router } from "@angular/router";
 
 declare var $: any;
 
@@ -12,7 +14,10 @@ declare var $: any;
 
 export class Navbar1Component {
 
-  constructor() {
+  constructor(
+    private router: Router,
+    private http: Http
+  ) {
   }
 
   toggleLayout(): void {
@@ -48,6 +53,25 @@ export class Navbar1Component {
     const value = body.attr('data-fullscreen') === 'true' ? true : false;
     body.attr('data-fullscreen', !value);
     $(document).fullScreen(!value);
+  }
+
+  onLogOutClick(): void {
+    console.log('clicked on logout');
+    this.http.post('/api/logout', {})
+      .toPromise()
+      .then(response => {
+        console.log('/api/logout responded');
+        console.log(response);
+        localStorage.setItem('user', null);
+        // route to login page
+        this.router.navigate(['/pages/login'])
+      })
+      .catch(this.handleHttpError)
+  }
+
+  private handleHttpError(error: any): Promise<any> {
+    console.error('An error occurred', error);
+    return Promise.reject(error.message || error);
   }
 
 }

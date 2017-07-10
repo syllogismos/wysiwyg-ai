@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
         console.log('right after login response')
         console.log(response.json())
         localStorage.setItem('user', JSON.stringify(response.json()))
-        // this.router.navigate(['dashboard'])
+        this.router.navigate(['/']);
       })
       .catch(this.handleHttpError)
   }
