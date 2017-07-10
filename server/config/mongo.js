@@ -5,12 +5,12 @@ var exports = module.exports = {}
 var db = mongoose.connect('mongodb://localhost/first')
 
 var UserSchema = mongoose.Schema({
-    username: String,
-    password: String,
-    email: String,
-    firstName: String,
-    lastName: String,
-    roles: [String]
+  username: String,
+  password: String,
+  email: String,
+  firstName: String,
+  lastName: String,
+  roles: [String]
 })
 
 // var admin = new mongooseConfig.UserModel({

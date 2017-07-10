@@ -15,9 +15,9 @@ const multer = require('multer');
 const app = express();
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(multer());
-app.use(session({secret: 'this is the secret'}));
+app.use(session({ secret: 'this is the secret' }));
 app.use(cookieParser());
 app.use(passport.initialize())
 app.use(passport.session());
@@ -31,7 +31,7 @@ app.use('/api', api);
 
 // rest of the routes front end, angular build files
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist/index.html'));
+  res.sendFile(path.join(__dirname, 'dist/index.html'));
 })
 
 
@@ -39,6 +39,6 @@ app.get('*', (req, res) => {
 const port = process.env.PORT || '3000';
 app.set('port', port);
 const server = http.createServer(app);
-server.listen(port, () => 
-    console.log(`API running on localhost:${port}`)
+server.listen(port, () =>
+  console.log(`API running on localhost:${port}`)
 );
