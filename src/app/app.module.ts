@@ -100,6 +100,9 @@ import { DropdownFlagsComponent } from './elements/dropdown-flags';
 import { DatepickerComponent } from './forms/datepicker';
 import { CardsComponent } from './ui-elements/cards';
 import { TypeaheadComponent } from './forms/typeahead';
+import { LoggedOutGuard } from "app/guards/logged-out.guard";
+import { LoggedInGuard } from "app/guards/logged-in.guard";
+import { AuthService } from "app/services/auth.service";
 
 @NgModule({
   declarations: [
@@ -206,7 +209,7 @@ import { TypeaheadComponent } from './forms/typeahead';
     ReactiveFormsModule,
     HttpModule,
     RouterModule.forRoot([
-      { path: '', component: DashboardComponent },
+      { path: '', component: DashboardComponent, canActivate: [LoggedInGuard] },
       { path: 'apps/calendar', component: CalendarComponent },
       { path: 'notifications/sweet-alert-2', component: SweetAlert2Component },
       { path: 'notifications/toastr', component: ToastrComponent },
@@ -215,7 +218,7 @@ import { TypeaheadComponent } from './forms/typeahead';
       { path: 'charts/morris-js', component: MorrisJsComponent },
       { path: 'charts/nvd3', component: Nvd3Component },
       { path: 'charts/peity', component: PeityComponent },
-      { path: 'dashboards/dashboard', component: DashboardComponent },
+      { path: 'dashboards/dashboard', component: DashboardComponent, canActivate: [LoggedInGuard] },
       { path: 'documentation/angular-cli', component: AngularCliComponent },
       { path: 'documentation/changelog', component: ChangelogComponent },
       { path: 'documentation/code-structure', component: CodeStructureComponent },
@@ -288,7 +291,11 @@ import { TypeaheadComponent } from './forms/typeahead';
       { path: '**', component: ErrorPageComponent }
     ])
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    LoggedInGuard,
+    LoggedOutGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
