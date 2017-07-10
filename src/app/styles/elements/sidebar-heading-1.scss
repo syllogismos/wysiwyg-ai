@@ -4,8 +4,8 @@
 .sidebar-heading {
   &.sidebar-heading-1 {
     display: block;
-    position: relative;
-    width: 100%;
+    position: fixed;
+    width: 240px;
     margin: 0;
     padding: 0;
     text-align: center;

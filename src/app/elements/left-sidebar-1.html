@@ -1,9 +1,9 @@
 <!-- left-sidebar-1 -->
 <div class="left-sidebar left-sidebar-1">
     <div class="wrapper">
-        <div class="content">
-					<sidebar-heading></sidebar-heading>
-					<div class="section" *ngFor="let menu of navigation">
+	<sidebar-heading></sidebar-heading>
+	<div class="content" style="position:relative; margin-top:300px;">
+		<div class="section" *ngFor="let menu of navigation">
 							<div class="section-title">{{menu.title}}</div>
 							<ul class="list-unstyled">
 								<li *ngFor="let items of menu.items">
