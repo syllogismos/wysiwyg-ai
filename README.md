@@ -22,6 +22,7 @@ While development there wont be any `/dist` files, hence you will access the `/a
 This command is also defined in the `package.json` as `npm start`
 
 So this is how you develop
+* `mongod --dbpath mongo_data` to start your mongo db
 * `nodemon server.js --watch server` in a terminal
 * `npm start` in another terminal
 * Go to `localhost:4200`
