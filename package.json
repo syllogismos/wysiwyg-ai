@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve -sm=false -o=true -aot=true --proxy-config proxy.config.json",
+    "start": "ng serve --proxy-config proxy.config.json",
+    "starter": "ng serve -sm=false -o=true -aot=true --proxy-config proxy.config.json",
     "express": "nodemon server.js --watch server",
     "hmr": "ng serve -sm=false -o=true -hmr=true -e=hmr -aot=true",
     "build": "ng build -prod",
