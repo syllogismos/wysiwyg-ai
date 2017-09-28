@@ -59,7 +59,7 @@ export class AppComponent {
     $('body').attr('data-logo', config.logo);
 
     if ($('html').hasClass('loading')) {
-      const loaderTime = 2000;
+      const loaderTime = 2;
       $('#fakeloader').fakeLoader({
         timeToHide: loaderTime,
         zIndex: '99999',
