@@ -103,6 +103,7 @@ import { TypeaheadComponent } from './forms/typeahead';
 import { LoggedOutGuard } from "app/guards/logged-out.guard";
 import { LoggedInGuard } from "app/guards/logged-in.guard";
 import { AuthService } from "app/services/auth.service";
+import { EscherComponent } from './escher/escher.component';
 
 @NgModule({
   declarations: [
@@ -202,6 +203,7 @@ import { AuthService } from "app/services/auth.service";
     DatepickerComponent,
     CardsComponent,
     TypeaheadComponent,
+    EscherComponent,
   ],
   imports: [
     BrowserModule,
@@ -209,6 +211,7 @@ import { AuthService } from "app/services/auth.service";
     ReactiveFormsModule,
     HttpModule,
     RouterModule.forRoot([
+      { path: 'escher/dashboard', component: EscherComponent },
       { path: '', component: DashboardComponent, canActivate: [LoggedInGuard] },
       { path: 'apps/calendar', component: CalendarComponent },
       { path: 'notifications/sweet-alert-2', component: SweetAlert2Component },

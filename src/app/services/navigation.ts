@@ -8,6 +8,13 @@ export class NavigationService {
       "title": "Menu",
       "items": [
         {
+          "url": "escher/dashboard",
+          "icon": "sli-diamond",
+          "title": "Escher",
+          "items": [],
+          "id": "escher"
+        },
+        {
           "url": "dashboards/dashboard",
           "icon": "sli-chart",
           "title": "Dashboard",
