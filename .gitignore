@@ -2,6 +2,12 @@
 
 # compiled output
 /dist
+/dist_build
+/dist_old1
+/dist_old2
+/dist_old3
+/dist_old4
+/dist_old5
 /tmp
 /out-tsc
 
