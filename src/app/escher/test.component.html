@@ -1,3 +1,24 @@
+<!-- <h2> Escher Board </h2> -->
+<div class="row">
+    <ul>
+        <li>
+            <p>Build your neural network by adding layers on to the EcherBoard</p>
+        </li>
+        <li>
+            <p>You can select a layer by clicking on them and move them by draging them around</p>
+        </li>
+        <li>
+            <p>You can select multiple layers by dragging the cursor on the empty canvas and forming a rectangle encompassing all the relevant layers</p>
+        </li>
+        <li>
+            <p>Pan the whole canvas by right clicking and holding and panning</p>
+        </li>
+        <li>
+            <p>You can delete the selected layers by clicking on the delete button</p>
+        </li>
+    </ul>
+
+</div>
 <div class="row">
     <div id="canvasWrapper" class="col-8">
         <canvas id="canvas" style="border: 1px solid #ccc"></canvas>
@@ -23,6 +44,9 @@
         </div>
         <div class="row">
             <button type="button" class="btn btn-danger" (click)="Delete()">Delete Selection</button>
+        </div>
+        <div class="row">
+            <button type="button" class="btn btn-default" (click)="TestButton()">Test</button>
         </div>
     </div>
 </div>

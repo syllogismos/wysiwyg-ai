@@ -53,8 +53,8 @@ export class TestComponent implements OnInit {
     })
 
     for (var i = 0; i < (6000 / this.grid); i++) {
-      this.canvas.add(new fabric.Line([i * this.grid, 0, i * this.grid, 6000], { stroke: '#FDFDFD', selectable: false }));
-      this.canvas.add(new fabric.Line([0, i * this.grid, 6000, i * this.grid], { stroke: '#F0E7E7', selectable: false }))
+      this.canvas.add(new fabric.Line([i * this.grid, 0, i * this.grid, 6000], { stroke: '#F0E7E7', selectable: false }));
+      this.canvas.add(new fabric.Line([0, i * this.grid, 6000, i * this.grid], { stroke: '#F0E7E7', selectable: false }));
     }
 
     this.canvas.on('object:moving', options => {
@@ -65,89 +65,43 @@ export class TestComponent implements OnInit {
     });
 
 
-    /**
-     * Create objects
-    //  */
-    // var rect = new fabric.Rect({
-    //   left: 100,
-    //   top: 50,
-    //   fill: '#D81B60',
-    //   width: 100,
-    //   height: 100,
-    //   strokeWidth: 2,
-    //   stroke: '#880E4F',
-    //   rx: 10,
-    //   ry: 10,
-    //   angle: 45,
-    //   hasControls: true
-    // });
-
-    // this.canvas.add(rect);
-
-    // var rect2 = new fabric.Rect({
-    //   left: 200,
-    //   top: 50,
-    //   fill: '#F06292',
-    //   width: 100,
-    //   height: 100,
-    //   strokeWidth: 2,
-    //   stroke: '#880E4F',
-    //   rx: 10,
-    //   ry: 10,
-    //   angle: 45,
-    //   hasControls: true
-    // });
-
-
-    // this.canvas.add(rect2);
-
-    // var circle1 = new fabric.Circle({
-    //   radius: 65,
-    //   fill: '#039BE5',
-    //   left: 0
-    // });
-
-    // var circle2 = new fabric.Circle({
-    //   radius: 65,
-    //   fill: '#4FC3F7',
-    //   left: 100,
-    //   opacity: 0.7,
-    // });
-
-    // var group = new fabric.Group([circle1, circle2,], {
-    //   left: 40,
-    //   top: 250
-    // });
-
-    // this.canvas.add(group);
-
-
-
-    // var circle = new fabric.Circle({
-    //   radius: 100,
-    //   fill: '#eef',
-    //   scaleY: 0.5,
-    //   originX: 'center',
-    //   originY: 'center'
-    // })
-
-    // var text = new fabric.Text('hello world', {
-    //   fontSize: 30,
-    //   originX: 'center',
-    //   originY: 'center'
-    // });
-
-    // var group = new fabric.Group([circle, text], {
-    //   left: 150,
-    //   top: 100,
-    //   angle: -10
-    // });
-
-    // this.canvas.add(group);
+  //  this.canvas.on('object:moving', options => {
+  //    var p = options.target;
+  //   //  console.log(p._objects.length);
+  //   //  console.log(p._objects[0])
+  //   //  console.log(p.top)
+  //   //  var obj;
+  //   //  var activeObjects = this.canvas.getActiveGroup();
+  //   //  console.log(this.canvas.getActiveGroup())
+  //    console.log(this.canvas.getActiveObject())
+  //    console.log(this.canvas.getActiveObjects())
+  //    var activeObjects = this.canvas.getActiveObjects()
+  //    if (activeObjects.length > 1) {
+  //      console.log(activeObjects.length)
+  //      for (var obj of activeObjects) {
+  //        obj.dest && obj.dest.set({x1: obj.left + 100, y1: obj.top + 25})
+  //        obj.sour && obj.sour.set({x2: obj.left + 100, y2: obj.top + 25})
+  //      }
+  //    }
+     
+  //    p.dest && p.dest.set({ x1: p.left + 100, y1: p.top + 25 })
+  //    p.sour && p.sour.set({ x2: p.left + 100, y2: p.top + 25 })
+  //  })
     
   }
 
-  addRectTextGroup(color, text): void {
+  addRectTextGroup(color, text): any {
+
+    var circle = new fabric.Circle({
+      radius: 4,
+      fill: 'black',
+      opacity: 0.6,
+      top: 22,
+      left: 97
+      // originX: 'center',
+      // originY: 'center'
+    })
+
     var rect = new fabric.Rect({
       width: 200,
       height: 50,
@@ -157,35 +111,91 @@ export class TestComponent implements OnInit {
       // originY: 'center'
     })
     var text = new fabric.Text(text, {
-      fontSize: 40,
+      fontSize: 20,
       fontFamily: 'Arial Regular'
       // originX: 'center',
       // originY: 'center'
     })
-    var group = new fabric.Group([rect, text], {
+    var group = new fabric.Group([rect, text, circle], {
       left: this.left,
       top: this.top
     })
 
     this.top += 50;
+    group.layer_type = text;
+
+    // var line = this.makeLine([this.left + 100, this.top - 25, this.left + 100, this.top + 25])
+    // group.dest = line
     
-    this.canvas.add(group);
+    // this.canvas.add(group).setActiveObject(group);
+    // this.canvas.add(line);
+    return group;
   }
 
   addAffine(): void {
-    this.addRectTextGroup('purple', 'AF')
+    // var sourceGroup = this.canvas.getActiveObject();
+    var destGroup = this.addRectTextGroup('#303f9f', 'AF')
+    // if (sourceGroup) {
+    //   var line = this.makeLine([sourceGroup.left + 100, sourceGroup.top + 25, destGroup.left + 100, destGroup.top + 25])
+    //   this.canvas.add(line);
+    //   sourceGroup.dest = line
+    //   destGroup.sour = line
+    // }
+    // console.log(destGroup.layer_type)
+    // console.log(destGroup.sour)
+    this.canvas.add(destGroup).setActiveObject(destGroup);
   }
 
   addBatchNorm(): void {
-    this.addRectTextGroup('green', 'BN')
+    // var sourceGroup = this.canvas.getActiveObject();
+    var destGroup = this.addRectTextGroup('#388e3c', 'BN')
+    // if (sourceGroup) {
+    //   var line = this.makeLine([sourceGroup.left + 100, sourceGroup.top + 25, destGroup.left + 100, destGroup.top + 25])
+    //   this.canvas.add(line);
+    //   sourceGroup.dest = line
+    //   destGroup.sour = line
+    // }
+    this.canvas.add(destGroup).setActiveObject(destGroup);
   }
 
   addActivation(): void {
-    this.addRectTextGroup('pink', 'AC')
+    // var sourceGroup = this.canvas.getActiveObject();    
+    var destGroup = this.addRectTextGroup('#00796b', 'AC')
+    // if (sourceGroup) {
+    //   var line = this.makeLine([sourceGroup.left + 100, sourceGroup.top + 25, destGroup.left + 100, destGroup.top + 25])
+    //   this.canvas.add(line);
+    //   sourceGroup.dest = line
+    //   destGroup.sour = line
+    // }
+    this.canvas.add(destGroup).setActiveObject(destGroup)
   }
 
   addDropout(): void {
-    this.addRectTextGroup('blue', 'DR')
+    // var sourceGroup = this.canvas.getActiveObject();    
+    var destGroup = this.addRectTextGroup('#1976d2', 'DR')
+    // if (sourceGroup) {
+    //   var line = this.makeLine([sourceGroup.left + 100, sourceGroup.top + 25, destGroup.left + 100, destGroup.top + 25])
+    //   this.canvas.add(line);
+    //   sourceGroup.dest = line
+    //   destGroup.sour = line
+    // }
+    this.canvas.add(destGroup).setActiveObject(destGroup)
+  }
+
+  TestButton(): void {
+    var aObj = this.canvas.getActiveObject();
+    console.log(aObj)
+    console.log(aObj.top)
+    console.log(aObj.left)
+  }
+  makeLine(coords): any {
+    return new fabric.Line(coords, {
+      fill: 'red',
+      stroke: 'red',
+      strokeWidth: 2,
+      opacity: 0.3,
+      selectable: false
+    })
   }
   onButtonClick(): void {
     var rect = new fabric.Triangle({
