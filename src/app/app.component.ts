@@ -23,7 +23,7 @@ export class AppComponent {
   public topNavigation: string = 'light';//light,dark,indigo,blue-grey
   public logo: string = 'light';//light,dark,indigo,blue-grey
   public collapsed: boolean = false;//true,false
-  public controller: string;
+  public controller: string = 'Escherboard';
   public view: string;
 
   constructor(private router: Router, private mousetrapService: MousetrapService, private customEventsService: CustomEventsService) {
@@ -247,8 +247,8 @@ export class AppComponent {
             self['controller'] = data[0];
             self['view'] = data[1];
           } else {
-            self['controller'] = 'dashboards';
-            self['view'] = 'dashboard';
+            self['controller'] = 'Escherboard';
+            self['view'] = 'Console';
             $('body').attr('data-controller', 'dashboards');
             $('body').attr('data-view', 'dashboard');
           }
