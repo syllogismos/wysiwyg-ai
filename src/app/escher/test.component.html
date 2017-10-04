@@ -5,6 +5,23 @@
     </div>
     <div class="col-4">
         <div class="row">
+            <div class="col">
+                <button type="button" (click)="saveCanvas()" class="btn btn-default btn-circle btn-xs btn-icon">
+                            <i class="sli-pencil"></i>
+                            
+                        </button>
+
+                <button type="button" (click)="loadCanvas()" class="btn btn-secondary btn-circle btn-xs btn-icon">
+                            <i class="sli-folder"></i>
+                            
+                        </button>
+                <button type="button" (click)="clearCanvas()" class="btn btn-danger btn-circle btn-xs btn-icon">
+                            <i class="sli-trash"></i>
+                            
+                        </button>
+            </div>
+        </div>
+        <div class="row">
             <button type="button" class="btn btn-primary" (click)="addAffine()">Add Affine Layer</button>
         </div>
         <div class="row">
@@ -26,27 +43,30 @@
             <button type="button" class="btn btn-danger" (click)="Delete()">Delete Selection</button>
         </div>
         <div class="row">
+            <button type="button" class="btn btn-warning" (click)="SaveNetwork()">Save Network</button>
+        </div>
+        <div class="row">
             <button type="button" class="btn btn-default" (click)="TestButton()">Test</button>
         </div>
     </div>
 </div>
 <div class="row">
-<ul>
-    <li>
-        <p>Build your neural network by adding layers on to the EcherBoard</p>
-    </li>
-    <li>
-        <p>You can select a layer by clicking on them and move them by draging them around</p>
-    </li>
-    <li>
-        <p>You can select multiple layers by dragging the cursor on the empty canvas and forming a rectangle encompassing all
-            the relevant layers</p>
-    </li>
-    <li>
-        <p>Pan the whole canvas by right clicking and holding and panning</p>
-    </li>
-    <li>
-        <p>You can delete the selected layers by clicking on the delete button</p>
-    </li>
-</ul>
+    <ul>
+        <li>
+            <p>Build your neural network by adding layers on to the EcherBoard</p>
+        </li>
+        <li>
+            <p>You can select a layer by clicking on them and move them by draging them around</p>
+        </li>
+        <li>
+            <p>You can select multiple layers by dragging the cursor on the empty canvas and forming a rectangle encompassing
+                all the relevant layers</p>
+        </li>
+        <li>
+            <p>Pan the whole canvas by right clicking and holding and panning</p>
+        </li>
+        <li>
+            <p>You can delete the selected layers by clicking on the delete button</p>
+        </li>
+    </ul>
 </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EscherService } from "./escher.service";
 // import * as d3 from 'd3';
 
 declare var $: any;
@@ -6,19 +7,24 @@ declare var d3: any;
 declare var Raphael: any;
 // import 'fabric';
 declare var fabric: any;
+declare var _: any;
 
 @Component({
   selector: 'app-test',
   templateUrl: './test.component.html',
   styleUrls: [
     './test.component.scss',
-    // '../styles/ui-elements/buttons.scss'
+  ],
+  providers: [
+    EscherService
   ]
 })
 
 export class TestComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private escherService: EscherService
+  ) { }
 
   canvas: any;
   canvasWrapper: any;
@@ -70,10 +76,8 @@ export class TestComponent implements OnInit {
       lockScalingY: true
     })
 
-    for (var i = 0; i < (6000 / this.grid); i++) {
-      this.canvas.add(new fabric.Line([i * this.grid, 0, i * this.grid, 6000], { stroke: '#F0E7E7', selectable: false }));
-      this.canvas.add(new fabric.Line([0, i * this.grid, 6000, i * this.grid], { stroke: '#F0E7E7', selectable: false }));
-    }
+    // this.buildSupportGrid();
+    this.loadCanvasFromString(this.escherService.sample_canvas);
 
     this.canvas.on('object:moving', options => {
       options.target.set({
@@ -201,10 +205,7 @@ export class TestComponent implements OnInit {
   }
 
   TestButton(): void {
-    var aObj = this.canvas.getActiveObject();
-    console.log(aObj)
-    console.log(aObj.top)
-    console.log(aObj.left)
+    console.log(JSON.stringify(this.canvas));
   }
   makeLine(coords): any {
     return new fabric.Line(coords, {
@@ -228,6 +229,62 @@ export class TestComponent implements OnInit {
     this.canvas.render();
   }
 
+  buildSupportGrid(): void {
+    for (var i = 0; i < (6000 / this.grid); i++) {
+      this.canvas.add(new fabric.Line([i * this.grid, 0, i * this.grid, 6000], { stroke: '#F0E7E7', selectable: false }));
+      this.canvas.add(new fabric.Line([0, i * this.grid, 6000, i * this.grid], { stroke: '#F0E7E7', selectable: false }));
+    }
+  }
+
+  /**
+   * Save the canvas into local storage
+   */
+  saveCanvas(): void {
+    localStorage.setItem('fabricCanvas', JSON.stringify(this.canvas.toJSON()));
+  }
+
+  loadCanvasFromString(stringCanvas): void {
+    this.canvas.clear();
+    this.canvas.loadFromJSON(stringCanvas);
+    for (var obj of this.canvas._objects) {
+      if (obj.type == 'line') {
+        obj.set({
+          selectable: false
+        })
+      }
+    }
+    this.canvas.requestRenderAll();
+  };
+
+  /**
+   * load canvas from local storage
+   */
+  loadCanvas(): void {
+    var fabric_canvas_string = localStorage.getItem('fabricCanvas')
+    this.loadCanvasFromString(fabric_canvas_string);
+  }
+
+  /**
+   * clear the canvas board and make it blank
+   */
+  clearCanvas(): void {
+    this.canvas.clear();
+    this.buildSupportGrid();
+    this.canvas.requestRenderAll();
+  }
+
+
+  /**
+   * Save network built in the canvas in mongo after serializing the canvas objects
+   * ignore the grid lines before serializing
+   */
+  SaveNetwork(): void {
+
+  }
+
+  /**
+   * Function that copies the selected fabric objects to clipboard
+   */
   Copy(): void {
     // clone what are you copying since you
     // may want copy and paste on different moment.
@@ -237,7 +294,9 @@ export class TestComponent implements OnInit {
       this._clipboard = cloned;
     });
   }
-
+  /**
+   * Function that pastes fabric objects in clipboard on to canvas
+   */
   Paste(): void {
     // console.log(this.canvas)
     this._clipboard.clone(clonedObj => {
