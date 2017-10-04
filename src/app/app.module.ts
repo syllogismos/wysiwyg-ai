@@ -104,6 +104,7 @@ import { LoggedOutGuard } from "app/guards/logged-out.guard";
 import { LoggedInGuard } from "app/guards/logged-in.guard";
 import { AuthService } from "app/services/auth.service";
 import { EscherComponent } from './escher/escher.component';
+import { TestComponent } from './escher/test.component';
 
 @NgModule({
   declarations: [
@@ -204,6 +205,7 @@ import { EscherComponent } from './escher/escher.component';
     CardsComponent,
     TypeaheadComponent,
     EscherComponent,
+    TestComponent,
   ],
   imports: [
     BrowserModule,
@@ -212,6 +214,7 @@ import { EscherComponent } from './escher/escher.component';
     HttpModule,
     RouterModule.forRoot([
       { path: 'escher/dashboard', component: EscherComponent },
+      { path: 'escher/test', component: TestComponent}, 
       { path: '', component: DashboardComponent, canActivate: [LoggedInGuard] },
       { path: 'apps/calendar', component: CalendarComponent },
       { path: 'notifications/sweet-alert-2', component: SweetAlert2Component },

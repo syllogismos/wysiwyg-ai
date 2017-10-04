@@ -216,7 +216,8 @@
         "../bower_components/accounting.js/accounting.min.js",
         "../bower_components/jquery.countdown/dist/jquery.countdown.min.js",
 				"../bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js",
-				"../bower_components/bootstrap3-typeahead/bootstrap3-typeahead.min.js"
+        "../bower_components/bootstrap3-typeahead/bootstrap3-typeahead.min.js",
+        "../bower_components/fabric.js/dist/fabric.js"        
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

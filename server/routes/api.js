@@ -15,6 +15,22 @@ router.get('/', (req, res) => {
   res.send('api works');
 });
 
+router.get('/gettest', (req, res) => {
+  console.log(req.body);
+  res.send('get test works, check console logs');
+})
+
+router.get('/posttest', (req, res) => {
+  console.log(req.body);
+  res.send('get test in posttest works, check console logs');
+})
+
+router.post('/posttest', (req, res) => {
+  console.log(req.body);
+  res.sendStatus(200);
+})
+
+
 passport.use(new LocalStrategy(
   {
     usernameField: 'username',

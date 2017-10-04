@@ -15,6 +15,13 @@ export class NavigationService {
           "id": "escher"
         },
         {
+          "url": "escher/test",
+          "icon": "sli-diamond",
+          "title": "Escher Test",
+          "items": [],
+          "id": "escher"
+        },
+        {
           "url": "dashboards/dashboard",
           "icon": "sli-chart",
           "title": "Dashboard",
