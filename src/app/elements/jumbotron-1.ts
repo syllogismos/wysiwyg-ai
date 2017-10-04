@@ -10,8 +10,8 @@ declare var _: any;
 
 export class Jumbotron1Component implements OnInit {
   
-  public controller: string;
-  public view: string;
+  public controller: string = 'Escherboard';
+  public view: string = 'Console';
 
   constructor(private router: Router) {}
   

@@ -39,7 +39,10 @@ export class TestComponent implements OnInit {
     this.canvas = new fabric.Canvas('canvas')
     this.canvasWrapper = $("#canvasWrapper")
 
-    this.canvasWrapper.on('resize', this.resizeCanvas, false);
+    window.addEventListener('resize', e => {
+      this.canvas.setWidth(this.canvasWrapper.width());
+      this.canvas.renderAll();
+    }, false);
     
 
     // resize on init
