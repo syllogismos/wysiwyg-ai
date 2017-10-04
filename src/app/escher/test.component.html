@@ -1,3 +1,28 @@
-<p>Hello</p>
-<canvas id="canvas" style="border: 1px solid #ccc"></canvas>
-<button type="button" class="btn btn-primary" (click)="onButtonClick()">Add Rect</button>
+<div class="row">
+    <div id="canvasWrapper" class="col-8">
+        <canvas id="canvas" style="border: 1px solid #ccc"></canvas>
+    </div>
+    <div class="col-4">
+        <div class="row">
+            <button type="button" class="btn btn-primary" (click)="addAffine()">Add Affine Layer</button>
+        </div>
+        <div class="row">
+            <button type="button" class="btn btn-secondary" (click)="addActivation()">Add Activation</button>
+        </div>
+        <div class="row">
+            <button type="button" class="btn btn-info" (click)="addDropout()">Add Dropout Layer</button>
+        </div>
+        <div class="row">
+            <button type="button" class="btn btn-success" (click)="addBatchNorm()">Add Batch Norm</button>
+        </div>
+        <div class="row">
+            <button type="button" class="btn btn-default" (click)="Copy()">Copy Selection</button>
+        </div>
+        <div class="row">
+            <button type="button" class="btn btn-default" (click)="Paste()">Paste Selection</button>
+        </div>
+        <div class="row">
+            <button type="button" class="btn btn-danger" (click)="Delete()">Delete Selection</button>
+        </div>
+    </div>
+</div>

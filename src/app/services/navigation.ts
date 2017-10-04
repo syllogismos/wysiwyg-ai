@@ -8,16 +8,16 @@ export class NavigationService {
       "title": "Menu",
       "items": [
         {
-          "url": "escher/dashboard",
-          "icon": "sli-diamond",
-          "title": "Escher",
+          "url": "escher/test",
+          "icon": "sli-layers",
+          "title": "Escher Board",
           "items": [],
           "id": "escher"
         },
         {
-          "url": "escher/test",
+          "url": "escher/dashboard",
           "icon": "sli-diamond",
-          "title": "Escher Test",
+          "title": "Escher",
           "items": [],
           "id": "escher"
         },
