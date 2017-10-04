@@ -261,6 +261,9 @@ export class TestComponent implements OnInit {
    */
   loadCanvas(): void {
     var fabric_canvas_string = localStorage.getItem('fabricCanvas')
+    if (fabric_canvas_string == null){
+      fabric_canvas_string = this.escherService.sample_canvas;
+    }
     this.loadCanvasFromString(fabric_canvas_string);
   }
 
