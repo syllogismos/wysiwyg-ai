@@ -6,16 +6,19 @@
     <div class="col-4">
         <div class="row">
             <div class="col">
-                <button type="button" (click)="saveCanvas()" class="btn btn-default btn-circle btn-xs btn-icon">
+                <button type="button" (click)="saveCanvas()" class="btn btn-default btn-circle btn-xs btn-icon" 
+                data-toggle="tooltip" data-placement="top" title="Save to Disk">
                             <i class="sli-pencil"></i>
                             
                         </button>
 
-                <button type="button" (click)="loadCanvas()" class="btn btn-secondary btn-circle btn-xs btn-icon">
+                <button type="button" (click)="loadCanvas()" class="btn btn-secondary btn-circle btn-xs btn-icon"
+                data-toggle="tooltip" data-placement="top" title="Load from Disk">
                             <i class="sli-folder"></i>
                             
                         </button>
-                <button type="button" (click)="clearCanvas()" class="btn btn-danger btn-circle btn-xs btn-icon">
+                <button type="button" (click)="clearCanvas()" class="btn btn-danger btn-circle btn-xs btn-icon"
+                data-toggle="tooltip" data-placement="top" title="Clear Board">
                             <i class="sli-trash"></i>
                             
                         </button>

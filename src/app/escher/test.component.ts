@@ -41,7 +41,7 @@ export class TestComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    $('[data-toggle="tooltip"]').tooltip();
     this.canvas = new fabric.Canvas('canvas')
     this.canvasWrapper = $("#canvasWrapper")
 
