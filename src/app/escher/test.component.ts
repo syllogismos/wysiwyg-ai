@@ -23,7 +23,7 @@ export class TestComponent implements OnInit {
   canvas: any;
   _clipboard: any;
   grid: number = 50;
-  gridSmall: number = 25;
+  gridSmall: number = 50;
   top: number = 50;
   left: number = 50;
 
