@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 
 declare var _: any;
@@ -8,18 +8,19 @@ declare var _: any;
   templateUrl: '../elements/jumbotron-1.html'
 })
 
-export class Jumbotron1Component {
-
+export class Jumbotron1Component implements OnInit {
+  
   public controller: string;
   public view: string;
 
-  constructor(private router: Router) {
-
-    this.controller = 'Dashboards';
-    this.view = 'Dashboard';
+  constructor(private router: Router) {}
+  
+  ngOnInit(): void {
+    this.controller = 'Escherboard';
+    this.view = 'Console';
 
     const self = this;
-    router.events.subscribe((val) => {
+    this.router.events.subscribe((val) => {
       if (val instanceof NavigationStart) {
         const copy = Object.assign({}, val);
         const data = copy.url
@@ -31,7 +32,8 @@ export class Jumbotron1Component {
         }
       }
     });
-
   }
+
+  
 
 }

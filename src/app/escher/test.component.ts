@@ -21,17 +21,32 @@ export class TestComponent implements OnInit {
   constructor() { }
 
   canvas: any;
+  canvasWrapper: any;
   _clipboard: any;
   grid: number = 50;
   gridSmall: number = 50;
   top: number = 50;
   left: number = 50;
 
+  resizeCanvas() {
+    // this.canvas.setHeight(this.canvasWrapper.innerHeight());
+    this.canvas.setWidth(this.canvasWrapper.width());
+    this.canvas.renderAll();
+  }
+
   ngOnInit() {
 
     this.canvas = new fabric.Canvas('canvas')
+    this.canvasWrapper = $("#canvasWrapper")
+
+    this.canvasWrapper.on('resize', this.resizeCanvas, false);
+    
+
+    // resize on init
     this.canvas.setHeight(500);
-    this.canvas.setWidth(800);
+    // this.canvas.setWidth(800);
+    this.resizeCanvas();
+    
 
     $("#canvasWrapper").on('mousedown', e => {
       this.startPan(this.canvas, e);

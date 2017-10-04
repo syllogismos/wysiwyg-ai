@@ -214,7 +214,7 @@ import { TestComponent } from './escher/test.component';
     HttpModule,
     RouterModule.forRoot([
       { path: 'escher/dashboard', component: EscherComponent },
-      { path: 'escher/test', component: TestComponent}, 
+      { path: 'escherboard/console', component: TestComponent}, 
       // { path: '', component: DashboardComponent, canActivate: [LoggedInGuard] },
       // { path: '', component: DashboardComponent },  
       { path: '', component: TestComponent },          

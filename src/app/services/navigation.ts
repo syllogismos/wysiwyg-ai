@@ -8,7 +8,7 @@ export class NavigationService {
       "title": "Menu",
       "items": [
         {
-          "url": "escher/test",
+          "url": "escherboard/console",
           "icon": "sli-layers",
           "title": "Escher Board",
           "items": [],
