@@ -21,13 +21,27 @@ export class NavigationService {
           "items": [],
           "id": "rl"
         },
-        // {
-        //   "url": "escher/experiment",
-        //   "icon": "sli-chemistry",
-        //   "title": "Experiments",
-        //   "items": [],
-        //   "id": "experiment"
-        // },
+        {
+          "url": "escher/experiment",
+          "icon": "sli-chemistry",
+          "title": "Experiments",
+          "items": [],
+          "id": "experiment"
+        },
+        {
+          "url": "escher/model-zoo",
+          "icon": "sli-layers",
+          "title": "Model Zoo",
+          "items": [],
+          "id": "zoo"
+        },
+        {
+          "url": "escher/datasets",
+          "icon": "sli-briefcase",
+          "title": "Datasets",
+          "items": [],
+          "id": "datasets"
+        },
         {
           "url": "dashboards/dashboard",
           "icon": "sli-chart",

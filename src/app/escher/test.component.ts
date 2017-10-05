@@ -49,7 +49,7 @@ export class TestComponent implements OnInit {
       this.canvas.setWidth(this.canvasWrapper.width());
       this.canvas.renderAll();
     }, false);
-    
+
 
     // resize on init
     this.canvas.setHeight(500);

@@ -18,7 +18,7 @@ export class AppComponent {
 
   public layout: string = 'default-sidebar-1'; //default-sidebar-1,off-canvas-1,sidebar-over-1,off-canvas-1,top-navigation-1,top-navigation-2,empty-view-1
   public background: string = 'light';//light,dark,indigo,blue-grey
-  public navbar: string = 'light';//light,dark,indigo,blue-grey
+  public navbar: string = 'dark';//light,dark,indigo,blue-grey
   public sidebar: string = 'dark';//light,dark,indigo,blue-grey
   public topNavigation: string = 'light';//light,dark,indigo,blue-grey
   public logo: string = 'light';//light,dark,indigo,blue-grey
