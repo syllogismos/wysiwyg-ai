@@ -8,6 +8,7 @@ declare var Raphael: any;
 // import 'fabric';
 declare var fabric: any;
 declare var _: any;
+declare var ResizeSensor: any;
 
 @Component({
   selector: 'app-test',
@@ -45,11 +46,15 @@ export class TestComponent implements OnInit {
     this.canvas = new fabric.Canvas('canvas')
     this.canvasWrapper = $("#canvasWrapper")
 
-    window.addEventListener('resize', e => {
+    // window.addEventListener('resize', e => {
+    //   this.canvas.setWidth(this.canvasWrapper.width());
+    //   this.canvas.renderAll();
+    // }, false);
+
+    new ResizeSensor(this.canvasWrapper, e => {
       this.canvas.setWidth(this.canvasWrapper.width());
       this.canvas.renderAll();
-    }, false);
-
+    })
 
     // resize on init
     this.canvas.setHeight(500);
