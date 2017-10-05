@@ -9,7 +9,7 @@ export class NavigationService {
       "items": [
         {
           "url": "escherboard/console",
-          "icon": "sli-layers",
+          "icon": "sli-notebook",
           "title": "Escher Board",
           "items": [],
           "id": "escher"
@@ -19,8 +19,15 @@ export class NavigationService {
           "icon": "sli-graph",
           "title": "Reinforcement Learning",
           "items": [],
-          "id": "escher"
+          "id": "rl"
         },
+        // {
+        //   "url": "escher/experiment",
+        //   "icon": "sli-chemistry",
+        //   "title": "Experiments",
+        //   "items": [],
+        //   "id": "experiment"
+        // },
         {
           "url": "dashboards/dashboard",
           "icon": "sli-chart",

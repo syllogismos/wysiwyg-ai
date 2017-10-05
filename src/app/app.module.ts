@@ -105,6 +105,7 @@ import { LoggedInGuard } from "app/guards/logged-in.guard";
 import { AuthService } from "app/services/auth.service";
 import { EscherComponent } from './escher/escher.component';
 import { TestComponent } from './escher/test.component';
+import { ExperimentComponent } from './escher/experiment.component';
 
 @NgModule({
   declarations: [
@@ -206,6 +207,7 @@ import { TestComponent } from './escher/test.component';
     TypeaheadComponent,
     EscherComponent,
     TestComponent,
+    ExperimentComponent,
   ],
   imports: [
     BrowserModule,
@@ -214,7 +216,8 @@ import { TestComponent } from './escher/test.component';
     HttpModule,
     RouterModule.forRoot([
       { path: 'escher/dashboard', component: EscherComponent },
-      { path: 'escherboard/console', component: TestComponent}, 
+      { path: 'escherboard/console', component: TestComponent },
+      { path: 'escher/experiment', component: ExperimentComponent },
       // { path: '', component: DashboardComponent, canActivate: [LoggedInGuard] },
       // { path: '', component: DashboardComponent },  
       { path: '', component: TestComponent },          
