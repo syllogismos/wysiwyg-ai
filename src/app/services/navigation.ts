@@ -16,8 +16,8 @@ export class NavigationService {
         },
         {
           "url": "escher/dashboard",
-          "icon": "sli-diamond",
-          "title": "Escher",
+          "icon": "sli-graph",
+          "title": "Reinforcement Learning",
           "items": [],
           "id": "escher"
         },

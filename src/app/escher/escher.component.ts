@@ -21,6 +21,7 @@ export class EscherComponent implements OnInit {
     private http: Http
   ) { }
 
+  
   ngOnInit() {
     this.gymEnvIds = this.gymEnvsService.getGymEnvIds();
 
@@ -43,71 +44,136 @@ export class EscherComponent implements OnInit {
       console.log(field, title, required, success, error, target);
     });
 
-    this.validateOnChange('#firstname-0', {
-      title: 'First name',
-      required: true
-    }, 'First name is valid', 'Please enter a valid first name');
+    var numericRange = {
+      expects: [
+        'max',
+        'min'
+      ],
+      message: '{title} must be between {max} and {min}',
+      validate: function (value, pars) {
+        return (parseFloat(value) >= pars.min) && (parseFloat(value) <= pars.max);
+      }
+    };    
+    approve.addTest(numericRange, 'numericRange')
 
-    this.validateOnChange('#lastname-0', {
-      title: 'Last name',
+    this.validateOnChange('#env-name-0', {
+      title: 'Environment Name',
       required: true
-    }, 'Last name is valid', 'Please enter a valid last name');
+    }, 'Environment Name is valid', 'Please select an Environment');
 
-    this.validateOnChange('#email-0', {
-      title: 'Email',
+    this.validateOnChange('#exp-name-0', {
+      title: 'Experiment name',
+      required: true
+    }, 'Experiment Name is valid', 'Please enter a valid Experiment name');
+
+    this.validateOnChange('#save-freq-0', {
+      title: 'Save Frequency',
       required: true,
-      email: true
-    }, 'Email is valid', 'Please enter a valid mail');
-
-    this.validateOnChange('#age-0', {
-      title: 'Age',
       numeric: true
-    }, 'Age is valid', 'Please enter a valid age');
+    }, 'Save Frequency is valid', 'Please enter a valid Save Frequency');
 
-    this.validateOnChange('#university-name-1', {
-      title: 'University name',
-      required: true
-    }, 'University name is valid', "Please enter a valid university name");
+    this.validateOnChange('#max-episodes-0', {
+      title: 'Max Episode',
+      numericRange: {
+        min: 10,
+        max: 1000000000
+      },
+      required: true,
+    }, 'No of episodes to run the experiment', 'Please enter a number between 10-1000000000');
 
-    this.validateOnChange('#degree-level-1', {
-      title: 'Degree level',
+    this.validateOnChange('#algo-name-1', {
+      title: 'Algorithm name',
       required: true
-    }, 'Degree level is valid', 'plese enter a vlid degree')
+    }, 'Algorithm name is valid', "Please select the Algorithm");
 
-    this.validateOnChange('#country-1', {
-      title: 'Country',
-      required: true
-    }, 'Country is valid', 'Please select a country');
+    this.validateOnChange('#base-learning-rate-1', {
+      title: 'Base Learning Rate',
+      required: true,
+      numericRange: {
+        min: 0,
+        max: 1
+      }
+    }, 'Base Learning Rate is valid', 'Please enter a number in range (0, 1)')
 
-    this.validateOnChange('#language-1', {
-      title: 'Language',
-      required: true
-    }, 'Language is valid', 'Please select a language');
+    this.validateOnChange('#max-kl-1', {
+      title: 'Max KL',
+      required: true,
+      numericRange:
+      {
+        min: 0,
+        max: 1
+      }
+    }, 'Max KL is valid', 'Please enter a number in range (0, 1)');
 
-    this.validateOnChange('#company-name-2', {
-      title: 'Company name',
-      required: true
-    }, 'Company name is valid', 'Please enter a valid company name');
+    this.validateOnChange('#gae-lambda-1', {
+      title: 'GAE Lambda',
+      required: true,
+      numericRange: {
+        min: 0,
+        max: 1
+      }
+    }, 'GAE Lambda is valid', 'Please select a number in range (0, 1)');
 
-    this.validateOnChange('#position-2', {
-      title: 'Position',
-      required: true
-    }, 'Position is valid', 'Please enter a valid position');
+    this.validateOnChange('#scale-reward-1', {
+      title: 'Scale Reward',
+      required: true,
+      numericRange:{
+      min: 0,
+      max: 1}
+    }, 'Scale reward is valid', 'Please enter a number in range (0, 1)');
 
-    this.validateOnChange('#job-description-2', {
-      title: 'Job description',
-      required: true
-    }, 'Job description is valid', 'Please enter a valid job description');
+    this.validateOnChange('#replay-pool-size-1', {
+      title: 'Replay Pool Size',
+      required: true,
+      numericRange: {
+        min: 5000, max: 100000000
+      }
+    }, 'Replay Pool size is valid', 'Please enter a number greater than 5000');
 
-    this.validateOnChange('#locality-name-3', {
-      title: 'Locality name',
+    this.validateOnChange('#policy-hidden-sizes-2', {
+      title: 'Policy Hidden sizes',
       required: true
-    }, 'Locality name is valid', 'Please enter a valid locality');
+    }, 'Policy hidden sizes are valid', 'Please enter valid value for policy hidden sizes');
 
-    this.validateOnChange('#state-3', {
-      title: 'State name',
+    this.validateOnChange('#policy-hidden-non-linearity-2', {
+      title: 'Policy Hidden Non Linearity',
       required: true
-    }, 'State name is valid', 'Please enter a valid state name');
+    }, 'Policy hidden non linearity is valid', 'Enter a valid non linearity');
+
+    this.validateOnChange('#baseline-hidden-sizes-2', {
+      title: 'Baseline Hidden sizes',
+      required: true
+    }, 'Baseline Hidden sizes are valid', 'Please enter a valid value for baseline hidden sizes');
+
+    this.validateOnChange('#baseline-hidden-non-linearity-2', {
+      title: 'Baseline Hidden Non Linearity',
+      required: true
+    }, 'Baseline Hidden non linearity is valid', 'Please enter a valid non linearity');
+
+    this.validateOnChange('#n-parallel-3', {
+      title: 'Number of parallel episode workers',
+      required: true,
+      numericRange: {
+        min: 1,
+        max: 64
+      }
+    }, 'Number of parallel workers is valid', 'Please enter a valid number between 1-64')
+
+    this.validateOnChange('#batch-sampler-3', {
+      title: 'Batch sampler',
+      required: true,
+    }, 'Batch sampler value is valid', 'Please select a valid option')
+
+    this.validateOnChange('#machine-type-3', {
+      title: 'Machine Type',
+      required: true,
+    }, 'Selected a valid machine type', 'Please select a valid machine type')
+
+    this.validateOnChange('#variants-description-3', {
+      title: 'Variants Description',
+      required: true,
+    }, 'Valid variants description', 'Please enter a valid variant description')
+
 
     $('.go-back').on('click', function (e) {
       e.preventDefault();
