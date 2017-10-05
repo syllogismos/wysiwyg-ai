@@ -1,16 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
 import { GymEnvsService } from "../services/gym-envs.service";
+import { ColorsService } from "../services/colors";
 import { Http } from '@angular/http';
 
 declare var $: any;
 declare var typeahead: any;
 declare var approve: any;
+declare var swal: any;
 
 @Component({
   selector: 'app-escher',
   templateUrl: './escher.component.html',
   styleUrls: ['./escher.component.scss'],
-  providers: [GymEnvsService]
+  providers: [GymEnvsService, ColorsService]
 })
 export class EscherComponent implements OnInit {
 
@@ -18,7 +21,8 @@ export class EscherComponent implements OnInit {
 
   constructor(
     private gymEnvsService: GymEnvsService,
-    private http: Http
+    private http: Http,
+    private router: Router
   ) { }
 
   
@@ -249,14 +253,35 @@ export class EscherComponent implements OnInit {
         $('#steps .tab-3').trigger('click');
         return false
       }
-      console.log('sending params to the server');
-      var params = {}
-      $('.rl-params').serializeArray().map(x => params[x.name] = x.value);
-      self.http.post('/api/posttest', params)
-        .toPromise()
-        .then(response => {
-          console.log('right after post test reponse')
+      swal({
+        title: 'Are you sure?',
+        text: 'You will be launching machines to train the RL environment according to the config you provided',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes!',
+        closeOnConfirm: false
+      }, swal1 => {
+        console.log('sending params to the server');
+        var params = {}
+        $('.rl-params').serializeArray().map(x => params[x.name] = x.value);
+        self.http.post('/api/posttest', params)
+          .toPromise()
+          .then(response => {
+            console.log('right after post test reponse')
+          })
+        swal({title: 'Running exps!',
+          text: 'Your experiments are starting, redirecting you to the experiment page!.',
+          type: 'success',
+          timer: 5000
+        }, swal2 => {
+          console.log('ok button is clicked');
+          let link = ['dashboards/dashboard']
+          self.router.navigate(link)
         })
+      })
+      
       return false
     })
 
