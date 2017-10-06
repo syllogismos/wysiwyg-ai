@@ -277,7 +277,7 @@ export class EscherComponent implements OnInit {
           timer: 5000
         }, swal2 => {
           console.log('ok button is clicked');
-          let link = ['dashboards/dashboard']
+          let link = ['escher/experiment']
           self.router.navigate(link)
         })
       })
