@@ -108,6 +108,7 @@ import { TestComponent } from './escher/test.component';
 import { ExperimentComponent } from './escher/experiment.component';
 import { DatasetsComponent } from './escher/datasets.component';
 import { ModelzooComponent } from './escher/modelzoo.component';
+import { EverythingComponent } from './escher/everything.component';
 
 @NgModule({
   declarations: [
@@ -212,6 +213,7 @@ import { ModelzooComponent } from './escher/modelzoo.component';
     ExperimentComponent,
     DatasetsComponent,
     ModelzooComponent,
+    EverythingComponent,
   ],
   imports: [
     BrowserModule,
@@ -224,6 +226,7 @@ import { ModelzooComponent } from './escher/modelzoo.component';
       { path: 'escher/experiment', component: ExperimentComponent },
       { path: 'escher/datasets', component: ExperimentComponent },
       { path: 'escher/model-zoo', component: ExperimentComponent },
+      { path: 'escher/everything', component: EverythingComponent },
       // { path: '', component: DashboardComponent, canActivate: [LoggedInGuard] },
       // { path: '', component: DashboardComponent },  
       { path: '', component: TestComponent },          

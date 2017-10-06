@@ -740,7 +740,25 @@ export class NavigationService {
   }
 
   getEverything(): Array<Object> {
-    return this.navigation;
+    const list_of_list_of_lists =  _.map(this.navigation, e => {
+      return _.map(e.items, ee => {
+        if (ee.items.length == 0){
+          return [{
+            title: ee.title,
+            url: ee.url
+          }]
+        } else {
+          return _.map(ee.items, eee => {
+            return {
+              title: eee.title,
+              url: eee.url
+            }
+          });
+        }
+      });
+    });
+    return _.flatMap(_.flatMap(list_of_list_of_lists))
   }
+
 
 }
