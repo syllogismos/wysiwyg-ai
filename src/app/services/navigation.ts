@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+declare var _: any;
+
 @Injectable()
 export class NavigationService {
 
@@ -48,6 +50,13 @@ export class NavigationService {
           "title": "Dashboard",
           "items": [],
           "id": "dashboard"
+        },
+        {
+          "url": "pages/user-profile",
+          "icon": "sli-user",
+          "title": "User profile",
+          "items": [],
+          "id": "user-profile"
         },
         {
           "url": "#",
@@ -112,141 +121,6 @@ export class NavigationService {
             }
           ],
           "id": "documentation"
-        },
-        {
-          "url": "#",
-          "icon": "sli-puzzle",
-          "title": "Widgets",
-          "items": [
-            {
-              "url": "widgets/activity-widgets",
-              "icon": "",
-              "title": "Activity widgets",
-              "items": [],
-              "id": "activity-widgets"
-            },
-            {
-              "url": "widgets/area-chart-widgets",
-              "icon": "",
-              "title": "Area chart widgets",
-              "items": [],
-              "id": "area-chart-widgets"
-            },
-            {
-              "url": "widgets/bar-chart-widgets",
-              "icon": "",
-              "title": "Bar chart widgets",
-              "items": [],
-              "id": "bar-chart-widgets"
-            },
-            {
-              "url": "widgets/donut-chart-widgets",
-              "icon": "",
-              "title": "Donut chart widgets",
-              "items": [],
-              "id": "donut-chart-widgets"
-            },
-            {
-              "url": "widgets/icon-widgets",
-              "icon": "",
-              "title": "Icon widgets",
-              "items": [],
-              "id": "icon-widgets"
-            },
-            {
-              "url": "widgets/line-chart-widgets",
-              "icon": "",
-              "title": "Line chart widgets",
-              "items": [],
-              "id": "line-chart-widgets"
-            },
-            {
-              "url": "widgets/pie-chart-widgets",
-              "icon": "",
-              "title": "Pie chart widgets",
-              "items": [],
-              "id": "pie-chart-widgets"
-            },
-            {
-              "url": "widgets/table-widgets",
-              "icon": "",
-              "title": "Table widgets",
-              "items": [],
-              "id": "table-widgets"
-            },
-            {
-              "url": "widgets/text-widgets",
-              "icon": "",
-              "title": "Text widgets",
-              "items": [],
-              "id": "text-widgets"
-            },
-            {
-              "url": "widgets/timeline-widgets",
-              "icon": "",
-              "title": "Timeline widgets",
-              "items": [],
-              "id": "timeline-widgets"
-            },
-            {
-              "url": "widgets/user-widgets",
-              "icon": "",
-              "title": "User widgets",
-              "items": [],
-              "id": "user-widgets"
-            }
-          ],
-          "id": "widgets"
-        },
-        {
-          "url": "#",
-          "icon": "sli-organization",
-          "title": "Layouts",
-          "items": [
-            {
-              "url": "collapsed-sidebar-1",
-              "icon": "",
-              "title": "Collapsed sidebar",
-              "items": [],
-              "id": "collapsed-sidebar"
-            },
-            {
-              "url": "default-sidebar-1",
-              "icon": "",
-              "title": "Default sidebar",
-              "items": [],
-              "id": "default-sidebar"
-            },
-            {
-              "url": "off-canvas-1",
-              "icon": "",
-              "title": "Off canvas",
-              "items": [],
-              "id": "off-canvas"
-            },
-            {
-              "url": "sidebar-over-1",
-              "icon": "",
-              "title": "Sidebar over",
-              "items": [],
-              "id": "sidebar-over"
-            },
-            {
-              "url": "top-navigation-1",
-              "icon": "",
-              "title": "Top navigation 1",
-              "items": [],
-              "id": "top-navigation-1"
-            },
-            {
-              "url": "top-navigation-2",
-              "icon": "",
-              "title": "Top navigation 2",
-              "items": [],
-              "id": "top-navigation-2"
-            }
-          ],
-          "id": "layouts"
         }
       ],
       "id": "menu"
@@ -583,11 +457,139 @@ export class NavigationService {
           "id": "charts"
         },
         {
-          "url": "pages/user-profile",
-          "icon": "sli-user",
-          "title": "User profile",
-          "items": [],
-          "id": "user-profile"
+          "url": "#",
+          "icon": "sli-puzzle",
+          "title": "Widgets",
+          "items": [
+            {
+              "url": "widgets/activity-widgets",
+              "icon": "",
+              "title": "Activity widgets",
+              "items": [],
+              "id": "activity-widgets"
+            },
+            {
+              "url": "widgets/area-chart-widgets",
+              "icon": "",
+              "title": "Area chart widgets",
+              "items": [],
+              "id": "area-chart-widgets"
+            },
+            {
+              "url": "widgets/bar-chart-widgets",
+              "icon": "",
+              "title": "Bar chart widgets",
+              "items": [],
+              "id": "bar-chart-widgets"
+            },
+            {
+              "url": "widgets/donut-chart-widgets",
+              "icon": "",
+              "title": "Donut chart widgets",
+              "items": [],
+              "id": "donut-chart-widgets"
+            },
+            {
+              "url": "widgets/icon-widgets",
+              "icon": "",
+              "title": "Icon widgets",
+              "items": [],
+              "id": "icon-widgets"
+            },
+            {
+              "url": "widgets/line-chart-widgets",
+              "icon": "",
+              "title": "Line chart widgets",
+              "items": [],
+              "id": "line-chart-widgets"
+            },
+            {
+              "url": "widgets/pie-chart-widgets",
+              "icon": "",
+              "title": "Pie chart widgets",
+              "items": [],
+              "id": "pie-chart-widgets"
+            },
+            {
+              "url": "widgets/table-widgets",
+              "icon": "",
+              "title": "Table widgets",
+              "items": [],
+              "id": "table-widgets"
+            },
+            {
+              "url": "widgets/text-widgets",
+              "icon": "",
+              "title": "Text widgets",
+              "items": [],
+              "id": "text-widgets"
+            },
+            {
+              "url": "widgets/timeline-widgets",
+              "icon": "",
+              "title": "Timeline widgets",
+              "items": [],
+              "id": "timeline-widgets"
+            },
+            {
+              "url": "widgets/user-widgets",
+              "icon": "",
+              "title": "User widgets",
+              "items": [],
+              "id": "user-widgets"
+            }
+          ],
+          "id": "widgets"
+        },
+        {
+          "url": "#",
+          "icon": "sli-organization",
+          "title": "Layouts",
+          "items": [
+            {
+              "url": "collapsed-sidebar-1",
+              "icon": "",
+              "title": "Collapsed sidebar",
+              "items": [],
+              "id": "collapsed-sidebar"
+            },
+            {
+              "url": "default-sidebar-1",
+              "icon": "",
+              "title": "Default sidebar",
+              "items": [],
+              "id": "default-sidebar"
+            },
+            {
+              "url": "off-canvas-1",
+              "icon": "",
+              "title": "Off canvas",
+              "items": [],
+              "id": "off-canvas"
+            },
+            {
+              "url": "sidebar-over-1",
+              "icon": "",
+              "title": "Sidebar over",
+              "items": [],
+              "id": "sidebar-over"
+            },
+            {
+              "url": "top-navigation-1",
+              "icon": "",
+              "title": "Top navigation 1",
+              "items": [],
+              "id": "top-navigation-1"
+            },
+            {
+              "url": "top-navigation-2",
+              "icon": "",
+              "title": "Top navigation 2",
+              "items": [],
+              "id": "top-navigation-2"
+            }
+          ],
+          "id": "layouts"
         }
       ],
       "id": "components"
@@ -730,6 +732,14 @@ export class NavigationService {
   ];
 
   getNavigation(): Array<Object> {
+    return _.filter(this.navigation, e => {
+      // console.log(e.id)
+      return e.id == 'menu'
+      // return true
+    });
+  }
+
+  getEverything(): Array<Object> {
     return this.navigation;
   }
 
