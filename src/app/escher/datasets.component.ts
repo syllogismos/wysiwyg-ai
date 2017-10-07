@@ -1,15 +1,102 @@
 import { Component, OnInit } from '@angular/core';
 
+declare const $: any;
+
 @Component({
   selector: 'app-datasets',
   templateUrl: './datasets.component.html',
   styleUrls: ['./datasets.component.scss']
 })
 export class DatasetsComponent implements OnInit {
-
+  urls: any;
   constructor() { }
 
   ngOnInit() {
+    $('[data-toggle="tooltip"]').tooltip();
+    this.urls = [
+      "http://farm4.staticflickr.com/3153/2970773875_164f0c0b83_z.jpg",
+      "http://farm3.staticflickr.com/2422/3577229611_3a3235458a_z.jpg",
+      "http://farm2.staticflickr.com/1431/1118526611_09172475e5_z.jpg",
+      "http://farm8.staticflickr.com/7007/6413705793_1c391cd697_z.jpg",
+      "http://farm8.staticflickr.com/7156/6415223357_5ef0955050_z.jpg",
+      "http://farm7.staticflickr.com/6146/5976678628_8776fd68b0_z.jpg",
+      "http://farm4.staticflickr.com/3249/2911640772_49daa557a0_z.jpg",
+      "http://farm3.staticflickr.com/2231/2165411619_48f765e711_z.jpg",
+      "http://farm4.staticflickr.com/3034/2702899336_e5957d911d_z.jpg",
+      "http://farm9.staticflickr.com/8012/7478438612_33bb7f4d05_z.jpg",
+      "http://farm4.staticflickr.com/3232/2865439282_b1bb926238_z.jpg",
+      "http://farm8.staticflickr.com/7195/7112147055_26b8dcee9f_z.jpg",
+      "http://farm8.staticflickr.com/7284/9606706453_d8b9137ec2_z.jpg",
+      "http://farm6.staticflickr.com/5542/9326338939_6b9a44460c_z.jpg",
+      "http://farm5.staticflickr.com/4088/4951350236_392f0f821d_z.jpg",
+      "http://farm3.staticflickr.com/2217/2309291357_549d58c19a_z.jpg",
+      "http://farm6.staticflickr.com/5229/5599536441_5ffb9c1dba_z.jpg",
+      "http://farm9.staticflickr.com/8275/8698713784_1a7f1a51ef_z.jpg",
+      "http://farm9.staticflickr.com/8124/8647260855_11247ab35a_z.jpg",
+      "http://farm2.staticflickr.com/1291/1062672084_a10658e960_z.jpg",
+      "http://farm2.staticflickr.com/1304/1062672028_ab4d86a656_z.jpg",
+      "http://farm4.staticflickr.com/3424/3390111150_a7447728e3_z.jpg",
+      "http://farm9.staticflickr.com/8250/8454125509_b608c77398_z.jpg",
+      "http://farm9.staticflickr.com/8527/8454124021_48393547a6_z.jpg",
+      "http://farm9.staticflickr.com/8087/8387551525_34e4e51cc3_z.jpg",
+      "http://farm3.staticflickr.com/2080/2505925583_68ff8e24ae_z.jpg",
+      "http://farm3.staticflickr.com/2155/1601082165_688aa0c2e7_z.jpg",
+      "http://farm6.staticflickr.com/5331/9514032125_9430afb6a9_z.jpg",
+      "http://farm3.staticflickr.com/2240/5697123651_31c1119887_z.jpg",
+      "http://farm8.staticflickr.com/7397/9606373937_37d8ca9487_z.jpg",
+      "http://farm5.staticflickr.com/4154/4832252750_36d4196573_z.jpg",
+      "http://farm9.staticflickr.com/8035/8055162508_2142538386_z.jpg",
+      "http://farm3.staticflickr.com/2150/2259915284_0fff851619_z.jpg",
+      "http://farm8.staticflickr.com/7022/6825493903_43f199b9bf_z.jpg",
+      "http://farm3.staticflickr.com/2667/4444559660_ef50d6d70e_z.jpg",
+      "http://farm8.staticflickr.com/7018/6690957773_b94115bb5d_z.jpg",
+      "http://farm8.staticflickr.com/7172/6690972609_c08d75a8bb_z.jpg",
+      "http://farm1.staticflickr.com/167/450867373_6867569304_z.jpg",
+      "http://farm4.staticflickr.com/3243/2970519630_f88800a2cc_z.jpg",
+      "http://farm3.staticflickr.com/2592/4057996751_473d2de7ae_z.jpg",
+      "http://farm3.staticflickr.com/2676/4057997717_ac0b8138e3_z.jpg",
+      "http://farm3.staticflickr.com/2598/3873592699_5d1d4021a7_z.jpg",
+      "http://farm3.staticflickr.com/2632/3909222420_ede0208827_z.jpg",
+      "http://farm1.staticflickr.com/52/181543138_2b5352a951_z.jpg",
+      "http://farm5.staticflickr.com/4138/4809294977_f54a3750cb_z.jpg",
+      "http://farm4.staticflickr.com/3362/3624356537_e435a8c509_z.jpg",
+      "http://farm4.staticflickr.com/3340/3514039016_8408114558_z.jpg",
+      "http://farm3.staticflickr.com/2392/1573508261_51504fad01_z.jpg",
+      "http://farm4.staticflickr.com/3181/3030535949_2590c51c45_z.jpg",
+      "http://farm5.staticflickr.com/4050/4578726045_37c155faae_z.jpg",
+      "http://farm8.staticflickr.com/7440/9753422924_cf310d076e_z.jpg",
+      "http://farm5.staticflickr.com/4138/4800723892_3581aa09fb_z.jpg",
+      "http://farm3.staticflickr.com/2219/2268722570_d9bbdabffc_z.jpg",
+      "http://farm2.staticflickr.com/1207/5177869463_deacd4f58d_z.jpg",
+      "http://farm5.staticflickr.com/4125/4840262155_aa1fc6b90a_z.jpg",
+      "http://farm9.staticflickr.com/8445/7909037350_174696ddaf_z.jpg",
+      "http://farm9.staticflickr.com/8425/7578960798_9011b0e43f_z.jpg",
+      "http://farm8.staticflickr.com/7069/6924285073_2316131ded_z.jpg",
+      "http://farm8.staticflickr.com/7001/6679753659_990f1e17ab_z.jpg",
+      "http://farm8.staticflickr.com/7159/6623474765_d2a9fba4b7_z.jpg",
+      "http://farm4.staticflickr.com/3087/2769437130_3ef3e84473_z.jpg",
+      "http://farm7.staticflickr.com/6216/6245119151_71dc23fb1e_z.jpg",
+      "http://farm8.staticflickr.com/7194/6918082803_30efdd5b9f_z.jpg",
+      "http://farm6.staticflickr.com/5302/5629404691_8d5fa6df9e_z.jpg",
+      "http://farm6.staticflickr.com/5019/5521720231_eaeb97b5c1_z.jpg",
+      "http://farm3.staticflickr.com/2516/3939806632_398c7cc8ff_z.jpg",
+      "http://farm6.staticflickr.com/5163/5347358404_824bed16de_z.jpg",
+      "http://farm2.staticflickr.com/1046/5115130935_d96c1de6d2_z.jpg",
+      "http://farm2.staticflickr.com/1432/5115759894_c40074d838_z.jpg",
+      "http://farm2.staticflickr.com/1211/5121047833_3678d95e55_z.jpg",
+      "http://farm3.staticflickr.com/2606/3796756171_b1686b9b87_z.jpg",
+      "http://farm5.staticflickr.com/4015/4579306316_b41872d3b8_z.jpg",
+      "http://farm5.staticflickr.com/4124/5032564321_76906f5cf0_z.jpg",
+      "http://farm3.staticflickr.com/2723/4430135596_2ce9379f2a_z.jpg",
+      "http://farm9.staticflickr.com/8104/8615414617_462c734dd8_z.jpg",
+      "http://farm1.staticflickr.com/48/136584515_f5c1548da7_z.jpg",
+      "http://farm5.staticflickr.com/4110/4999332699_9e69b6cb34_z.jpg",
+      "http://farm4.staticflickr.com/3133/3127664461_c5364fc53a_z.jpg",
+      "http://farm2.staticflickr.com/1175/834892191_e16ae10b72_z.jpg",
+      "http://farm3.staticflickr.com/2596/3732657676_af6de6d9df_z.jpg",
+      "http://farm6.staticflickr.com/5020/5408902809_49882ddc43_z.jpg",
+      "http://farm3.staticflickr.com/2491/3694226461_faf7c14808_z.jpg"
+    ]
   }
 
 }

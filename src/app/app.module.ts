@@ -224,7 +224,7 @@ import { EverythingComponent } from './escher/everything.component';
       { path: 'escher/dashboard', component: EscherComponent },
       { path: 'escherboard/console', component: TestComponent },
       { path: 'escher/experiment', component: ExperimentComponent },
-      { path: 'escher/datasets', component: ExperimentComponent },
+      { path: 'escher/datasets', component: DatasetsComponent },
       { path: 'escher/model-zoo', component: ExperimentComponent },
       { path: 'escher/everything', component: EverythingComponent },
       // { path: '', component: DashboardComponent, canActivate: [LoggedInGuard] },
