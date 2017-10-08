@@ -1,3 +1,165 @@
-<p>
-  modelzoo works!
-</p>
+<div class="row">
+  <div class="col-12 col-lg-6">
+    <div class="widget">
+      <div class="btn-group btn-group-outline" role="group">
+        <button type="button" class="btn btn-primary btn-outline btn-icon" data-toggle="tooltip" data-placement="top" title="Create New Model">
+          <i class="sli-2x sli-note"></i>
+        </button>
+        <button type="button" class="btn btn-primary btn-outline btn-icon" data-toggle="tooltip" data-placement="top" title="Upload Weights">
+          <i class="sli-2x sli-cloud-upload"></i>
+        </button>
+        <button type="button" class="btn btn-primary btn-outline btn-icon" data-toggle="tooltip" data-placement="top" title="Download Weights">
+          <i class="sli-2x sli-cloud-download"></i>
+        </button>
+        <button type="button" class="btn btn-secondary btn-outline btn-icon" data-toggle="tooltip" data-placement="top" title="Copy">
+          <i class="sli-2x sli-doc"></i>
+        </button>
+        <button type="button" class="btn btn-secondary btn-outline btn-icon" data-toggle="tooltip" data-placement="top" title="Paste">
+          <i class="sli-2x sli-docs"></i>
+        </button>
+        <button type="button" class="btn btn-secondary btn-outline btn-icon" data-toggle="tooltip" data-placement="top" title="Refresh">
+          <i class="sli-2x sli-refresh"></i>
+        </button>
+        <button type="button" class="btn btn-danger btn-outline btn-icon" data-toggle="tooltip" data-placement="top" title="Delete">
+          <i class="sli-2x sli-trash"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="widget">
+    <div class="table-responsive">
+      <table class="table table-hover table-bordered">
+        <thead>
+          <tr>
+            <th class="center">
+              <input type="checkbox">
+            </th>
+            <th>Name of the Model</th>
+            <th>Description</th>
+            <th>No: hidden layers</th>
+            <th>No of iterations trained</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- <tr *ngFor="let model of models">
+            <th class="center">
+              <input type="checkbox">
+            </th>
+            <th>{{model.name}}</th>
+            <th>{{model.description}}</th>
+            <th>{{model.hidden}}</th>
+            <th>{{model.iterations}}</th>
+            <th>
+              <div class="btn-group btn-group-outline" role="group">
+                <button type="button" class="btn btn-primary btn-icon btn-outline" data-toggle="tooltip" placement="top" title="Edit">
+                  <i class="sli-pencil"></i>
+                </button>
+                <button type="button" class="btn btn-secondary btn-icon btn-outline" data-toggle="tooltip" placement="top" title="Download Weights">
+                  <i class="sli-star"></i>
+                </button>
+              </div>
+            </th>
+          </tr> -->
+          <tr>
+            <th class="center">
+              <input type="checkbox">
+            </th>
+            <th>Co-Co Captioning Model</th>
+            <th>Feedforward CNN for object recognition</th>
+            <th>5</th>
+            <th>200</th>
+            <th>
+              <div class="btn-group btn-group-outline" role="group">
+                <button type="button" class="btn btn-primary btn-icon btn-outline" data-toggle="tooltip" placement="top" title="Edit">
+                  <i class="sli-pencil"></i>
+                </button>
+                <button type="button" class="btn btn-secondary btn-icon btn-outline" data-toggle="tooltip" placement="top" title="Download Weights">
+                  <i class="sli-star"></i>
+                </button>
+              </div>
+            </th>
+          </tr>
+          <tr>
+            <th class="center">
+              <input type="checkbox">
+            </th>
+            <th>Co-Co Captioning Model</th>
+            <th>Feedforward CNN for object recognition</th>
+            <th>5</th>
+            <th>200</th>
+            <th>
+              <div class="btn-group btn-group-outline" role="group">
+                <button type="button" class="btn btn-primary btn-icon btn-outline" data-toggle="tooltip" placement="top" title="Edit">
+                  <i class="sli-pencil"></i>
+                </button>
+                <button type="button" class="btn btn-secondary btn-icon btn-outline" data-toggle="tooltip" placement="top" title="Download Weights">
+                  <i class="sli-star"></i>
+                </button>
+              </div>
+            </th>
+          </tr>
+          <tr>
+            <th class="center">
+              <input type="checkbox">
+            </th>
+            <th>Co-Co Captioning Model</th>
+            <th>Feedforward CNN for object recognition</th>
+            <th>5</th>
+            <th>200</th>
+            <th>
+              <div class="btn-group btn-group-outline" role="group">
+                <button type="button" class="btn btn-primary btn-icon btn-outline" data-toggle="tooltip" placement="top" title="Edit">
+                  <i class="sli-pencil"></i>
+                </button>
+                <button type="button" class="btn btn-secondary btn-icon btn-outline" data-toggle="tooltip" placement="top" title="Download Weights">
+                  <i class="sli-star"></i>
+                </button>
+              </div>
+            </th>
+          </tr>
+          <tr>
+            <th class="center">
+              <input type="checkbox">
+            </th>
+            <th>Co-Co Captioning Model</th>
+            <th>Feedforward CNN for object recognition</th>
+            <th>5</th>
+            <th>200</th>
+            <th>
+              <div class="btn-group btn-group-outline" role="group">
+                <button type="button" class="btn btn-primary btn-icon btn-outline" data-toggle="tooltip" placement="top" title="Edit">
+                  <i class="sli-pencil"></i>
+                </button>
+                <button type="button" class="btn btn-secondary btn-icon btn-outline" data-toggle="tooltip" placement="top" title="Download Weights">
+                  <i class="sli-star"></i>
+                </button>
+              </div>
+            </th>
+          </tr>
+          <tr>
+            <th class="center">
+              <input type="checkbox">
+            </th>
+            <th>Co-Co Captioning Model</th>
+            <th>Feedforward CNN for object recognition</th>
+            <th>5</th>
+            <th>200</th>
+            <th>
+              <div class="btn-group btn-group-outline" role="group">
+                <button type="button" class="btn btn-primary btn-icon btn-outline" data-toggle="tooltip" placement="top" title="Edit">
+                  <i class="sli-pencil"></i>
+                </button>
+                <button type="button" class="btn btn-secondary btn-icon btn-outline" data-toggle="tooltip" placement="top" title="Download Weights">
+                  <i class="sli-star"></i>
+                </button>
+              </div>
+            </th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
