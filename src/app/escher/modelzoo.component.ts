@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
 
 declare const $: any;
 
@@ -11,10 +12,18 @@ export class ModelzooComponent implements OnInit {
 
   models: any;
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit() {
-    $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="tooltip"]').tooltip({
+      trigger: 'hover'
+    });
+
+    $('[data-toggle="tooltip"]').on('click', function () {
+      $(this).tooltip('hide')
+  })
 
     this.models = [
       {
@@ -67,6 +76,14 @@ export class ModelzooComponent implements OnInit {
         id: 'co-co1'
       }
     ]
+  }
+
+  goToEscherBoard(): any {
+    this.router.navigate(['escherboard/console'])
+  }
+
+  goToExperiment(): any {
+    this.router.navigate(['escher/experiment'])
   }
 
 }
