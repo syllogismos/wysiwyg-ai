@@ -253,34 +253,41 @@ export class EscherComponent implements OnInit {
         $('#steps .tab-3').trigger('click');
         return false
       }
+
       swal({
         title: 'Are you sure?',
-        text: 'You will be launching machines to train the RL environment according to the config you provided',
+        text: "You will be launching machines to train the RL environment according to the config you provided!",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes!',
-        closeOnConfirm: false
-      }, swal1 => {
+        confirmButtonText: 'Yes, launch machines!'
+      }).then(() => {
         console.log('sending params to the server');
         var params = {}
         $('.rl-params').serializeArray().map(x => params[x.name] = x.value);
         self.http.post('/api/posttest', params)
           .toPromise()
-          .then(response => {
-            console.log('right after post test reponse')
-          })
-        swal({title: 'Running exps!',
-          text: 'Your experiments are starting, redirecting you to the experiment page!.',
+          .then(resonse => {
+            console.log('right after post test response')
+          });
+        swal({
+          title: 'Running Exps!',
+          text: 'Your experiment are starting, redirecting you to the experiment page!',
           type: 'success',
           timer: 5000
-        }, swal2 => {
+        }).then(() => {
           console.log('ok button is clicked');
-          let link = ['escher/experiment']
-          self.router.navigate(link)
-        })
-      })
+          let link = ['escher/experiment'];
+          self.router.navigate(link);
+          }, dismiss => {
+            if (dismiss == 'timer') {
+              console.log('after timer');
+              let link = ['escher/experiment'];
+              self.router.navigate(link);
+            }
+          }).catch(swal.noop)
+      }).catch(swal.noop)
       
       return false
     })
