@@ -320,7 +320,7 @@ export class EscherComponent implements OnInit {
       e.preventDefault();
       return false;
     });
-    $(document).on('blur', element, function (e) {
+    $(document).on('input', element, function (e) {
       e.preventDefault();
       var result = approve.value($(element).val(), rules);
       if (result.approved) {

@@ -45,6 +45,13 @@ export class NavigationService {
           "id": "datasets"
         },
         {
+          "url": "escher/payment",
+          "icon": "sli-wallet",
+          "title": "Payment",
+          "items": [],
+          "id": "payment"
+        },
+        {
           "url": "dashboards/dashboard",
           "icon": "sli-chart",
           "title": "Dashboard",
