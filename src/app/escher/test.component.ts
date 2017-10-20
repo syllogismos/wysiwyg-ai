@@ -43,10 +43,12 @@ export class TestComponent implements OnInit {
   relativePanX: number = 0
   relativePanY: number = 0
   layerColors = {
-    "AF": "#303f9f",
+    "CN": "#303f9f",
+    "AF": "#424242",
     "AC": "#00796b",
     "BN": "#388e3c",
-    "DR": "#1976d2"
+    "DR": "#1976d2",
+    "PL": "#ffa000"
   }
 
   resizeCanvas() {
@@ -143,6 +145,8 @@ export class TestComponent implements OnInit {
     })
 
     this.buildSupportGrid();
+    this.loadCanvasFromCustomSerializedString(this.escherService.msnit);
+    // this.loadResnet18();
     // this.loadCanvasFromString(this.escherService.sample_canvas);
 
     this.canvas.on('mouse:down', options => {
@@ -158,6 +162,10 @@ export class TestComponent implements OnInit {
 
     this.canvas.on('object:selected', options => {
       var object = options.target
+      // if (object.layer_type != null) {
+      //   console.log(object.outputs)
+      //   console.log(object.inputs)
+      // }
       // console.log(object)
       // console.log(object.layer_type)
       if ((this.connectLineFlag || this.disconnectLineFlag) && object.layer_type) {
@@ -293,6 +301,17 @@ export class TestComponent implements OnInit {
     this.connectionOutput = null
   }
 
+  refreshCanvas(): void {
+    this.saveCanvas();
+    this.loadCanvas();
+  }
+
+  loadResnet18(): void {
+    var canvasSerialized = this.escherService.resnet18;
+    this.clearCanvas()
+    this.loadCanvasFromCustomSerializedString(canvasSerialized)
+  }
+
   addLayer(label): void {
     var sourceGroup = this.canvas.getActiveObject();
     var destGroup = this.addRectTextGroup(this.layerColors[label], label, [this.left, this.top])
@@ -309,6 +328,11 @@ export class TestComponent implements OnInit {
     destGroup.outputs = []
     console.log(destGroup.layer_type)
     this.canvas.add(destGroup).setActiveObject(destGroup);
+  }
+
+  addConvLayer(): void {
+    this.addLayer("CN")
+    this.top += 50;
   }
 
   addAffine(): void {
@@ -329,6 +353,11 @@ export class TestComponent implements OnInit {
   addDropout(): void {
     this.addLayer('DR')
     this.top += 50;    
+  }
+
+  addPoolLayer(): void {
+    this.addLayer('PL')
+    this.top += 50;
   }
 
   TestButton(): void {
@@ -365,9 +394,41 @@ export class TestComponent implements OnInit {
   }
 
   /**
-   * Save the canvas into local storage
+   * Custom serialization function
+   * Get all the layer objects, and for each layer store their location
+   * the type of the layer, and their connections with other layers
    */
   saveCanvas(): void {
+    var allObjects = this.canvas.getObjects();
+    var allLayerObjs = _.filter(allObjects, obj => (obj.type != 'line' && obj.type != 'lineArrow'))
+    // console.log(allLayerObjs)
+    var serializedCanvas = _.map(allLayerObjs, obj => this.serializeLayer(obj, allLayerObjs))
+    // console.log(JSON.stringify(serializedCanvas));
+    // console.log(JSON.parse(JSON.stringify(serializedCanvas)));
+    localStorage.setItem('resnet18', JSON.stringify(serializedCanvas));
+  }
+
+  serializeLayer(obj, allLayerObjs): any {
+    if (obj.type != 'line' && obj.type != 'lineArrow') {
+      var destLayers = _.map(obj.outputs, line => line.dest)
+      var destLayersIndices = _.map(destLayers, obj => _.indexOf(allLayerObjs, obj))
+      destLayersIndices = _.filter(destLayersIndices, ind => ind != -1)
+      var sourceLayers = _.map(obj.inputs, line => line.source)
+      var sourceLayersIndices = _.map(sourceLayers, obj => _.indexOf(allLayerObjs, obj))
+      sourceLayersIndices = _.filter(sourceLayersIndices, ind => ind != -1)
+      return {
+        coords: [obj.left, obj.top],
+        layer_type: obj.layer_type,
+        inputs: sourceLayersIndices,
+        outputs: destLayersIndices
+      }
+    }
+  }
+
+  /**
+   * Save the serialized canvas version into local storage
+   */
+  saveCanvasOld(): void {
     localStorage.setItem('fabricCanvas', JSON.stringify(this.canvas.toJSON()));
   }
 
@@ -384,10 +445,55 @@ export class TestComponent implements OnInit {
     this.canvas.requestRenderAll();
   };
 
-  /**
-   * load canvas from local storage
-   */
   loadCanvas(): void {
+    this.clearCanvas();
+    var storageKey = 'resnet18';
+    var fabric_custom_serialized_string = localStorage.getItem(storageKey);
+    if (fabric_custom_serialized_string == null) {
+      console.log('no resnet18 model stored on disk')
+    } else {
+      this.loadCanvasFromCustomSerializedString(fabric_custom_serialized_string)
+    }
+  }
+
+  loadCanvasFromCustomSerializedString(stringCanvas): void {
+    var serializedCanvas = JSON.parse(stringCanvas);
+    var newObjects = []
+    var newObject: any;
+    var layer_type;
+    var coords;
+    for (var serializedObj of serializedCanvas) {
+      coords = serializedObj.coords
+      layer_type = serializedObj.layer_type
+      newObject = this.addRectTextGroup(this.layerColors[layer_type], layer_type, coords)
+      newObject.inputs = []
+      newObject.outputs = []
+      newObjects = newObjects.concat(newObject)
+      this.canvas.add(newObject)
+    }
+
+    var destLayersIndices;
+    for (var i = 0; i < serializedCanvas.length; i++) {
+      destLayersIndices = serializedCanvas[i].outputs;
+      for (var ind of destLayersIndices) {
+        var line = this.makeLine([newObjects[i].left + 100, newObjects[i].top + 25, newObjects[ind].left + 100, newObjects[ind].top + 25])
+        this.canvas.add(line);
+        line.source = newObjects[i]
+        line.dest = newObjects[ind];
+        newObjects[i].outputs = newObjects[i].outputs.concat(line);
+        newObjects[ind].inputs = newObjects[ind].inputs.concat(line);
+      }
+    }
+
+    this.canvas.discardActiveObject();
+    
+    this.canvas.requestRenderAll();
+  }
+
+  /**
+   * load canvas from fabric canvas serialized json stored in localStorage
+   */
+  loadCanvasOld(): void {
     var fabric_canvas_string = localStorage.getItem('fabricCanvas')
     if (fabric_canvas_string == null){
       fabric_canvas_string = this.escherService.sample_canvas;
@@ -476,7 +582,7 @@ export class TestComponent implements OnInit {
         newObject = this.addRectTextGroup(this.layerColors[object.layer_type], object.layer_type, coords)
         newObject.inputs = []
         newObject.outputs = []
-        newObjects = newObjects.concat(newObject)     
+        newObjects = newObjects.concat(newObject)  
         this.canvas.add(newObject)
       }
       // this.canvas.discardActiveObject();

@@ -34,31 +34,41 @@
                     data-placement="top" title="Unlink Layers">
                     <i class="sli-shuffle"></i>
                 </button>
+                <button type="button" (click)="refreshCanvas()" class="btn btn-default btn-circle btn-xs btn-icon" data-toggle="tooltip"
+                data-placement="top" title="Refresh Canvas">
+                <i class="sli-refresh"></i>
+            </button>
             </div>
         </div>
         <div class="row">
-            <button type="button" class="btn btn-primary" (click)="addAffine()">Add Affine Layer</button>
+            <button type="button" class="btn btn-info" (click)="loadResnet18()">Load resnet18</button>
         </div>
         <div class="row">
-            <button type="button" class="btn btn-secondary" (click)="addActivation()">Add Activation</button>
+            <button type="button" class="btn btn-default" (click)="addConvLayer()">Add Conv Layer</button>
         </div>
         <div class="row">
-            <button type="button" class="btn btn-info" (click)="addDropout()">Add Dropout Layer</button>
+            <button type="button" class="btn btn-default" (click)="addAffine()">Add Affine Layer</button>
         </div>
         <div class="row">
-            <button type="button" class="btn btn-success" (click)="addBatchNorm()">Add Batch Norm</button>
+            <button type="button" class="btn btn-default" (click)="addActivation()">Add Activation</button>
         </div>
         <div class="row">
-            <button type="button" class="btn btn-default" (click)="Copy()">Copy Selection</button>
+            <button type="button" class="btn btn-default" (click)="addDropout()">Add Dropout Layer</button>
         </div>
         <div class="row">
-            <button type="button" class="btn btn-default" (click)="Paste()">Paste Selection</button>
+            <button type="button" class="btn btn-default" (click)="addBatchNorm()">Add Batch Norm</button>
+        </div>
+        <div class="row">
+            <button type="button" class="btn btn-default" (click)="addPoolLayer()">Add Pool Layer</button>
+        </div>
+        <div class="row">
+            <button type="button" class="btn btn-warning" (click)="Copy()">Copy Selection</button>
+        </div>
+        <div class="row">
+            <button type="button" class="btn btn-warning" (click)="Paste()">Paste Selection</button>
         </div>
         <div class="row">
             <button type="button" class="btn btn-danger" (click)="Delete()">Delete Selection</button>
-        </div>
-        <div class="row">
-            <button type="button" class="btn btn-warning" (click)="SaveNetwork()">Save Network</button>
         </div>
         <div class="row">
             <button type="button" class="btn btn-default" (click)="TestButton()">Test</button>
