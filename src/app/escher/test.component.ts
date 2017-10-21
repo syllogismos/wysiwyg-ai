@@ -42,6 +42,8 @@ export class TestComponent implements OnInit {
   disconnectLineFlag: boolean = false;
   relativePanX: number = 0
   relativePanY: number = 0
+  localNetworkName = 'local name'
+  currentLayer: any
   layerColors = {
     "CN": "#303f9f",
     "AF": "#424242",
@@ -49,6 +51,36 @@ export class TestComponent implements OnInit {
     "BN": "#388e3c",
     "DR": "#1976d2",
     "PL": "#ffa000"
+  }
+  defaultLayerConfigs = {
+    "CN": {
+      in_channels: "64",
+      out_channels: "64",
+      kernel_size: "3",
+      stride: "1",
+      padding: "0"
+    },
+    "AF": {
+      in_features: "64",
+      out_features: "64"
+    },
+    "AC": {
+      activation_fn: "ReLU"
+    },
+    "BN": {
+      num_features: "64",
+      epsilon: "0.00001",
+      momentum: "0.1"
+    },
+    "DR": {
+      percent: "0.5"
+    },
+    "PL": {
+      pool_type: "maxpool",
+      kernel_size: "3",
+      stride: "",
+      padding: "0"
+    }
   }
 
   resizeCanvas() {
@@ -146,6 +178,7 @@ export class TestComponent implements OnInit {
 
     this.buildSupportGrid();
     this.loadCanvasFromCustomSerializedString(this.escherService.msnit);
+    this.localNetworkName = 'MSNIT'
     // this.loadResnet18();
     // this.loadCanvasFromString(this.escherService.sample_canvas);
 
@@ -160,12 +193,20 @@ export class TestComponent implements OnInit {
       this.left = Math.round(this.left / this.gridSmall) * this.gridSmall
     })
 
+    this.canvas.on('selection:cleared', options => {
+      this.currentLayer = null
+    })
+
     this.canvas.on('object:selected', options => {
       var object = options.target
-      // if (object.layer_type != null) {
-      //   console.log(object.outputs)
-      //   console.log(object.inputs)
-      // }
+      if (object.layer_type != null) {
+        // console.log(object.outputs)
+        // console.log(object.inputs)
+        this.currentLayer = object
+        console.log(object.layerConfig)
+      } else {
+        this.currentLayer = null
+      }
       // console.log(object)
       // console.log(object.layer_type)
       if ((this.connectLineFlag || this.disconnectLineFlag) && object.layer_type) {
@@ -247,7 +288,7 @@ export class TestComponent implements OnInit {
    *
    * Return the fabric Group
    */
-  addRectTextGroup(color, label, coords): any {
+  addRectTextGroup(color, label, coords, layerConfig): any {
 
     var circle = new fabric.Circle({
       radius: 2,
@@ -281,6 +322,7 @@ export class TestComponent implements OnInit {
     })
 
     group.layer_type = label;
+    group.layerConfig = layerConfig;
 
     return group;
   }
@@ -308,13 +350,14 @@ export class TestComponent implements OnInit {
 
   loadResnet18(): void {
     var canvasSerialized = this.escherService.resnet18;
+    this.localNetworkName = "RESNET18"
     this.clearCanvas()
     this.loadCanvasFromCustomSerializedString(canvasSerialized)
   }
 
-  addLayer(label): void {
+  addLayer(label, layerConfig): void {
     var sourceGroup = this.canvas.getActiveObject();
-    var destGroup = this.addRectTextGroup(this.layerColors[label], label, [this.left, this.top])
+    var destGroup = this.addRectTextGroup(this.layerColors[label], label, [this.left, this.top], layerConfig)
     if (sourceGroup && sourceGroup.layer_type) {
       var line = this.makeLine([sourceGroup.left + 100, sourceGroup.top + 25, destGroup.left + 100, destGroup.top + 25])
       this.canvas.add(line);
@@ -331,32 +374,32 @@ export class TestComponent implements OnInit {
   }
 
   addConvLayer(): void {
-    this.addLayer("CN")
+    this.addLayer("CN", this.defaultLayerConfigs.CN)
     this.top += 50;
   }
 
   addAffine(): void {
-    this.addLayer('AF')
+    this.addLayer('AF', this.defaultLayerConfigs.AF)
     this.top += 50;
   }
 
   addBatchNorm(): void {
-    this.addLayer('BN')
+    this.addLayer('BN', this.defaultLayerConfigs.BN)
     this.top += 50;
   }
 
   addActivation(): void {
-    this.addLayer('AC')
+    this.addLayer('AC', this.defaultLayerConfigs.AC)
     this.top += 50;
   }
 
   addDropout(): void {
-    this.addLayer('DR')
+    this.addLayer('DR', this.defaultLayerConfigs.DR)
     this.top += 50;    
   }
 
   addPoolLayer(): void {
-    this.addLayer('PL')
+    this.addLayer('PL', this.defaultLayerConfigs.PL)
     this.top += 50;
   }
 
@@ -400,6 +443,7 @@ export class TestComponent implements OnInit {
    */
   saveCanvas(): void {
     var allObjects = this.canvas.getObjects();
+    localStorage.setItem('localFabricName', this.localNetworkName)
     var allLayerObjs = _.filter(allObjects, obj => (obj.type != 'line' && obj.type != 'lineArrow'))
     // console.log(allLayerObjs)
     var serializedCanvas = _.map(allLayerObjs, obj => this.serializeLayer(obj, allLayerObjs))
@@ -416,11 +460,18 @@ export class TestComponent implements OnInit {
       var sourceLayers = _.map(obj.inputs, line => line.source)
       var sourceLayersIndices = _.map(sourceLayers, obj => _.indexOf(allLayerObjs, obj))
       sourceLayersIndices = _.filter(sourceLayersIndices, ind => ind != -1)
+      var layerConfig;
+      if (obj.layerConfig) {
+        layerConfig = obj.layerConfig
+      } else {
+        layerConfig = {}
+      }
       return {
         coords: [obj.left, obj.top],
         layer_type: obj.layer_type,
         inputs: sourceLayersIndices,
-        outputs: destLayersIndices
+        outputs: destLayersIndices,
+        layerConfig: layerConfig
       }
     }
   }
@@ -448,6 +499,7 @@ export class TestComponent implements OnInit {
   loadCanvas(): void {
     this.clearCanvas();
     var storageKey = 'localFabricCanvas';
+    this.localNetworkName = localStorage.getItem('localFabricName');
     var fabric_custom_serialized_string = localStorage.getItem(storageKey);
     if (fabric_custom_serialized_string == null) {
       console.log('no local fabric canvas model stored on disk')
@@ -462,10 +514,16 @@ export class TestComponent implements OnInit {
     var newObject: any;
     var layer_type;
     var coords;
+    var layerConfig;
     for (var serializedObj of serializedCanvas) {
       coords = serializedObj.coords
       layer_type = serializedObj.layer_type
-      newObject = this.addRectTextGroup(this.layerColors[layer_type], layer_type, coords)
+      if (serializedObj.layerConfig) {
+        layerConfig = serializedObj.layerConfig
+      } else {
+        layerConfig = {}
+      }
+      newObject = this.addRectTextGroup(this.layerColors[layer_type], layer_type, coords, layerConfig)
       newObject.inputs = []
       newObject.outputs = []
       newObjects = newObjects.concat(newObject)
@@ -509,6 +567,7 @@ export class TestComponent implements OnInit {
     this.buildSupportGrid();
     this.canvas.requestRenderAll();
     this.top = 50;
+    this.localNetworkName = "new name"
   }
 
 
@@ -572,14 +631,17 @@ export class TestComponent implements OnInit {
     // console.log(this.canvas.getActiveObjects())
     // console.log(this._clipboard.objects.length)
     if (this._clipboard.objects.length && this._clipboard.objects.length > 1) {
+      this.canvas.discardActiveObject()
       // case when multiple layers are selected, you recreate all the layers seperately
       // and within in the selection create the connections/arrows as well
       var newObjects = [];
       var newObject: any;
       var coords = [0, 0]
+      console.log([this._clipboard.relativeLeft, this._clipboard.relativeTop])
       for (var object of this._clipboard.objects) {
-        coords = [object.left + this._clipboard.relativeLeft + 50, object.top + this._clipboard.relativeTop + 50]
-        newObject = this.addRectTextGroup(this.layerColors[object.layer_type], object.layer_type, coords)
+        console.log([object.left, object.top])        
+        coords = [object.left + 50, object.top + 50]
+        newObject = this.addRectTextGroup(this.layerColors[object.layer_type], object.layer_type, coords, object.layerConfig)
         newObject.inputs = []
         newObject.outputs = []
         newObjects = newObjects.concat(newObject)  
@@ -628,7 +690,7 @@ export class TestComponent implements OnInit {
       // just below the old one.
       var layer = this._clipboard.objects[0]
       var layer_type = layer.layer_type;
-      var newLayer = this.addRectTextGroup(this.layerColors[layer_type], layer_type, [layer.left, layer.top + 50])
+      var newLayer = this.addRectTextGroup(this.layerColors[layer_type], layer_type, [layer.left, layer.top + 50], layer.layerConfig)
       newLayer.inputs = []
       newLayer.outputs = []
       this.canvas.add(newLayer)

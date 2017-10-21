@@ -1,4 +1,191 @@
 <!-- <h2> Escher Board </h2> -->
+<div class="row row-top">
+    <div class="col-2">
+        <div class="text-widget-1 text-left">
+            <div class="row flex-items-xs-middle">
+                <div class="col">
+                    <div class="title">Name</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div>
+                        <input [(ngModel)]="localNetworkName" type="text" placeholder="canvas name">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="currentLayer" class="col-2">
+        <div class="text-widget-1 text-left">
+            <div class="row flex-items-xs-middle">
+                <div class="col">
+                    <div class="title">Layer Config</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-8">
+        <div *ngIf="currentLayer && currentLayer.layer_type == 'AC'">
+            <div class="row">
+                <div class="col">
+                    <form>
+                        <div class="row">
+                            <div class="col-2">
+                                <select [(ngModel)]="currentLayer.layerConfig.activation_fn" class="form-control" name="acl_activation_fn">
+                                    <option value="ReLU">ReLU</option>
+                                    <option value="tanh">tanh</option>
+                                </select>
+                                <small class="form-text text-muted">Activation Function</small>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="currentLayer && currentLayer.layer_type == 'PL'">
+            <div class="row">
+                <div class="col">
+                    <form>
+                        <div class="row">
+                            <div class="col-2">
+                                <select [(ngModel)]="currentLayer.layerConfig.pool_type" class="form-control" name="mpl_pool_type">
+                                    <option value="maxpool">Max Pool</option>
+                                    <option value="avgpool">Average Pool</option>
+                                </select>
+                                <small class="form-text text-muted">Pool Layer type</small>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <input [(ngModel)]="currentLayer.layerConfig.kernel_size" type="text" name="mpl_kernel_size" class="form-control" placeholder="3">
+                                    <small class="form-text text-muted">MaxPool Layer Kernel size</small>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <input [(ngModel)]="currentLayer.layerConfig.stride" type="text" name="mpl_stride" class="form-control" placeholder="1">
+                                    <small class="form-text text-muted">MaxPool Layer stride</small>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <input [(ngModel)]="currentLayer.layerConfig.padding" type="text" name="mpl_padding" class="form-control" placeholder="1">
+                                    <small class="form-text text-muted">MaxPool Layer padding</small>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="currentLayer && currentLayer.layer_type == 'AF'">
+            <div class="row">
+                <div class="col">
+                    <form>
+                        <div class="row">
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <input [(ngModel)]="currentLayer.layerConfig.in_features" type="text" name="afl_in_features" class="form-control" placeholder="64">
+                                    <small class="form-text text-muted">Affine Layer In features</small>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <input [(ngModel)]="currentLayer.layerConfig.out_features" type="text" name="afl_out_features" class="form-control" placeholder="64">
+                                    <small class="form-text text-muted">Affine Layer Out features</small>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="currentLayer && currentLayer.layer_type == 'CN'">
+            <div class="row">
+                <div class="col">
+                    <form>
+                        <div class="row">
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <input [(ngModel)]="currentLayer.layerConfig.in_channels" type="text" name="cnl_in_channels" class="form-control" placeholder="64">
+                                    <small class="form-text text-muted">Conv Layer In Channel</small>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <input [(ngModel)]="currentLayer.layerConfig.out_channels" type="text" name="cnl_out_channels" class="form-control" placeholder="64">
+                                    <small class="form-text text-muted">Conv Layer Out Channel</small>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <input [(ngModel)]="currentLayer.layerConfig.kernel_size" type="text" name="cnl_kernel_size" class="form-control" placeholder="3">
+                                    <small class="form-text text-muted">Conv Layer Kernel Size</small>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <input [(ngModel)]="currentLayer.layerConfig.stride" type="text" name="cnl_stride" class="form-control" placeholder="1">
+                                    <small class="form-text text-muted">Conv Layer stride</small>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <input [(ngModel)]="currentLayer.layerConfig.padding" type="text" name="cnl_padding" class="form-control" placeholder="1">
+                                    <small class="form-text text-muted">Conf Layer padding</small>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="currentLayer && currentLayer.layer_type == 'BN'">
+            <div class="row">
+                <div class="col">
+                    <form>
+                        <div class="row">
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <input [(ngModel)]="currentLayer.layerConfig.num_features" type="text" name="bnl_num_features" class="form-control" placeholder="64">
+                                    <small class="form-text text-muted">Batch Norm Layer num features</small>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <input [(ngModel)]="currentLayer.layerConfig.epsilon" type="text" name="bnl_epsilon" class="form-control" placeholder="0.000001">
+                                    <small class="form-text text-muted">Batch Norm Layer Epsilon</small>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <input [(ngModel)]="currentLayer.layerConfig.momentum" type="text" name="bnl_momentum" class="form-control" placeholder="0.1">
+                                    <small class="form-text text-muted">Batch Norm Layer momentum</small>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="currentLayer && currentLayer.layer_type == 'DR'">
+            <div class="row">
+                <div class="col">
+                    <form>
+                        <div class="row">
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <input [(ngModel)]="currentLayer.layerConfig.percent" type="text" name="drl_percent" class="form-control" placeholder="0.1">
+                                    <small class="form-text text-muted">Dropout Layer percent</small>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div id="canvasWrapper" class="col-9">
         <canvas id="canvas" style="border: 1px solid #ccc"></canvas>
@@ -35,9 +222,9 @@
                     <i class="sli-shuffle"></i>
                 </button>
                 <button type="button" (click)="refreshCanvas()" class="btn btn-default btn-circle btn-xs btn-icon" data-toggle="tooltip"
-                data-placement="top" title="Refresh Canvas">
-                <i class="sli-refresh"></i>
-            </button>
+                    data-placement="top" title="Refresh Canvas">
+                    <i class="sli-refresh"></i>
+                </button>
             </div>
         </div>
         <div class="row">
