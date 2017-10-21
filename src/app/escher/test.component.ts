@@ -405,7 +405,7 @@ export class TestComponent implements OnInit {
     var serializedCanvas = _.map(allLayerObjs, obj => this.serializeLayer(obj, allLayerObjs))
     // console.log(JSON.stringify(serializedCanvas));
     // console.log(JSON.parse(JSON.stringify(serializedCanvas)));
-    localStorage.setItem('resnet18', JSON.stringify(serializedCanvas));
+    localStorage.setItem('localFabricCanvas', JSON.stringify(serializedCanvas));
   }
 
   serializeLayer(obj, allLayerObjs): any {
@@ -447,10 +447,10 @@ export class TestComponent implements OnInit {
 
   loadCanvas(): void {
     this.clearCanvas();
-    var storageKey = 'resnet18';
+    var storageKey = 'localFabricCanvas';
     var fabric_custom_serialized_string = localStorage.getItem(storageKey);
     if (fabric_custom_serialized_string == null) {
-      console.log('no resnet18 model stored on disk')
+      console.log('no local fabric canvas model stored on disk')
     } else {
       this.loadCanvasFromCustomSerializedString(fabric_custom_serialized_string)
     }
@@ -662,6 +662,8 @@ export class TestComponent implements OnInit {
     function stopPan(event) {
       $(window).off('mousemove', continuePan);
       $(window).off('mouseup', stopPan);
+      // refreshes the canvas, because connecting lines disappear while panning
+      self.refreshCanvas()
     };
     $(window).mousemove(continuePan);
     $(window).mouseup(stopPan);
