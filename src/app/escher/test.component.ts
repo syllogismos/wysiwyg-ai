@@ -728,6 +728,7 @@ export class TestComponent implements OnInit {
     if (event.button != 2) {
       return;
     }
+    this.canvas.discardActiveObject().requestRenderAll()
     var self = this
     var x0 = event.screenX,
       y0 = event.screenY;
