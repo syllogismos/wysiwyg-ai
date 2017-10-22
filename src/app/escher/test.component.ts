@@ -87,7 +87,7 @@ export class TestComponent implements OnInit {
     this.canvas.setWidth(this.canvasWrapper.width());
     this.canvas.renderAll();
   }
-  
+
   ngOnInit() {
 
     /**
@@ -140,7 +140,7 @@ export class TestComponent implements OnInit {
     };
 
     fabric.LineArrow.async = true;
-      
+
 
     $('[data-toggle="tooltip"]').tooltip();
     this.canvas = new fabric.Canvas('canvas')
@@ -154,7 +154,7 @@ export class TestComponent implements OnInit {
     // resize on init
     this.canvas.setHeight(900);
     this.resizeCanvas();
-    
+
 
     $("#canvasWrapper").on('mousedown', e => {
       this.startPan(this.canvas, e);
@@ -177,8 +177,9 @@ export class TestComponent implements OnInit {
     })
 
     this.buildSupportGrid();
-    this.loadCanvasFromCustomSerializedString(this.escherService.msnit);
-    this.localNetworkName = 'MSNIT'
+    // this.loadCanvasFromCustomSerializedString(this.escherService.mnist);
+    // this.localNetworkName = 'MNIST'
+    this.loadResnet18();
     // this.loadResnet18();
     // this.loadCanvasFromString(this.escherService.sample_canvas);
 
@@ -233,6 +234,8 @@ export class TestComponent implements OnInit {
             var lines = _.intersection(this.connectionInput.outputs, this.connectionOutput.inputs);
             if (lines.length) {
               this.canvas.remove.apply(this.canvas, lines);
+              this.connectionInput.outputs = _.difference(this.connectionInput.outputs, lines)
+              this.connectionOutput.inputs = _.difference(this.connectionOutput.inputs, lines)
             }
             this.disconnectLineFlag = false;
             this.connectionInput = null;
@@ -243,24 +246,24 @@ export class TestComponent implements OnInit {
     });
 
     this.canvas.on('object:moving', options => {
-      
+
       var object = options.target;
-      
+
       object.set({
         left: Math.round(options.target.left / this.gridSmall) * this.gridSmall,
         top: Math.round(options.target.top / this.gridSmall) * this.gridSmall
       });
-      
+
       if (object.layer_type != null) {
         for (var line of object.inputs) {
           line.set({ x2: object.left + 100, y2: object.top + 25 })
         }
-      
+
         for (var line of object.outputs) {
           line.set({ x1: object.left + 100, y1: object.top + 25 })
         }
       }
-      
+
       for (var groupObject of object._objects) {
         // console.log(groupObject.layer_type);
         if (groupObject.layer_type != null) {
@@ -276,7 +279,7 @@ export class TestComponent implements OnInit {
       }
 
     });
-    
+
 
   }
 
@@ -336,7 +339,7 @@ export class TestComponent implements OnInit {
   }
 
   removeConnection(): void {
-    this.canvas.discardActiveObject()    
+    this.canvas.discardActiveObject()
     this.disconnectLineFlag = true
     this.connectLineFlag = false
     this.connectionInput = null
@@ -350,9 +353,15 @@ export class TestComponent implements OnInit {
 
   loadResnet18(): void {
     var canvasSerialized = this.escherService.resnet18;
-    this.localNetworkName = "RESNET18"
     this.clearCanvas()
+    this.localNetworkName = "RESNET18"
     this.loadCanvasFromCustomSerializedString(canvasSerialized)
+  }
+
+  loadMNIST(): void {
+    this.clearCanvas()
+    this.loadCanvasFromCustomSerializedString(this.escherService.mnist);
+    this.localNetworkName = 'MNIST'
   }
 
   addLayer(label, layerConfig): void {
@@ -395,7 +404,7 @@ export class TestComponent implements OnInit {
 
   addDropout(): void {
     this.addLayer('DR', this.defaultLayerConfigs.DR)
-    this.top += 50;    
+    this.top += 50;
   }
 
   addPoolLayer(): void {
@@ -544,7 +553,7 @@ export class TestComponent implements OnInit {
     }
 
     this.canvas.discardActiveObject();
-    
+
     this.canvas.requestRenderAll();
   }
 
@@ -553,7 +562,7 @@ export class TestComponent implements OnInit {
    */
   loadCanvasOld(): void {
     var fabric_canvas_string = localStorage.getItem('fabricCanvas')
-    if (fabric_canvas_string == null){
+    if (fabric_canvas_string == null) {
       fabric_canvas_string = this.escherService.sample_canvas;
     }
     this.loadCanvasFromString(fabric_canvas_string);
@@ -593,8 +602,8 @@ export class TestComponent implements OnInit {
     var activeObject = this.canvas.getActiveObject()
     this._clipboard = {
       objects: this.canvas.getActiveObjects(),
-      relativeTop: activeObject.top + activeObject.height/2,
-      relativeLeft: activeObject.left + activeObject.width/2
+      relativeTop: activeObject.top + activeObject.height / 2,
+      relativeLeft: activeObject.left + activeObject.width / 2
     };
   }
   /**
@@ -639,12 +648,12 @@ export class TestComponent implements OnInit {
       var coords = [0, 0]
       console.log([this._clipboard.relativeLeft, this._clipboard.relativeTop])
       for (var object of this._clipboard.objects) {
-        console.log([object.left, object.top])        
+        console.log([object.left, object.top])
         coords = [object.left + 50, object.top + 50]
         newObject = this.addRectTextGroup(this.layerColors[object.layer_type], object.layer_type, coords, object.layerConfig)
         newObject.inputs = []
         newObject.outputs = []
-        newObjects = newObjects.concat(newObject)  
+        newObjects = newObjects.concat(newObject)
         this.canvas.add(newObject)
       }
       // this.canvas.discardActiveObject();
@@ -682,7 +691,7 @@ export class TestComponent implements OnInit {
       })
       this.canvas.setActiveObject(selection)
 
-      
+
 
       this.canvas.requestRenderAll()
     } else if (this._clipboard.objects.length && this._clipboard.objects.length == 1) {
@@ -698,13 +707,13 @@ export class TestComponent implements OnInit {
     }
   }
 
-    /**
-   * Helper function that handles panning of the fabric canvas, that is
-   * this helper is to be bound to the div wrapping the canvas element
-   * on mousedown event
-   * @param canvas fabric, canvas element inside the canvas wrapper
-   * @param event event params given by the mousedown even
-   */
+  /**
+ * Helper function that handles panning of the fabric canvas, that is
+ * this helper is to be bound to the div wrapping the canvas element
+ * on mousedown event
+ * @param canvas fabric, canvas element inside the canvas wrapper
+ * @param event event params given by the mousedown even
+ */
   startPan(canvas, event): void {
     if (event.button != 2) {
       return;
