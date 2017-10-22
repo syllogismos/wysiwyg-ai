@@ -184,6 +184,28 @@
                 </div>
             </div>
         </div>
+        <div *ngIf="currentLayer && currentLayer.layer_type == 'RS'">
+            <div class="row">
+                <div class="col">
+                    <form>
+                        <div class="row">
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <input [(ngModel)]="currentLayer.layerConfig.x" type="text" name="rsl_x" class="form-control" placeholder="">
+                                    <small class="form-text text-muted">Reshape Layer x dim</small>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <input [(ngModel)]="currentLayer.layerConfig.y" type="text" name="rsl_y" class="form-control" placeholder="">
+                                    <small class="form-text text-muted">Reshape Layer y dim</small>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <div class="row">
@@ -231,7 +253,7 @@
             <button type="button" class="btn btn-info" (click)="loadResnet18()">Load resnet18</button>
         </div>
         <div class="row">
-                <button type="button" class="btn btn-info" (click)="loadMNIST()">Load MNIST</button>
+            <button type="button" class="btn btn-info" (click)="loadMNIST()">Load MNIST</button>
         </div>
         <div class="row">
             <button type="button" class="btn btn-default" (click)="addConvLayer()">Add Conv Layer</button>
@@ -250,6 +272,9 @@
         </div>
         <div class="row">
             <button type="button" class="btn btn-default" (click)="addPoolLayer()">Add Pool Layer</button>
+        </div>
+        <div class="row">
+            <button type="button" class="btn btn-default" (click)="addReshapeLayer()">Add Reshape Layer</button>
         </div>
         <div class="row">
             <button type="button" class="btn btn-warning" (click)="Copy()">Copy Selection</button>

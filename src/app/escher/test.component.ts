@@ -50,7 +50,8 @@ export class TestComponent implements OnInit {
     "AC": "#00796b",
     "BN": "#388e3c",
     "DR": "#1976d2",
-    "PL": "#ffa000"
+    "PL": "#ffa000",
+    "RS": "#dff0d8"
   }
   defaultLayerConfigs = {
     "CN": {
@@ -80,6 +81,10 @@ export class TestComponent implements OnInit {
       kernel_size: "3",
       stride: "",
       padding: "0"
+    },
+    "RS": {
+      x: "",
+      y: ""
     }
   }
 
@@ -409,6 +414,11 @@ export class TestComponent implements OnInit {
 
   addPoolLayer(): void {
     this.addLayer('PL', this.defaultLayerConfigs.PL)
+    this.top += 50;
+  }
+
+  addReshapeLayer(): void {
+    this.addLayer('RS', this.defaultLayerConfigs.RS)
     this.top += 50;
   }
 
