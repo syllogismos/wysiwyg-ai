@@ -153,11 +153,14 @@ export class TestComponent implements OnInit {
 
     new ResizeSensor(this.canvasWrapper, e => {
       this.canvas.setWidth(this.canvasWrapper.width());
+      console.log(this.canvasWrapper.innerHeight());
+      this.canvas.setHeight(this.canvasWrapper.innerHeight());
       this.canvas.renderAll();
     })
 
     // resize on init
-    this.canvas.setHeight(900);
+    // this.canvas.setHeight(800);
+    this.canvas.setHeight(this.canvasWrapper.innerHeight());
     this.resizeCanvas();
 
 
