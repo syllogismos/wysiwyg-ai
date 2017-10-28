@@ -97,7 +97,7 @@ router.post('/register', (req, res) => {
 
       // synchronously hash password and store it in db
       newUser.password = bcrypt.hashSync(newUser.password, bcryptSalt);
-      newUser.roles = ['student'];
+      newUser.roles = [];
       newUser.save((err, user) => {
         req.login(user, (err) => {
           if (err) {

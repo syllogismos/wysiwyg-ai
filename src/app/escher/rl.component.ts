@@ -11,11 +11,11 @@ declare var swal: any;
 
 @Component({
   selector: 'app-escher',
-  templateUrl: './escher.component.html',
-  styleUrls: ['./escher.component.scss'],
+  templateUrl: './rl.component.html',
+  styleUrls: ['./rl.component.scss'],
   providers: [GymEnvsService, ColorsService]
 })
-export class EscherComponent implements OnInit {
+export class RlComponent implements OnInit {
 
   public gymEnvIds: Array<string>;
 

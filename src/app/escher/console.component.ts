@@ -14,16 +14,16 @@ import 'rxjs/add/observable/fromEvent';
 
 @Component({
   selector: 'app-test',
-  templateUrl: './test.component.html',
+  templateUrl: './console.component.html',
   styleUrls: [
-    './test.component.scss',
+    './console.component.scss',
   ],
   providers: [
     EscherService
   ]
 })
 
-export class TestComponent implements OnInit {
+export class ConsoleComponent implements OnInit {
 
   constructor(
     private escherService: EscherService

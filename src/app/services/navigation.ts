@@ -10,14 +10,14 @@ export class NavigationService {
       "title": "Menu",
       "items": [
         {
-          "url": "escherboard/console",
+          "url": "escher/console",
           "icon": "sli-notebook",
           "title": "Escher Board",
           "items": [],
           "id": "escher"
         },
         {
-          "url": "escher/dashboard",
+          "url": "escher/rl",
           "icon": "sli-graph",
           "title": "Reinforcement Learning",
           "items": [],

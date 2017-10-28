@@ -103,8 +103,8 @@ import { TypeaheadComponent } from './forms/typeahead';
 import { LoggedOutGuard } from "app/guards/logged-out.guard";
 import { LoggedInGuard } from "app/guards/logged-in.guard";
 import { AuthService } from "app/services/auth.service";
-import { EscherComponent } from './escher/escher.component';
-import { TestComponent } from './escher/test.component';
+import { RlComponent } from './escher/rl.component';
+import { ConsoleComponent } from './escher/console.component';
 import { ExperimentComponent } from './escher/experiment.component';
 import { DatasetsComponent } from './escher/datasets.component';
 import { ModelzooComponent } from './escher/modelzoo.component';
@@ -209,8 +209,8 @@ import { PaymentComponent } from './escher/payment.component';
     DatepickerComponent,
     CardsComponent,
     TypeaheadComponent,
-    EscherComponent,
-    TestComponent,
+    RlComponent,
+    ConsoleComponent,
     ExperimentComponent,
     DatasetsComponent,
     ModelzooComponent,
@@ -223,8 +223,8 @@ import { PaymentComponent } from './escher/payment.component';
     ReactiveFormsModule,
     HttpModule,
     RouterModule.forRoot([
-      { path: 'escher/dashboard', component: EscherComponent, canActivate: [LoggedInGuard] },
-      { path: 'escherboard/console', component: TestComponent, canActivate: [LoggedInGuard] },
+      { path: 'escher/rl', component: RlComponent, canActivate: [LoggedInGuard] },
+      { path: 'escher/console', component: ConsoleComponent, canActivate: [LoggedInGuard] },
       { path: 'escher/experiment', component: ExperimentComponent, canActivate: [LoggedInGuard] },
       { path: 'escher/datasets', component: DatasetsComponent, canActivate: [LoggedInGuard] },
       { path: 'escher/model-zoo', component: ModelzooComponent, canActivate: [LoggedInGuard] },
@@ -232,7 +232,7 @@ import { PaymentComponent } from './escher/payment.component';
       { path: 'escher/payment', component: PaymentComponent, canActivate: [LoggedInGuard] },
       // { path: '', component: DashboardComponent, canActivate: [LoggedInGuard] },
       // { path: '', component: DashboardComponent },  
-      { path: '', component: TestComponent, canActivate: [LoggedInGuard] },          
+      { path: '', component: ConsoleComponent, canActivate: [LoggedInGuard] },          
       { path: 'apps/calendar', component: CalendarComponent },
       { path: 'notifications/sweet-alert-2', component: SweetAlert2Component },
       { path: 'notifications/toastr', component: ToastrComponent },
