@@ -4,6 +4,8 @@ import { Router } from "@angular/router";
 
 import "rxjs/add/operator/toPromise";
 
+declare var approve: any;
+
 @Component({
   selector: 'create-account',
   templateUrl: '../pages/create-account.html'

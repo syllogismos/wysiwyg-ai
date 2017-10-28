@@ -114,4 +114,13 @@ router.post('/register', (req, res) => {
   })
 })
 
+router.post('/updateAccount', (req, res) => {
+  mongooseConfig.UserModel.findOne({ username: req.body.username }, (err, user) => {
+    if (user) {
+      console.log("user exists, updating user according to submission");
+      
+    }
+  })
+})
+
 module.exports = router;
