@@ -60,7 +60,7 @@ export class ExperimentComponent implements OnInit {
       
       this.lineChart1('#avg-return-line-chart', [mean, maxMean], iteration)
       this.lineChart1('#max-kl-line-chart', [pol_before, pol_after], iteration)
-      console.log(this.experimentLogs.EpLenMean)
+      // console.log(this.experimentLogs.EpLenMean)
     }, 'json');
 
     this.easyPieChart('.easy-pie-chart-primary-xs', this.colors['primary'], this.palette['borderColor'], 100);

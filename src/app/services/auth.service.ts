@@ -14,8 +14,9 @@ export class AuthService {
     return this.http.get('/api/loggedin')
       .toPromise()
       .then(response => {
-        console.log("just called api/loggedin")
-        console.log(response.json())
+        // console.log("just called api/loggedin")
+        // console.log(response.json())
+        localStorage.setItem('user', JSON.stringify(response.json()))        
         return response.json() === 0
       })
       .catch(this.handleHttpError)
