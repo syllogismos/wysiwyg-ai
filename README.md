@@ -51,3 +51,8 @@ Before running the tests make sure you are serving the app via `ng serve`.
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
+## Notes
+
+1. Generate Random Avatar https://jsfiddle.net/desaroxx/jp4pmd2u/
+2. 
+
