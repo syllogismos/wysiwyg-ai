@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     console.log('Im stupid');
 
     this.http.post('/api/login', {
-      'username': email,
+      'email': email,
       'password': password
     }).toPromise()
       .then(response => {

@@ -10,6 +10,8 @@ var UserSchema = mongoose.Schema({
   email: String,
   firstName: String,
   lastName: String,
+  company: String,
+  position: String,
   roles: [String]
 })
 

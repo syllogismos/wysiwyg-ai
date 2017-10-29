@@ -33,12 +33,12 @@ router.post('/posttest', (req, res) => {
 
 passport.use(new LocalStrategy(
   {
-    usernameField: 'username',
+    usernameField: 'email',
     passwordField: 'password'
   },
-  function (username, password, done) {
+  function (email, password, done) {
 
-    mongooseConfig.UserModel.findOne({ username: username }, function (err, user) {
+    mongooseConfig.UserModel.findOne({ email: email }, function (err, user) {
       if (user) {
         if (bcrypt.compareSync(password, user.password)) {
           return done(null, user)
@@ -64,8 +64,8 @@ passport.deserializeUser(function (user, done) {
 router.post('/login', passport.authenticate('local'), (req, res) => {
   // console.log(req.body)
   // console.log('api login')
-  // console.log(req.user)
-  // console.log('@@@@@@@@@@@@@@@@@')
+  console.log(req.user)
+  console.log('@@@@@@@@@@@@@@@@@')
   res.json(req.user)
 })
 
@@ -88,7 +88,7 @@ router.post('/logout', (req, res) => {
 // registers a new user
 router.post('/register', (req, res) => {
   // console.log(req.body);
-  mongooseConfig.UserModel.findOne({ username: req.body.username }, (err, user) => {
+  mongooseConfig.UserModel.findOne({ email: req.body.email }, (err, user) => {
     if (user) {
       res.json(null);
       return;
@@ -115,10 +115,38 @@ router.post('/register', (req, res) => {
 })
 
 router.post('/updateAccount', (req, res) => {
-  mongooseConfig.UserModel.findOne({ username: req.body.username }, (err, user) => {
+  mongooseConfig.UserModel.findById(req.user._id, (err, user) => {
     if (user) {
-      console.log("user exists, updating user according to submission");
-      
+      user.firstName = req.body.firstName;
+      user.lastName = req.body.lastName;
+      user.company = req.body.company;
+      user.position = req.body.position;
+      user.save((err, user) => {
+        req.login(user, (err) => {
+          if (err) {
+            return next(err);
+          } else {
+            return res.json(user)
+          }
+        })
+      })
+    }
+  })
+})
+
+router.post('/updateEmail', (req, res) => {
+  mongooseConfig.UserModel.findById(req.user._id, (err, user) => {
+    if (user) {
+      user.email = req.body.accountEmail;
+      user.save((err, user) => {
+        req.login(user, (err) => {
+          if (err) {
+            return next(err);
+          } else {
+            return res.json(user)
+          }
+        })
+      })
     }
   })
 })

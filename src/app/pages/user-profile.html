@@ -3,9 +3,13 @@
     <div class="col">
         <div class="user-profile-top">
             <img class="rounded-circle" src="/assets/faces/avatar.png" alt="image" />
-            <h5>Tanushree Nori</h5>
-            <p>
+            <h5 *ngIf="!user.firstName" class="name">{{user.username}}</h5>
+            <h5 *ngIf="user.firstName" class="name">{{user.firstName}} {{user.lastName}}</h5>            
+            <p *ngIf="!user.position">
                 ML Engineer </p>
+            <p *ngIf="user.position">
+                {{user.position}}
+            </p>
             <div class="row text-center buttons">
                 <div class="col">
                     <div class="row flex-items-xs-middle">
@@ -54,7 +58,7 @@
                                                     <span class="input-group-addon">
 																													<i class="sli-user-follow"></i>
 																												</span>
-                                                    <input type="text" class="form-control" placeholder="Tanushree">
+                                                    <input type="text" class="account-settings form-control" value={{user.firstName}} placeholder="first name" name="firstName">
                                                 </div>
                                             </div>
                                             <p>Last name</p>
@@ -63,7 +67,7 @@
                                                     <span class="input-group-addon">
 																													<i class="sli-user-following"></i>
 																												</span>
-                                                    <input type="text" class="form-control" placeholder="Nori">
+                                                    <input type="text" class="account-settings form-control" value={{user.lastName}} placeholder="last name" name="lastName">
                                                 </div>
                                             </div>
                                             <p>Company</p>
@@ -72,7 +76,7 @@
                                                     <span class="input-group-addon">
 																													<i class="sli-map"></i>
 																												</span>
-                                                    <input type="text" class="form-control" placeholder="Facebook">
+                                                    <input type="text" class="account-settings form-control" value={{user.company}} placeholder="company" name="company">
                                                 </div>
                                             </div>
                                             <p>Position</p>
@@ -81,20 +85,11 @@
                                                     <span class="input-group-addon">
 																													<i class="sli-star"></i>
 																												</span>
-                                                    <input type="text" class="form-control" placeholder="ML Engineer">
+                                                    <input type="text" class="account-settings form-control" value={{user.position}} placeholder="ML Engineer" name="position">
                                                 </div>
                                             </div>
-                                            <p>Language</p>
                                             <div class="form-group">
-                                                <select class="custom-select">
-																											<option selected>Choose your language</option>
-																											<option value="1">English</option>
-																											<option value="2">Spanish</option>
-																											<option value="3">Chinese</option>
-																									</select>
-                                            </div>
-                                            <div class="form-group">
-                                                <button class="btn btn-primary">Update account settings</button>
+                                                <button class="btn btn-primary" (click)=updateAccountSettings()>Update account settings</button>
                                             </div>
                                         </div>
                                     </div>
@@ -114,27 +109,18 @@
                                                     <span class="input-group-addon">
 																													<i class="sli-envelope-open"></i>
 																												</span>
-                                                    <input type="text" class="form-control" placeholder="tanushree.nori@eschernode.com">
-                                                </div>
-                                            </div>
-                                            <p>New email</p>
-                                            <div class="form-group">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon">
-																													<i class="sli-envelope-open"></i>
-																												</span>
-                                                    <input type="text" class="form-control" placeholder="">
+                                                    <input type="text" class="form-control email-settings" placeholder="" value={{user.email}} name="accountEmail">
                                                 </div>
                                             </div>
                                             <p>Daily updates</p>
                                             <div class="form-group">
                                                 <label class="custom-control custom-radio">
-																											<input id="radio1" name="radio1" type="radio" class="custom-control-input" checked>
+																											<input id="radio1" name="radio1" type="radio" class="custom-control-input">
 																											<span class="custom-control-indicator"></span>
 																											<span class="custom-control-description">Yes</span>
 																									</label>
                                                 <label class="custom-control custom-radio">
-																											<input id="radio2" name="radio1" type="radio" class="custom-control-input">
+																											<input id="radio2" name="radio1" type="radio" class="custom-control-input" checked>
 																											<span class="custom-control-indicator"></span>
 																											<span class="custom-control-description">No</span>
 																									</label>
@@ -153,7 +139,7 @@
 																									</label>
                                             </div>
                                             <div class="form-group">
-                                                <button class="btn btn-primary">Update email preferences</button>
+                                                <button class="btn btn-primary" (click)=onEmailUpdateClick()>Update email preferences</button>
                                             </div>
                                         </div>
                                     </div>

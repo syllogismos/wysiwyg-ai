@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'sidebar-heading',
@@ -6,7 +6,14 @@ import { Component } from '@angular/core';
   //styleUrls: ['./src/styles/elements/sidebar-heading.scss']
 })
 
-export class SidebarHeadingComponent {
+export class SidebarHeadingComponent implements OnInit {
+
+  user: any;
+  ngOnInit(): void {
+    this.user = JSON.parse(localStorage.getItem('user'))
+    console.log('after sidebar')
+    console.log(this.user)
+  }
 
   constructor() {
   }

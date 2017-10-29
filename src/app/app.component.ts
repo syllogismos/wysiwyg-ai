@@ -42,7 +42,7 @@ export class AppComponent {
     let collapsed = config.collapsed;
 
     //reset localStorage on page load for demo purposes only. this can be removed in production
-    storage.removeAll();
+    // storage.removeAll();
 
     if (storage.isEmpty('config') || !(storage.get('config'))) {
       storage.removeAll();

@@ -10,14 +10,20 @@
 		<div class="dropdown">
 				<!-- dropdown-toggle -->
 				<a class="btn btn-default btn-flat dropdown-toggle no-after" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<div class="name">
-								 Tanushree Nori </div>
-						<div class="description">
+						<div *ngIf="user.firstName" class="name">
+								 {{user.firstName}} {{user.lastName}} </div>
+						<div *ngIf="!user.firstName" class="name">
+								  {{user.username}}</div>
+						<div *ngIf="!user.position" class="description">
 								ML Engineer
+						</div>
+						<div *ngIf="user.position" class="description">
+							{{user.position}}
 						</div>
 						<div class="location">
 								<i class="sli-globe"></i>
-								<span>UIUC, Chicago</span>
+								<span *ngIf="!user.company">EscherNode</span>
+								<span *ngIf="user.company">{{user.company}}</span>
 						</div>
 				</a>
 				<!-- end dropdown-toggle -->
