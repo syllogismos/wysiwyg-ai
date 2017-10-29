@@ -110,6 +110,7 @@ import { DatasetsComponent } from './escher/datasets.component';
 import { ModelzooComponent } from './escher/modelzoo.component';
 import { EverythingComponent } from './escher/everything.component';
 import { PaymentComponent } from './escher/payment.component';
+import { SupervisedComponent } from './escher/supervised.component';
 
 @NgModule({
   declarations: [
@@ -216,6 +217,7 @@ import { PaymentComponent } from './escher/payment.component';
     ModelzooComponent,
     EverythingComponent,
     PaymentComponent,
+    SupervisedComponent,
   ],
   imports: [
     BrowserModule,
@@ -223,6 +225,7 @@ import { PaymentComponent } from './escher/payment.component';
     ReactiveFormsModule,
     HttpModule,
     RouterModule.forRoot([
+      { path: 'escher/supervised', component: SupervisedComponent, canActivate: [LoggedInGuard] },
       { path: 'escher/rl', component: RlComponent, canActivate: [LoggedInGuard] },
       { path: 'escher/console', component: ConsoleComponent, canActivate: [LoggedInGuard] },
       { path: 'escher/experiment', component: ExperimentComponent, canActivate: [LoggedInGuard] },
@@ -230,10 +233,10 @@ import { PaymentComponent } from './escher/payment.component';
       { path: 'escher/model-zoo', component: ModelzooComponent, canActivate: [LoggedInGuard] },
       { path: 'escher/everything', component: EverythingComponent },
       { path: 'escher/payment', component: PaymentComponent, canActivate: [LoggedInGuard] },
-      { path: 'pages/user-profile', component: UserProfileComponent, canActivate: [LoggedInGuard] },      
+      { path: 'pages/user-profile', component: UserProfileComponent, canActivate: [LoggedInGuard] },
       // { path: '', component: DashboardComponent, canActivate: [LoggedInGuard] },
       // { path: '', component: DashboardComponent },  
-      { path: '', component: ConsoleComponent, canActivate: [LoggedInGuard] },          
+      { path: '', component: ConsoleComponent, canActivate: [LoggedInGuard] },
       { path: 'apps/calendar', component: CalendarComponent },
       { path: 'notifications/sweet-alert-2', component: SweetAlert2Component },
       { path: 'notifications/toastr', component: ToastrComponent },
@@ -243,7 +246,7 @@ import { PaymentComponent } from './escher/payment.component';
       { path: 'charts/nvd3', component: Nvd3Component },
       { path: 'charts/peity', component: PeityComponent },
       // { path: 'dashboards/dashboard', component: DashboardComponent, canActivate: [LoggedInGuard] },
-      { path: 'dashboards/dashboard', component: DashboardComponent },      
+      { path: 'dashboards/dashboard', component: DashboardComponent },
       { path: 'documentation/angular-cli', component: AngularCliComponent },
       { path: 'documentation/changelog', component: ChangelogComponent },
       { path: 'documentation/code-structure', component: CodeStructureComponent },

@@ -23,7 +23,7 @@ $profile-description-left: 150px;
     padding: $side-margin $side-margin 0 $side-margin;
 
     .rounded-circle {
-      width: $image-width;
+      width: 100px;
       border: 2px solid #fff;
       @include box-shadow;
       margin-bottom: $margin-bottom;

@@ -17,6 +17,13 @@ export class NavigationService {
           "id": "escher"
         },
         {
+          "url": "escher/supervised",
+          "icon": "sli-magic-wand",
+          "title": "Supervised Learning",
+          "items": [],
+          "id": "supervised"
+        },
+        {
           "url": "escher/rl",
           "icon": "sli-graph",
           "title": "Reinforcement Learning",

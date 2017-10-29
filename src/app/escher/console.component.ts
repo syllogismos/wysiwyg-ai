@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EscherService } from "./escher.service";
+import { Http } from "@angular/http";
 
 declare var $: any;
 declare var d3: any;
@@ -7,9 +8,11 @@ declare var Raphael: any;
 declare var fabric: any;
 declare var _: any;
 declare var ResizeSensor: any;
+declare var toastr: any;
 
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/toPromise';
 
 
 @Component({
@@ -26,7 +29,8 @@ import 'rxjs/add/observable/fromEvent';
 export class ConsoleComponent implements OnInit {
 
   constructor(
-    private escherService: EscherService
+    private escherService: EscherService,
+    private http: Http
   ) { }
 
   canvas: any;
@@ -786,6 +790,37 @@ export class ConsoleComponent implements OnInit {
 
   DeleteAll(): void {
     this.canvas.clear();
+  }
+
+  saveToDb(): void {
+    var allObjects = this.canvas.getObjects();
+    var name = this.localNetworkName
+    var allLayerObjs = _.filter(allObjects, obj => (obj.type != 'line' && obj.type != 'lineArrow'))
+    var serializedCanvas = _.map(allLayerObjs, obj => this.serializeLayer(obj, allLayerObjs))
+    var network = JSON.stringify(serializedCanvas);
+    this.http.post('/api/savennmodel', {
+      name: name,
+      network: network
+    }).toPromise()
+      .then(response => {
+        console.log(response)
+        toastr.options = {
+          iconClass: '',
+          positionClass: 'toast-top-right',
+          progressBar: true,
+          timeOut: 3000
+        }
+        var response_json = response.json()
+        if (response_json.saved) {
+          toastr.info(response_json['message'])
+        } else {
+          toastr.info(response_json['message'])
+        }
+      }).catch(this.handleHttpError)
+  }
+
+  private handleHttpError(error: any): Promise<any> {
+    return Promise.reject(error.message || error);
   }
 
 }

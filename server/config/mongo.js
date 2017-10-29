@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
 
 var exports = module.exports = {}
 
-var db = mongoose.connect('mongodb://localhost/first')
+var db = mongoose.connect('mongodb://localhost/eschernode')
 
 var UserSchema = mongoose.Schema({
   username: String,
   password: String,
-  email: String,
+  email: { type: String, unique: true },
   firstName: String,
   lastName: String,
   company: String,
@@ -15,25 +15,31 @@ var UserSchema = mongoose.Schema({
   roles: [String]
 })
 
-// var admin = new mongooseConfig.UserModel({
-//     username: 'anil',
-//     password: 'anil',
-//     email: 'anilkaraka@gmail.com',
-//     firstName: 'anil',
-//     lastName: 'karaka',
-//     roles: ['admin']
-// })
+var NNModelSchema = mongoose.Schema({
+  user: String,
+  name: String,
+  network: String,
+  description: String
+})
 
-// var student = new mongooseConfig.UserModel({
-//     username: 'tanu',
-//     password: 'tanu',
-//     email: 'tanunori@gmail.com',
-//     firstName: 'tanu',
-//     lastName: 'nori',
-//     roles: ['student']
-// })
+var DatasetSchema = mongoose.Schema({
+  user: String,
+  name: String,
+  s3: String,
+  description: String
+})
 
-// admin.save()
-// student.save()
+var ExperimentSchema = mongoose.Schema({
+  name: String,
+  type: String,
+  user: String,
+  model: String,
+  dataset: String,
+  config: {}
+})
 
-exports.UserModel = mongoose.model('UserModel', UserSchema);
+
+exports.UserModel = mongoose.model('Users', UserSchema);
+exports.NNModel = mongoose.model('nnmodel', NNModelSchema);
+exports.DatasetModel = mongoose.model('dataset', DatasetSchema)
+exports.ExperimentModel = mongoose.model('experiment', ExperimentSchema)

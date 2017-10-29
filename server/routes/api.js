@@ -151,4 +151,38 @@ router.post('/updateEmail', (req, res) => {
   })
 })
 
+router.post('/savennmodel', (req, res) => {
+  mongooseConfig.NNModel.findOne({ name: req.body.name }, (err, nnmodel) => {
+    if (nnmodel) {
+      return res.json({
+        "saved": false,
+        "message": "Model with current Name exists"
+      })
+    } else {
+      var name = req.body.name
+      var network = req.body.network
+      var user = req.user._id
+      var newNNModel = new mongooseConfig.NNModel({
+        user: user,
+        network: network,
+        name: name
+      })
+      newNNModel.save((err, nnmodel) => {
+        if (err) {
+          return res.json({
+            "saved": false,
+            "message": "Unable to save"
+          })
+        } else {
+          return res.json({
+            "saved": false,
+            "message": "Saved the model"
+          })
+        }
+      })
+    }
+  })
+
+})
+
 module.exports = router;
