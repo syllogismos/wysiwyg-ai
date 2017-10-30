@@ -35,6 +35,7 @@ var ExperimentSchema = mongoose.Schema({
   user: String,
   model: String,
   dataset: String,
+  description: String,
   config: {}
 })
 

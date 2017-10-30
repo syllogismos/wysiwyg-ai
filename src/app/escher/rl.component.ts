@@ -337,5 +337,15 @@ export class RlComponent implements OnInit {
       }
       return false;
     });
+    $(document).on('blur', element, function (e) {
+      e.preventDefault();
+      var result = approve.value($(element).val(), rules);
+      if (result.approved) {
+        self.isSuccess(element, successMessage);
+      } else {
+        self.isError(element, errorMessage)
+      }
+      return false;
+    });
   }
 }

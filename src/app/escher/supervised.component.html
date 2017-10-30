@@ -1,3 +1,160 @@
-<p>
-  supervised works!
-</p>
+<div class="row">
+  <div class="col">
+    <div class="widget">
+      <div class="row">
+        <div class="col">
+          <div class="title">Supervised Learning</div>
+          <div class="description">Train a neural netowork on a any dataset</div>
+        </div>
+      </div>
+      <form id="sup">
+        <!-- <div class="row">
+          <div class="col col-xl-6">
+            <div class="title">Experiment Details</div>
+          </div>
+          <div class="col col-xl-6">
+            <div class="title">Traning Details</div>
+          </div>
+        </div> -->
+        <div class="row">
+          <div class="col col-xl-6">
+            <div class="form-group">
+              <label>Experiment Name</label>
+              <input type="text" class="form-control sup-params" id="exp-name" name="exp-name">
+              <small class="form-control-feedback"></small>
+            </div>
+          </div>
+          <div class="col col-xl-3">
+            <div class="form-group">
+              <label>Optimizer</label>
+              <select class="form-control sup-params" id="optim" name="optim">
+                <option vlaue="SGD">SGD</option>
+                <option value="Adam">Adam</option>
+              </select>
+              <small class="form-control-feedback"></small>
+            </div>
+          </div>
+          <div class="col col-xl-3">
+            <div class="form-group">
+              <label>Loss function</label>
+              <select class="form-control sup-params" id="loss" name="loss">
+                <option value="nll_loss">Negative Log likelihood loss</option>
+                <option value="l1_loss">L1 Loss</option>
+                <option value="cross_entropy">Cross Entropy</option>
+              </select>
+              <small class="form-control-feedback"></small>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col col-xl-6">
+            <div class="form-group">
+              <label>Experiment Description</label>
+              <textarea class="form-control sup-params" rows="3" id="exp-desc" name="exp-desc"></textarea>
+              <small class="form-control-feedback"></small>
+            </div>
+          </div>
+          <div class="col col-xl-6">
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <label>Learning Rate</label>
+                  <input type="text" class="form-control sup-params" id="lr" name="lr">
+                  <small class="form-control-feedback"></small>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label>Momentum</label>
+                  <input type="text" class="form-control sup-params" id="momentum" name="momentum">
+                  <small class="form-control-feedback"></small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="row">
+        <div class="col col-xl-6">
+          <div class="title">Network Details</div>
+          <div class="description">Select Neural network details</div>
+        </div>
+      </div> -->
+        <div class="row">
+          <div class="col col-xl-6">
+            <div class="form-group">
+              <label>Select Model</label>
+              <select class="form-control sup-params" id="model" name="model">
+                <option value="">Choose a Model</option>
+                <option value="MNSIT">MNSIT</option>
+                <option value="RESNET18">RESNET18</option>
+              </select>
+              <small class="form-control-feedback"></small>
+            </div>
+          </div>
+          <div class="col col-xl-6">
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <label>Test Batch Size</label>
+                  <input type="text" class="form-control sup-params" id="test_batch_size" name="test_batch_size">
+                  <small class="form-control-feedback"></small>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label>Seed</label>
+                  <input type="text" class="form-control sup-params" id="seed" name="seed">
+                  <small class="form-control-feedback"></small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="row">
+        <div class="col col-xl-6">
+          <div class="title">Dataset Details</div>
+          <div class="description">Dataset and preprocessing details</div>
+        </div>
+      </div> -->
+        <div class="row">
+          <div class="col col-xl-6">
+            <div class="form-group">
+              <label>Select Dataset</label>
+              <select class="form-control sup-params" id="dataset" name="dataset">
+                <option value="">Choose a dataset</option>
+                <option value="mnist">Mnist Digits</option>
+                <option value="tiny-imagenet">Tiny Imagenet</option>
+                <option value="test-imagenet">Test Imagenet</option>
+                <option value="imagenet">Imagenet</option>
+              </select>
+              <small class="form-control-feedback"></small>
+            </div>
+          </div>
+          <div class="col col-xl-6">
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <label>Epochs</label>
+                  <input type="text" class="form-control sup-params" id="epochs" name="epochs">
+                  <small class="form-control-feedback"></small>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label>Batch Size</label>
+                  <input type="text" class="form-control sup-params" id="batch_size" name="batch_size">
+                  <small class="form-control-feedback"></small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <button class="btn btn-primary" type="submit" name="submit">Train</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

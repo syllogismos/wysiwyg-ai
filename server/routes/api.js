@@ -5,6 +5,7 @@ const LocalStrategy = require('passport-local').Strategy;
 
 const mongooseConfig = require('../config/mongo.js');
 const bcrypt = require('bcryptjs');
+const request = require("request");
 
 const bcryptSalt = bcrypt.genSaltSync(10);
 
@@ -182,7 +183,68 @@ router.post('/savennmodel', (req, res) => {
       })
     }
   })
+})
 
+router.post('/supervised', (req, res) => {
+  var newExperiment = new mongooseConfig.ExperimentModel({
+    name: req.body.exp_name,
+    description: req.body.exp_desc,
+    type: 'supervised',
+    model: req.body.model,
+    user: req.user._id,
+    dataset: req.body.dataset,
+    config: {
+      optim: req.body.optim,
+      loss: req.body.loss,
+      lr: req.body.lr,
+      momentum: req.body.momentum,
+      test_batch_size: req.body.test_batch_size,
+      batch_size: req.body.batch_size,
+      seed: req.body.seed,
+      epochs: req.body.epochs
+    }
+  })
+
+  newExperiment.save((err, experiment) => {
+    if (err) {
+      return res.json({
+        "exp_started": false,
+        "message": "unable to save experiment object"
+      })
+    } else {
+      
+      var options = { method: 'POST',
+        url: 'http://localhost:8000/supervised/launch/',
+        headers: 
+        { 
+          'content-type': 'application/json'
+        },
+        body: { exp_id: experiment._id },
+        json: true
+      };
+      
+      request(options, function (error, response, body) {
+        if (error) {
+          return res.json({
+            exp_started: false,
+            message: "failed to launch experiment"
+          })
+        } else if (body.status == 200) {
+          return res.json({
+            exp_started: true,
+            message: "starting experiment"
+          })
+        } else {
+          return res.json({
+            exp_started: false,
+            message: "failed to launch experiment, python server returned false"
+          })
+        }
+      
+      });
+      
+    }
+  })
 })
 
 module.exports = router;
