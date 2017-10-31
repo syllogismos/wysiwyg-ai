@@ -3,7 +3,9 @@ const router = express.Router();
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
-const mongooseConfig = require('../config/mongo.js');
+const mongooseConfig = require('../config/mongo');
+const _ = require('lodash');
+const perms = require('../utils/permutations')
 const bcrypt = require('bcryptjs');
 const request = require("request");
 
@@ -185,7 +187,67 @@ router.post('/savennmodel', (req, res) => {
   })
 })
 
+
+router.post('/experiment', (req, res) => {
+  mongooseConfig.ExperimentModel.findById(req.body.exp_id, (err, experiment) => {
+    if (err) {
+      return res.json({
+        "message": "didn't find the experiment",
+        "experiment": null
+      })
+    } else {
+      if (req.user && experiment.user == req.user._id) {
+        return res.json({
+          "message": "found the experiment",
+          "experiment": experiment
+        })
+      } else {
+        return res.json({
+          "message": "found the exp but of a different user",
+          "experiment": null
+        })
+      }
+    }
+  })
+});
+
+
 router.post('/supervised', (req, res) => {
+  var config = {
+    optim: req.body.optim,
+    loss: req.body.loss,
+    var_lr: req.body.lr.split(','),
+    var_momentum: req.body.momentum.split(','),
+    var_test_batch_size: req.body.test_batch_size.split(','),
+    var_batch_size: req.body.batch_size.split(','),
+    var_seed: req.body.seed.split(','),
+    var_epochs: req.body.epochs.split(',')
+  }
+
+  var variant_lists = perms.product(
+    config.var_lr,
+    config.var_momentum,
+    config.var_test_batch_size,
+    config.var_batch_size,
+    config.var_seed,
+    config.var_epochs
+  )
+
+  var variant_dicts = _.map(variant_lists, x => {
+    return {
+      lr: x[0],
+      momentum: x[1],
+      test_batch_size: x[2],
+      batch_size: x[3],
+      seed: x[4],
+      epochs: x[5]
+    }
+  })
+
+  config.variants = variant_dicts
+
+  // console.log(config)
+
   var newExperiment = new mongooseConfig.ExperimentModel({
     name: req.body.exp_name,
     description: req.body.exp_desc,
@@ -193,17 +255,10 @@ router.post('/supervised', (req, res) => {
     model: req.body.model,
     user: req.user._id,
     dataset: req.body.dataset,
-    config: {
-      optim: req.body.optim,
-      loss: req.body.loss,
-      lr: req.body.lr,
-      momentum: req.body.momentum,
-      test_batch_size: req.body.test_batch_size,
-      batch_size: req.body.batch_size,
-      seed: req.body.seed,
-      epochs: req.body.epochs
-    }
+    config: config
   })
+
+  // console.log(newExperiment)
 
   newExperiment.save((err, experiment) => {
     if (err) {
@@ -222,7 +277,6 @@ router.post('/supervised', (req, res) => {
         body: { exp_id: experiment._id },
         json: true
       };
-      
       request(options, function (error, response, body) {
         if (error) {
           return res.json({
@@ -232,7 +286,8 @@ router.post('/supervised', (req, res) => {
         } else if (body.status == 200) {
           return res.json({
             exp_started: true,
-            message: "starting experiment"
+            message: "starting experiment",
+            exp_id: experiment._id
           })
         } else {
           return res.json({
@@ -240,9 +295,7 @@ router.post('/supervised', (req, res) => {
             message: "failed to launch experiment, python server returned false"
           })
         }
-      
       });
-      
     }
   })
 })

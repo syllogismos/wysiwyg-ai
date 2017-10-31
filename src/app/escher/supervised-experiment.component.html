@@ -1,0 +1,148 @@
+<div class="row">
+  <div class="col">
+    <div class="widget">
+      <div class="row">
+        <div class="col">
+          <div class="title">Supervised Experiment Details</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-8">
+          <div class="row">
+            <div class="col-6">
+              <div class="table-responsive">
+                <table class="table table-hover table-bordered">
+                  <thead>
+                    <tr>
+                      <th colspan="2">Network Settings</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Model Name</td>
+                      <td>MNIST</td>
+                    </tr>
+                    <tr>
+                      <td>No of Nodes</td>
+                      <td>5</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="table-responsive">
+                <table class="table table-hover table-bordered">
+                  <thead>
+                    <tr>
+                      <th colspan="2">Dataset Details</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Dataset Name</td>
+                      <td>MNIST</td>
+                    </tr>
+                    <tr>
+                      <td>No of items</td>
+                      <td>10000</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="table-responsive">
+                <table class="table table-hover table-bordered">
+                  <thead>
+                    <tr>
+                      <th colspan="2">Misc Details</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Optimizer</td>
+                      <td>SGD</td>
+                    </tr>
+                    <tr>
+                      <td>Loss Function</td>
+                      <td>Negative Log loss</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="table-responsive">
+                <table class="table table-hover table-bordered">
+                  <thead>
+                    <tr>
+                      <th colspan="7">Variants</th>
+                    </tr>
+                    <tr>
+                      <th>Variant Name</th>
+                      <th>lr</th>
+                      <th>momentum</th>
+                      <th>Batch Size</th>
+                      <th>Test Batch Size</th>
+                      <th>Seed</th>
+                      <th>Epochs</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Variant 1</td>
+                      <td>0.1</td>
+                      <td>0.1</td>
+                      <td>64</td>
+                      <td>1000</td>
+                      <td>1</td>
+                      <td>10</td>
+                    </tr>
+                    <tr>
+                      <td>Variant 2</td>
+                      <td>0.01</td>
+                      <td>0.01</td>
+                      <td>64</td>
+                      <td>1000</td>
+                      <td>2</td>
+                      <td>10</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="widget">
+            <div class="row">
+              <div class="col">
+                <div class="title">Experiment Timeline</div>
+                <div class="description">Recent experiment Activity</div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="timeline-widget-1">
+                  <div *ngFor="let event of timeline" class="row justify-content-start align-center {{event.class}}">
+                    <div class="col">
+                      <div class="timeline-item">
+                        <p>{{event.time}}</p>
+                        <p>{{event.desc}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -6,6 +6,8 @@ declare var $: any;
 declare var typeahead: any;
 declare var approve: any;
 declare var swal: any;
+declare var _: any;
+declare var toastr: any;
 
 @Component({
   selector: 'app-supervised',
@@ -27,7 +29,14 @@ export class SupervisedComponent implements OnInit {
       ],
       message: '{title} must be between {max} and {min}',
       validate: function (value, pars) {
-        return (parseFloat(value) >= pars.min) && (parseFloat(value) <= pars.max)
+        var every_char_check = _.every(value, x => _.includes('0123456789.,', x))
+        var single_param_check = x => (parseFloat(x) >= pars.min) && (parseFloat(x) <= pars.max)
+        if (every_char_check) {
+          return _.every(value.split(','), single_param_check)
+        } else {
+          return false
+        }
+        // return (parseFloat(value) >= pars.min) && (parseFloat(value) <= pars.max)
       }
     };
     approve.addTest(numericRange, 'numericRange')
@@ -129,6 +138,25 @@ export class SupervisedComponent implements OnInit {
         return false
       }
 
+      var variantCount = 1
+      $('#sup .variant').each(function () {
+        console.log()
+        variantCount = variantCount * $(this).val().split(',').length
+      })
+
+      if (variantCount > 10) {
+        console.log(variantCount, 'variant count')
+        toastr.options = {
+          iconClass: '',
+          positionClass: 'toast-top-right',
+          progressBar: true,
+          timeOut: 3000
+        }
+        toastr.error('Dont support more than 9 variants')
+        return false
+      }
+
+
       swal({
         title: 'Are you sure?',
         text: "You will be launching machines to train the RL environment according to the config you provided!",
@@ -140,12 +168,14 @@ export class SupervisedComponent implements OnInit {
       }).then(() => {
         console.log('sending params to the server');
         var params = {}
+        var json_response
         $('.sup-params').serializeArray().map(x => params[x.name] = x.value);
         self.http.post('/api/supervised', params)
           .toPromise()
           .then(response => {
             console.log('right after post test response')
             console.log(response)
+            json_response = response.json()
           });
         swal({
           title: 'Running Exps!',
@@ -154,12 +184,12 @@ export class SupervisedComponent implements OnInit {
           timer: 5000
         }).then(() => {
           console.log('ok button is clicked');
-          let link = ['escher/experiment'];
+          let link = ['escher/experiment-detail', json_response.exp_id];
           self.router.navigate(link);
           }, dismiss => {
             if (dismiss == 'timer') {
               console.log('after timer');
-              let link = ['escher/experiment'];
+              let link = ['escher/experiment-detail', json_response.exp_id];
               self.router.navigate(link);
             }
           }).catch(swal.noop)
