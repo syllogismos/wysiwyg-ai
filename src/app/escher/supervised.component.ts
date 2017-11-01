@@ -173,6 +173,7 @@ export class SupervisedComponent implements OnInit {
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes, launch machines!',
         showLoaderOnConfirm: true,
+        allowOutsideClick: false,
         preConfirm: () => {
           $('.sup-params').serializeArray().map(x => params[x.name] = x.value)
           return new Promise((resolve, reject) => {
@@ -196,7 +197,8 @@ export class SupervisedComponent implements OnInit {
           title: 'Running Exps!',
           text: 'Your experiments are starting, redirecting you to the experiment page',
           type: 'success',
-          timer: 5000
+          timer: 5000,
+          allowOutsideClick: false
         }).then(() => {
           console.log('ok button is clicked');
           let link = ['escher/experiment-detail', json_response.exp_id]
