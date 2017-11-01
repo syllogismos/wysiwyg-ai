@@ -40,11 +40,11 @@ export class SupervisedExperimentComponent implements OnInit {
       "class": "timeline-info",
       "time": "4 hours ago",
       "desc": "All 4 variants successfully started running on c4.8xlarge machines"
-    },
-    {
-      "class": "timeline-info",
-      "time": "8 hours ago",
-      "desc": "A new supervised experiment started on model"
+    // },
+    // {
+    //   "class": "timeline-info",
+    //   "time": "8 hours ago",
+    //   "desc": "A new supervised experiment started on model"
     }
   ]
 

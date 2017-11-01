@@ -2,8 +2,11 @@
   <div class="col">
     <div class="widget">
       <div class="row">
-        <div class="col">
+        <div class="col-8">
           <div class="title">Supervised Experiment Details</div>
+        </div>
+        <div class="col4">
+          <div class="title">Experiment timeline</div>
         </div>
       </div>
       <div class="row">
@@ -74,58 +77,42 @@
                 </table>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col">
+            <div class="col-6">
               <div class="table-responsive">
                 <table class="table table-hover table-bordered">
                   <thead>
                     <tr>
-                      <th colspan="7">Variants</th>
-                    </tr>
-                    <tr>
-                      <th>Variant Name</th>
-                      <th>lr</th>
-                      <th>momentum</th>
-                      <th>Batch Size</th>
-                      <th>Test Batch Size</th>
-                      <th>Seed</th>
-                      <th>Epochs</th>
+                      <th colspan="2">Machine Details</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td>Variant 1</td>
-                      <td>0.1</td>
-                      <td>0.1</td>
-                      <td>64</td>
-                      <td>1000</td>
-                      <td>1</td>
-                      <td>10</td>
+                      <td>Machine Type</td>
+                      <td>c4.8xlarge</td>
                     </tr>
                     <tr>
-                      <td>Variant 2</td>
-                      <td>0.01</td>
-                      <td>0.01</td>
-                      <td>64</td>
-                      <td>1000</td>
+                      <td>No of machines</td>
                       <td>2</td>
-                      <td>10</td>
+                    </tr>
+                    <tr>
+                      <td>Price</td>
+                      <td>1.2</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
+
         </div>
         <div class="col-4">
-          <div class="widget">
-            <div class="row">
+          <!-- <div class="widget"> -->
+            <!-- <div class="row">
               <div class="col">
                 <div class="title">Experiment Timeline</div>
                 <div class="description">Recent experiment Activity</div>
               </div>
-            </div>
+            </div> -->
             <div class="row">
               <div class="col">
                 <div class="timeline-widget-1">
@@ -140,6 +127,62 @@
                 </div>
               </div>
             </div>
+          <!-- </div> -->
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+              <thead>
+                <tr>
+                  <th colspan="9">Variants</th>
+                </tr>
+                <tr>
+                  <th>Variant Name</th>
+                  <th>lr</th>
+                  <th>momentum</th>
+                  <th>Batch Size</th>
+                  <th>Test Batch Size</th>
+                  <th>Seed</th>
+                  <th>Epochs</th>
+                  <th>Progress</th>
+                  <th>ETA</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Variant 1</td>
+                  <td>0.1</td>
+                  <td>0.1</td>
+                  <td>64</td>
+                  <td>1000</td>
+                  <td>1</td>
+                  <td>10</td>
+                  <td>
+                    <div class="progress progress-sm">
+                      <div class="progress-bar bg-secondary" role="progressbar" style="width: 78%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </td>
+                  <td>10 mins</td>
+                </tr>
+                <tr>
+                  <td>Variant 2</td>
+                  <td>0.01</td>
+                  <td>0.01</td>
+                  <td>64</td>
+                  <td>1000</td>
+                  <td>2</td>
+                  <td>10</td>
+                  <td>
+                    <div class="progress progress-sm">
+                      <div class="progress-bar bg-secondary" role="progressbar" style="width: 33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </td>
+                  <td>30 mins</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

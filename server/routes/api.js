@@ -214,8 +214,10 @@ router.post('/experiment', (req, res) => {
 
 router.post('/supervised', (req, res) => {
   var config = {
+    form_params: req.body,
     optim: req.body.optim,
     loss: req.body.loss,
+    machine_type: req.body.machine_type,
     var_lr: req.body.lr.split(','),
     var_momentum: req.body.momentum.split(','),
     var_test_batch_size: req.body.test_batch_size.split(','),

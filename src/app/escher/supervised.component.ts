@@ -125,6 +125,11 @@ export class SupervisedComponent implements OnInit {
       required: true
     }, 'Dataset is valid', 'Please select an option')
 
+    this.validateOnChange('#machine_type', {
+      title: 'Machine Type',
+      required: true
+    }, 'Machine type is valid', 'Please select machine type')
+
     var self = this;
 
     $('#sup').submit(function (e) {
