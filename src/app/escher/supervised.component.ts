@@ -161,35 +161,45 @@ export class SupervisedComponent implements OnInit {
         return false
       }
 
+      var params = {}
+      var json_response
 
       swal({
         title: 'Are you sure?',
-        text: "You will be launching machines to train the RL environment according to the config you provided!",
+        text: 'You will be launching machines to train the Supervised exp',
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, launch machines!'
+        confirmButtonText: 'Yes, launch machines!',
+        showLoaderOnConfirm: true,
+        preConfirm: () => {
+          $('.sup-params').serializeArray().map(x => params[x.name] = x.value)
+          return new Promise((resolve, reject) => {
+            self.http.post('/api/supervised', params)
+              .toPromise()
+              .then(response => {
+                console.log('right after post request')
+                console.log(response)
+                json_response = response.json()
+                if (json_response.exp_started) {
+                  resolve()
+                } else {
+                  reject(json_response.message)
+                }
+              })
+          })
+        }
       }).then(() => {
-        console.log('sending params to the server');
-        var params = {}
-        var json_response
-        $('.sup-params').serializeArray().map(x => params[x.name] = x.value);
-        self.http.post('/api/supervised', params)
-          .toPromise()
-          .then(response => {
-            console.log('right after post test response')
-            console.log(response)
-            json_response = response.json()
-          });
+        console.log('after confirm')
         swal({
           title: 'Running Exps!',
-          text: 'Your experiment are starting, redirecting you to the experiment page!',
+          text: 'Your experiments are starting, redirecting you to the experiment page',
           type: 'success',
           timer: 5000
         }).then(() => {
           console.log('ok button is clicked');
-          let link = ['escher/experiment-detail', json_response.exp_id];
+          let link = ['escher/experiment-detail', json_response.exp_id]
           self.router.navigate(link);
           }, dismiss => {
             if (dismiss == 'timer') {
@@ -198,7 +208,7 @@ export class SupervisedComponent implements OnInit {
               self.router.navigate(link);
             }
           }).catch(swal.noop)
-        }).catch(swal.noop)
+      }).catch(swal.noop)
       
       return false
 

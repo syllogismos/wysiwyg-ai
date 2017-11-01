@@ -155,7 +155,7 @@ router.post('/updateEmail', (req, res) => {
 })
 
 router.post('/savennmodel', (req, res) => {
-  mongooseConfig.NNModel.findOne({ name: req.body.name }, (err, nnmodel) => {
+  mongooseConfig.NNModel.findOne({ name: req.body.name, user: req.user._id }, (err, nnmodel) => {
     if (nnmodel) {
       return res.json({
         "saved": false,
@@ -283,7 +283,8 @@ router.post('/supervised', (req, res) => {
         if (error) {
           return res.json({
             exp_started: false,
-            message: "failed to launch experiment"
+            message: "failed to launch experiment from python server",
+            exp_id: experiment._id
           })
         } else if (body.status == 200) {
           return res.json({
@@ -294,7 +295,8 @@ router.post('/supervised', (req, res) => {
         } else {
           return res.json({
             exp_started: false,
-            message: "failed to launch experiment, python server returned false"
+            message: "failed to launch experiment, python server returned false status code other than 200",
+            exp_id: experiment._id
           })
         }
       });
