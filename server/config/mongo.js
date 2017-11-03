@@ -13,21 +13,21 @@ var UserSchema = mongoose.Schema({
   company: String,
   position: String,
   roles: [String]
-})
+}, {timestamps: true})
 
 var NNModelSchema = mongoose.Schema({
   user: String,
   name: String,
   network: String,
   description: String
-})
+}, {timestamps: true})
 
 var DatasetSchema = mongoose.Schema({
   user: String,
   name: String,
   s3: String,
   description: String
-})
+}, {timestamps: true})
 
 var ExperimentSchema = mongoose.Schema({
   name: String,
@@ -37,7 +37,7 @@ var ExperimentSchema = mongoose.Schema({
   dataset: String,
   description: String,
   config: {}
-})
+}, {timestamps: true})
 
 
 exports.UserModel = mongoose.model('Users', UserSchema);

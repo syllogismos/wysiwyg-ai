@@ -314,3 +314,38 @@
     </div>
   </div>
 </div>
+<div class="row">
+  <div class="col">
+    <div class="widget">
+      <div class="row">
+        <div class="col">
+          <table id="experiment-datatable" class="table table-hover table-striped table-bordered" style="width: 100">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Model</th>
+                <th>Dataset</th>
+                <th>Optim</th>
+                <th>Loss</th>
+                <th>Machine Type</th>
+                <th>Created at</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let exp of experiments">
+                <td><a [routerLink]="['/escher/experiment-detail', exp._id]">{{exp.name}}</a></td>
+                <td>{{exp.model}}</td>
+                <td>{{exp.dataset}}</td>
+                <td>{{exp.config.optim}}</td>
+                <td>{{exp.config.loss}}</td>
+                <td>{{exp.config.machine_type}}</td>
+                <td>{{exp.createdAt}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <button type="button" class="btn btn-default" (click)="getExperiments()">GET EXP</button>
+  </div>
+</div>

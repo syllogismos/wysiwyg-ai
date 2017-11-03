@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ColorsService } from "../services/colors";
+import { ExperimentService } from "./experiment.service";
 
 declare var $: any;
 declare var _: any;
@@ -9,15 +10,19 @@ declare var Chartist: any;
   selector: 'app-experiment',
   templateUrl: './experiment.component.html',
   styleUrls: ['./experiment.component.scss'],
-  providers: [ColorsService]
+  providers: [ColorsService, ExperimentService]
 })
 export class ExperimentComponent implements OnInit {
   
   colors: Object;
   palette: Object;
   experimentLogs: any;
+  experiments: any;
 
-  constructor(private colorsService: ColorsService) {
+  constructor(
+    private colorsService: ColorsService,
+    private experimentService: ExperimentService
+  ) {
     const palettes = colorsService.getPalettes();
     const background = $('body').attr('data-background');
     this.colors = colorsService.getBootstrapColors();
@@ -31,6 +36,20 @@ export class ExperimentComponent implements OnInit {
    }
 
   ngOnInit() {
+
+    this.experimentService.getExperiments()
+    .then(exps => {
+      console.log(exps)
+      this.experiments = exps
+      setTimeout(function () {
+        $(function () {
+          $('#experiment-datatable').DataTable({
+            "order": [[ 6, "desc" ]]
+          });
+        });
+      }, 10);
+      // $('#experiment-datatable').DataTable();
+    })
 
     $.get('/assets/json/stats.json', data => {
       this.experimentLogs = data
@@ -89,6 +108,26 @@ export class ExperimentComponent implements OnInit {
       showArea: false
     };
     new Chartist.Line(element, data, options);
+  }
+
+
+  getExperiments(): void {
+    // var experiments;
+    this.experimentService.getExperiments()
+      .then(exps => {
+        console.log(exps)
+        this.experiments = exps
+        $('#experiment-datatable').DataTable().destroy();
+        setTimeout(function () {
+          $(function () {
+            $('#experiment-datatable').DataTable({
+              "order": [[ 6, "desc" ]]
+            });
+          });
+        }, 100);
+      })
+      
+    // console.log(this.experiments)
   }
 
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from "@angular/router";
+import { ActivatedRoute, ParamMap, Router } from "@angular/router";
 import { Location } from "@angular/common";
 import 'rxjs/add/operator/switchMap';
 
@@ -15,7 +15,8 @@ export class SupervisedExperimentComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private experimentService: ExperimentService
+    private experimentService: ExperimentService,
+    private router: Router
   ) { }
 
   experiment: any;
@@ -57,6 +58,11 @@ export class SupervisedExperimentComponent implements OnInit {
         console.log(exp)
         return this.experiment = exp
       })
+  }
+
+  relaunchExperiment(): void {
+    localStorage.setItem('experiment_config', JSON.stringify(this.experiment.config.form_params))
+    this.router.navigate(['/escher/supervised'])
   }
 
 }

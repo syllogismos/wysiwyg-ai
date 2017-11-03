@@ -40,13 +40,13 @@ export class SupervisedComponent implements OnInit {
       }
     };
     approve.addTest(numericRange, 'numericRange')
-    
-    this.validateOnChange('#exp-name', {
+
+    this.validateOnChange('#exp_name', {
       title: 'Experiment Name',
       required: true
     }, 'Experiment Name is valid', 'Please select a valid name')
 
-    this.validateOnChange('#exp-desc', {
+    this.validateOnChange('#exp_desc', {
       title: 'Experiment Description',
       required: true
     }, 'Experiment Description is valid', 'Please select a valid desc')
@@ -203,21 +203,34 @@ export class SupervisedComponent implements OnInit {
           console.log('ok button is clicked');
           let link = ['escher/experiment-detail', json_response.exp_id]
           self.router.navigate(link);
-          }, dismiss => {
-            if (dismiss == 'timer') {
-              console.log('after timer');
-              let link = ['escher/experiment-detail', json_response.exp_id];
-              self.router.navigate(link);
-            }
-          }).catch(swal.noop)
+        }, dismiss => {
+          if (dismiss == 'timer') {
+            console.log('after timer');
+            let link = ['escher/experiment-detail', json_response.exp_id];
+            self.router.navigate(link);
+          }
+        }).catch(swal.noop)
       }).catch(swal.noop)
-      
+
       return false
 
     })
 
 
-    
+    // load exp config from local storage
+    var local_experiment_config = JSON.parse(localStorage.getItem('experiment_config'));
+    if (local_experiment_config) {
+      for (var s in local_experiment_config) {
+        $('#' + s).val(local_experiment_config[s])
+      }
+      $('#sup .form-control').each(function () {
+        console.log($(this))
+        $(this).focus().blur();
+      });
+    }
+
+
+
   }
 
   isError(element, message) {

@@ -155,6 +155,7 @@ router.post('/updateEmail', (req, res) => {
 })
 
 router.post('/savennmodel', (req, res) => {
+  // save the nn model in database
   mongooseConfig.NNModel.findOne({ name: req.body.name, user: req.user._id }, (err, nnmodel) => {
     if (nnmodel) {
       return res.json({
@@ -189,6 +190,7 @@ router.post('/savennmodel', (req, res) => {
 
 
 router.post('/experiment', (req, res) => {
+  // get experiment with the given id
   mongooseConfig.ExperimentModel.findById(req.body.exp_id, (err, experiment) => {
     if (err) {
       return res.json({
@@ -213,6 +215,7 @@ router.post('/experiment', (req, res) => {
 
 
 router.post('/supervised', (req, res) => {
+  // New supervised experiment
   var config = {
     form_params: req.body,
     optim: req.body.optim,
@@ -303,5 +306,38 @@ router.post('/supervised', (req, res) => {
     }
   })
 })
+
+
+router.post('/get_experiment_list', (req, res) => {
+  mongooseConfig.ExperimentModel.find({
+    user: req.user._id
+  }).limit(20)
+    .sort({ _id: 1 })
+    .exec((err, experiments) => {
+      if (err) {
+        return res.json({
+          message: "failed to query for experiments"
+        })
+      } else {
+        return res.json({
+          experiments: experiments,
+          message: "queried 20 experiments"
+        })
+      }
+    })
+})
+
+router.post('/get_nnmodel_list', (req, res) => {
+  return res.json({
+    message: "not yet implemented"
+  })
+})
+
+router.post('/get_database_list', (req, res) => {
+  return res.json({
+    message: "not yet implemented"
+  })
+})
+  
 
 module.exports = router;

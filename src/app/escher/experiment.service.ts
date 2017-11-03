@@ -26,6 +26,15 @@ export class ExperimentService {
       .catch(this.handleError);
   }
 
+  getExperiments(): Promise<any> {
+    return this.http.post('api/get_experiment_list', {}, { headers: this.headers })
+      .toPromise()
+      .then(response => {
+        return response.json().experiments
+      })
+      .catch(this.handleError)
+  }
+
   handleError(error): Promise<any> {
     return Promise.reject(error.message || error);
     
