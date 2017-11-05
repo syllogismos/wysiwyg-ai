@@ -668,6 +668,13 @@ export class NavigationService {
           "title": "Pages",
           "items": [
             {
+              "url": "escher/everything",
+              "icon": "",
+              "title": "Everything",
+              "items": [],
+              "id": "everything"
+            },
+            {
               "url": "pages/coming-soon",
               "icon": "",
               "title": "Coming soon",

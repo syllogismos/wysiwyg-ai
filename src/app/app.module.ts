@@ -233,7 +233,7 @@ import { SupervisedExperimentComponent } from './escher/supervised-experiment.co
       { path: 'escher/experiment', component: ExperimentComponent, canActivate: [LoggedInGuard] },
       { path: 'escher/datasets', component: DatasetsComponent, canActivate: [LoggedInGuard] },
       { path: 'escher/model-zoo', component: ModelzooComponent, canActivate: [LoggedInGuard] },
-      { path: 'escher/everything', component: EverythingComponent },
+      { path: 'escher/everything', component: EverythingComponent, canActivate: [LoggedInGuard] },
       { path: 'escher/payment', component: PaymentComponent, canActivate: [LoggedInGuard] },
       { path: 'escher/experiment-detail/:exp_id', component: SupervisedExperimentComponent, canActivate: [LoggedInGuard] },      
       { path: 'pages/user-profile', component: UserProfileComponent, canActivate: [LoggedInGuard] },
