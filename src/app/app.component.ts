@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MousetrapService } from 'app/services/mousetrap';
 import { CustomEventsService } from 'app/services/custom-events';
 import { Router, NavigationStart } from '@angular/router';
+import { NavigationService } from 'app/services/navigation';
 
 declare var $: any;
 declare var _: any;
@@ -11,7 +12,7 @@ declare var fakeLoader: any;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  providers: [MousetrapService, CustomEventsService]
+  providers: [MousetrapService, CustomEventsService, NavigationService]
 })
 
 export class AppComponent {
@@ -26,7 +27,12 @@ export class AppComponent {
   public controller: string = 'Escherboard';
   public view: string;
 
-  constructor(private router: Router, private mousetrapService: MousetrapService, private customEventsService: CustomEventsService) {
+  constructor(
+    private router: Router,
+    private mousetrapService: MousetrapService,
+    private customEventsService: CustomEventsService,
+    private navigationService: NavigationService
+  ) {
 
     let config = {
       layout: this.layout,
@@ -40,6 +46,13 @@ export class AppComponent {
 
     let storage = Storages.localStorage;
     let collapsed = config.collapsed;
+
+    let allUrls = _.map(this.navigationService.getEverything(), x => '/' + x.url)
+
+    allUrls = allUrls.concat([
+      '/',
+      '/escher/experiment-detail'
+    ])
 
     //reset localStorage on page load for demo purposes only. this can be removed in production
     // storage.removeAll();
@@ -89,6 +102,7 @@ export class AppComponent {
       '/pages/coming-soon',
       '/pages/contact-us',
       '/pages/create-account',
+      '/pages/producthunt/create-account',
       '/pages/login',
       '/pages/reset-password',
       '/pages/subscribe',
@@ -97,14 +111,30 @@ export class AppComponent {
     ];
 
     const self = this;
-
+    
     router.events.subscribe((val) => {
       if (val instanceof NavigationStart) {
 
         const copy = Object.assign({}, val);
         const url = copy.url.split('?')[0];
 
+        // is 404 is a flag to check if it should be a 404 error page
+        // so that we can have the empty page layout and 404 page
+        const is404 = _.filter(allUrls, x => {
+          if (x == url) return true
+          else if (url.startsWith(x + '/')) return true
+          // return url.startsWith(x)
+        }).length == 0
+
+        // console.log(is404);
+        // console.log(url)
+        // console.log(_.filter(allUrls, x=> url.startsWith(x)))
+
         if (_.includes(emptyView1, url)) {
+          self['layout'] = 'empty-view-1';
+          $('body').attr('data-background', 'light');
+          $('body').attr('data-layout', self['layout']);
+        } else if (is404) {
           self['layout'] = 'empty-view-1';
           $('body').attr('data-background', 'light');
           $('body').attr('data-layout', self['layout']);
@@ -258,10 +288,10 @@ export class AppComponent {
     });
 
     //mousetrap helpers to control layout settings with the keyboard. this can be removed in production
-    mousetrapService.helpers();
+    // mousetrapService.helpers();
 
     //custom events used to update demo views. this can be removed in production
-    customEventsService.helpers();
+    // customEventsService.helpers();
   }
 
 }
