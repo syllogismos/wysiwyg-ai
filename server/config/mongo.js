@@ -40,7 +40,7 @@ var ExperimentSchema = mongoose.Schema({
 }, {timestamps: true})
 
 
-exports.UserModel = mongoose.model('Users', UserSchema);
+exports.UserModel = mongoose.model('user', UserSchema);
 exports.NNModel = mongoose.model('nnmodel', NNModelSchema);
 exports.DatasetModel = mongoose.model('dataset', DatasetSchema)
 exports.ExperimentModel = mongoose.model('experiment', ExperimentSchema)
