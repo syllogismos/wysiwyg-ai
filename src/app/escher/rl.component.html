@@ -40,7 +40,7 @@
                     <div class="col col-xl-6">
                       <div class="form-group">
                         <label>Experiment Name</label>
-                        <input type="text" class="form-control rl-params" id="exp-name-0" name="exp-name-0">
+                        <input type="text" class="form-control rl-params" id="exp" name="exp">
                         <small class="form-control-feedback"></small>
                       </div>
                     </div>
@@ -48,10 +48,10 @@
                       <div class="form-group">
                         <label>Environment Name</label>
                         <!-- <input type="text" class="form-control rl-params" id="env-name-0" name="env-name-0"> -->
-                        <select class="form-control rl-params" id="env-name-0" name="env-name-0">
-                            <option value="">Choose a gym env</option>
-                            <option *ngFor="let envid of gymEnvIds" [value]="envid">{{envid}}</option>
-                          </select>
+                        <select class="form-control rl-params" id="env_name" name="env_name">
+                          <option value="">Choose a gym env</option>
+                          <option *ngFor="let envid of gymEnvIds" [value]="envid">{{envid}}</option>
+                        </select>
                         <small class="form-control-feedback"></small>
                       </div>
                     </div>
@@ -59,15 +59,15 @@
                   <div class="row m-b-20">
                     <div class="col col-xl-6">
                       <div class="form-group">
-                        <label>Save Frequency</label>
-                        <input type="text" class="form-control rl-params" id="save-freq-0" name="save-freq-0">
+                        <label>Batch Size(v)</label>
+                        <input type="text" class="form-control rl-params variant" id="batch_size" name="batch_size">
                         <small class="form-control-feedback"></small>
                       </div>
                     </div>
                     <div class="col col-xl-6">
                       <div class="form-group">
                         <label>Max Episodes</label>
-                        <input type="text" class="form-control rl-params" id="max-episodes-0" name="max-episodes-0">
+                        <input type="text" class="form-control rl-params" id="max_episode" name="max_episode">
                         <small class="form-control-feedback"></small>
                       </div>
                     </div>
@@ -82,11 +82,11 @@
               <div role="tabpanel" class="tab-pane" id="tab-1">
                 <form id="step-1">
                   <div class="row">
-                    <div class="col col-xl-6">
+                    <div class="col col-xl-4">
                       <div class="form-group">
                         <label>Algorithm Name</label>
                         <!-- <input type="text" class="form-control rl-params" id="algorithm-name-1" name="algorithm-name-1"> -->
-                        <select class="form-control rl-params" id="algo-name-1" name="algo-name-1">
+                        <select class="form-control rl-params" id="algo_name" name="algo_name">
                           <option value="">Choose an Algorithm</option>
                           <option value="TRPO">Trust Region Policy Optimization</option>
                           <option value="DDPG">Deep Deterministic Policy Gradient</option>
@@ -97,40 +97,81 @@
                         <small class="form-control-feedback"></small>
                       </div>
                     </div>
-                    <div class="col col-xl-6">
+                    <div class="col col-xl-4">
                       <div class="form-group">
-                        <label>Base Learning Rate</label>
-                        <input type="text" class="form-control rl-params" id="base-learning-rate-1" name="base-learning-rate-1">
+                        <label>Discount(v)</label>
+                        <input type="text" class="form-control rl-params variant" id="discount" name="discount">
+                        <small class="form-control-feedback"></small>
+                      </div>
+                    </div>
+                    <div class="col col-xl-4">
+                      <div class="form-group">
+                        <label>Learning Rate(v)</label>
+                        <input type="text" class="form-control rl-params variant" id="learning_rate" name="learning_rate">
                         <small class="form-control-feedback"></small>
                       </div>
                     </div>
                   </div>
                   <div class="row m-b-20">
-                    <div class="col col-xl-6">
+                    <div class="col col-xl-4">
                       <div class="form-group">
-                        <label>Max KL</label>
-                        <input type="text" class="form-control rl-params" id="max-kl-1" name="max-kl-1">
+                        <label>GAE Lambda(v)</label>
+                        <input type="text" class="form-control rl-params variant" id="gae_lambda" name="gae_lambda">
                         <small class="form-control-feedback"></small>
                       </div>
                     </div>
-                    <div class="col col-xl-6">
+                    <div class="col col-xl-4">
                       <div class="form-group">
-                        <label>GAE Lambda</label>
-                        <input type="text" class="form-control rl-params" id="gae-lambda-1" name="gae-lambda-1">
+                        <label>Step Size(v)</label>
+                        <input type="text" class="form-control rl-params variant" id="step_size" name="step_size">
+                        <small class="form-control-feedback"></small>
+                      </div>
+                    </div>
+                    <div class="col col-xl-4">
+                      <div class="form-group">
+                        <label>Scale Reward(v)</label>
+                        <input type="text" class="form-control rl-params variant" id="scale_reward" name="scale_reward">
                         <small class="form-control-feedback"></small>
                       </div>
                     </div>
                   </div>
                   <div class="row m-b-20">
-                    <div class="col col-xl-6">
-                      <label>Scale Reward</label>
-                      <input type="text" class="form-control rl-params" id="scale-reward-1" name="scale-reward=1">
-                      <small class="form-control-feedback"></small>
+                    <div class="col col-xl-4">
+                      <div class="form-group">
+                        <label>Replay Pool Size(v)</label>
+                        <input type="text" class="form-control rl-params variant" id="replay_pool_size" name="replay_pool_size">
+                        <small class="form-control-feedback"></small>
+                      </div>
                     </div>
-                    <div class="col col-xl-6">
-                      <label>Replay pool Size</label>
-                      <input type="text" class="form-control rl-params" id="replay-pool-size-1" name="replay-pool-size-1">
-                      <small class="from-control-feedback"></small>
+                    <div class="col col-xl-4">
+                      <div class="form-group">
+                        <label>QF Learning Rate(v)</label>
+                        <input type="text" class="form-control rl-params variant" id="qf_learning_rate" name="qf_learning_rate">
+                        <small class="form-control-feedback"></small>
+                      </div>
+                    </div>
+                    <div class="col col-xl-4">
+                      <div class="form-group">
+                        <label>Policy Batch Size(v)</label>
+                        <input type="text" class="form-control rl-params variant" id="policy_batch_size" name="policy_batch_size">
+                        <small class="form-control-feedback"></small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row m-b-20">
+                    <div class="col col-xl-4">
+                      <div class="form-group">
+                        <label>QF Batch Size(v)</label>
+                        <input type="text" class="form-control rl-params variant" id="qf_batch_size" name="qf_batch_size">
+                        <small class="form-control-feedback"></small>
+                      </div>
+                    </div>
+                    <div class="col col-xl-4">
+                      <div class="form-group">
+                        <label>Seed(v)</label>
+                        <input type="text" class="form-control rl-params variant" id="seed" name="seed">
+                        <small class="form-control-feedback"></small>
+                      </div>
                     </div>
                   </div>
                   <div class="row">
@@ -144,119 +185,137 @@
               <div role="tabpanel" class="tab-pane" id="tab-2">
                 <form id="step-2">
                   <div class="row">
-                    <div class="col col-xl-6">
+                    <div class="col col-xl-4">
                       <div class="form-group">
                         <label>Policy Hidden Sizes</label>
-                        <input type="text" class="form-control rl-params" id="policy-hidden-sizes-2" name="policy-hidden-sizes-2">
+                        <input type="text" class="form-control rl-params" id="policy_hidden_sizes" name="policy_hidden_sizes">
                         <small class="form-control-feedback"></small>
                       </div>
                     </div>
-                    <div class="col col-xl-6">
+                    <div class="col col-xl-4">
                       <div class="form-group">
                         <label>Policy Hidden Non Linearity</label>
-                        <select class="form-control rl-params" id="policy-hidden-non-linearity-2" name="policy-hidden-non-linearity-2">
-                            <option value="">Choose a Non Linearity</option>
-                            <option value="relu">Relu</option>
-                            <option value="tanh">tanh</option>
-                          </select>
+                        <select class="form-control rl-params" id="policy_hidden_nonlinearity" name="policy_hidden_nonlinearity">
+                          <option value="">Choose a Non Linearity</option>
+                          <option value="relu">Relu</option>
+                          <option value="tanh">tanh</option>
+                        </select>
+                        <small class="form-control-feeback"></small>
+                      </div>
+                    </div>
+                    <div class="col col-xl-4">
+                      <div class="form-group">
+                        <label>Policy output Non Linearity</label>
+                        <select class="form-control rl-params" id="policy_output_nonlinearity" name="policy_output_nonlinearity">
+                          <option value="">Choose a Non Linearity</option>
+                          <option value="relu">Relu</option>
+                          <option value="tanh">tanh</option>
+                        </select>
                         <small class="form-control-feeback"></small>
                       </div>
                     </div>
                   </div>
                   <div class="row m-b-20">
-                    <div class="col col-xl-6">
+                    <div class="col col-xl-4">
+                      <div class="form-group">
+                        <label>QF Hidden Sizes</label>
+                        <input type="text" class="form-control rl-params" id="qf_hidden_sizes" name="qf_hidden_sizes">
+                        <small class="form-control-feedback"></small>
+                      </div>
+                    </div>
+                    <div class="col col-xl-4">
+                      <div class="form-group">
+                        <label>QF Hidden Nonlinearity</label>
+                        <select class="form-control rl-params" id="qf_hidden_nonlinearity" name="qf_hidden_nonlinearity">
+                          <option value="">Choose a Non Linearity</option>
+                          <option value="relu">Relu</option>
+                          <option value="tanh">tanh</option>
+                        </select>
+                        <small class="form-control-feedback"></small>
+                      </div>
+                    </div>
+                    <div class="col col-xl-4">
                       <div class="form-group">
                         <label>Baseline Hidden Sizes</label>
-                        <input type="text" class="form-control rl-params" id="baseline-hidden-sizes-2" name="baseline-hidden-sizes-2">
+                        <input type="text" class="form-control rl-params" id="baseline_hidden_sizes" name="baseline_hidden_sizes">
                         <small class="form-control-feedback"></small>
                       </div>
                     </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <button data-target=".tab-1" class="go-back btn btn-primary btn-outline">Previous step</button>
+                      <button class="btn btn-primary" type="submit" name="submit">Next Step</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div role="tabpanel" class="tab-pane" id="tab-3">
+                <form id="step-3">
+                  <div class="row">
                     <div class="col col-xl-6">
                       <div class="form-group">
-                        <label>Baseline Hidden Non Linearity</label>
-                        <select class="form-control rl-params" id="baseline-hidden-non-linearity-2" name="baseline-hidden-non-linearity-2">
-                              <option value="">Choose a Non Linearity</option>
-                              <option value="relu">Relu</option>
-                              <option value="tanh">tanh</option>
-                          </select>
+                        <label>No of parallel Episode Workers</label>
+                        <input type="text" class="form-control rl-params" id="n_parallel" name="n_parallel">
                         <small class="form-control-feedback"></small>
                       </div>
+                    </div>
+                    <!-- <div class="col col-xl-6">
+                      <div class="form-group">
+                        <label>Batch Sampler</label>
+                        <select class="form-control rl-params" id="batch-sampler-3" name="batch-sampler-3">
+                          <option value="">Should we use Batch Sampler?</option>
+                          <option value="true">Yes</option>
+                          <option value="false">No</option>
+                        </select>
+                        <small class="form-control-feedback"></small>
+                      </div>
+                    </div> -->
                   </div>
+                  <div class="row">
+                    <div class="col col-xl-6">
+                      <div class="form-group">
+                        <label>Machine Type</label>
+                        <select class="form-control rl-params" id="machine_type" name="machine_type">
+                          <option value="">Type of aws instance to launch</option>
+                          <option value="c4.large">c4.large[2, 3.75, 0.1]</option>
+                          <option value="c4.xlarge">c4.xlarge[4, 7.5, 0.2]</option>
+                          <option value="c4.2xlarge">c4.2xlarge[8, 15, 0.39]</option>
+                          <option value="c4.4xlarge">c4.4xlarge[16, 30, 0.79]</option>
+                          <option value="c4.8xlarge">c4.8xlarge[36, 60, 1.59]</option>
+                          <option value="c3.large">c3.large[2, 3.75, 0.1]</option>
+                          <option value="c3.xlarge">c3.xlarge[4, 7.5, 0.21]</option>
+                          <option value="c3.2xlarge">c3.2xlarge[8, 15, 0.42]</option>
+                          <option value="c3.4xlarge">c3.4xlarge[16, 30, 0.84]</option>
+                          <option value="c3.8xlarge">c3.8xlarge[32, 60, 1.68]</option>
+                          <option value="m4.large">m4.large[2, 8, 0.1]</option>
+                          <option value="m4.xlarge">m4.xlarge[4, 16, 0.2]</option>
+                          <option value="m4.2xlarge">m4.2xlarge[8, 32, 0.4]</option>
+                          <option value="m4.4xlarge">m4.4xlarge[16, 64, 0.8]</option>
+                        </select>
+                        <small class="form-control-feedback"></small>
+                      </div>
+                    </div>
+                    <!-- <div class="col col-xl-6">
+                      <label>Variants Description</label>
+                      <textarea class="form-control rl-params" rows="3" id="variants-description-3" name="variants-description-3"></textarea>
+                      <small class="form-control-feedback"></small>
+                    </div> -->
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <button data-target=".tab-2" class="go-back btn btn-primary btn-outline">Previous Step</button>
+                      <button class="btn btn-primary" type="submit" name="submit">Launch Experiment</button>
+                      <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-sm">Test Modal</button> -->
+                    </div>
+                  </div>
+                </form>
               </div>
-              <div class="row">
-                <div class="col">
-                  <button data-target=".tab-1" class="go-back btn btn-primary btn-outline">Previous step</button>
-                  <button class="btn btn-primary" type="submit" name="submit">Next Step</button>
-                </div>
-              </div>
-              </form>
-            </div>
-            <div role="tabpanel" class="tab-pane" id="tab-3">
-              <form id="step-3">
-                <div class="row">
-                  <div class="col col-xl-6">
-                    <div class="form-group">
-                      <label>No of parallel Episode Workers</label>
-                      <input type="text" class="form-control rl-params" id="n-parallel-3" name="n-parallel-3">
-                      <small class="form-control-feedback"></small>
-                    </div>
-                  </div>
-                  <div class="col col-xl-6">
-                    <div class="form-group">
-                      <label>Batch Sampler</label>
-                      <select class="form-control rl-params" id="batch-sampler-3" name="batch-sampler-3">
-                        <option value="">Should we use Batch Sampler?</option>
-                        <option value="true">Yes</option>
-                        <option value="false">No</option>
-                      </select>
-                      <small class="form-control-feedback"></small>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col col-xl-6">
-                    <div class="form-group">
-                      <label>Machine Type</label>
-                      <select class="form-control rl-params" id="machine-type-3" name="machine-type-3">
-                        <option value="">Type of aws instance to launch</option>
-                        <option value="c4.large">c4.large[2, 3.75, 0.1]</option>
-                        <option value="c4.xlarge">c4.xlarge[4, 7.5, 0.2]</option>
-                        <option value="c4.2xlarge">c4.2xlarge[8, 15, 0.39]</option>
-                        <option value="c4.4xlarge">c4.4xlarge[16, 30, 0.79]</option>
-                        <option value="c4.8xlarge">c4.8xlarge[36, 60, 1.59]</option>
-                        <option value="c3.large">c3.large[2, 3.75, 0.1]</option>
-                        <option value="c3.xlarge">c3.xlarge[4, 7.5, 0.21]</option>
-                        <option value="c3.2xlarge">c3.2xlarge[8, 15, 0.42]</option>
-                        <option value="c3.4xlarge">c3.4xlarge[16, 30, 0.84]</option>
-                        <option value="c3.8xlarge">c3.8xlarge[32, 60, 1.68]</option>
-                        <option value="m4.large">m4.large[2, 8, 0.1]</option>
-                        <option value="m4.xlarge">m4.xlarge[4, 16, 0.2]</option>
-                        <option value="m4.2xlarge">m4.2xlarge[8, 32, 0.4]</option>
-                        <option value="m4.4xlarge">m4.4xlarge[16, 64, 0.8]</option>
-                      </select>
-                      <small class="form-control-feedback"></small>
-                    </div>
-                  </div>
-                  <div class="col col-xl-6">
-                    <label>Variants Description</label>
-                    <textarea class="form-control rl-params" rows="3" id="variants-description-3" name="variants-description-3"></textarea>
-                    <small class="form-control-feedback"></small>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <button data-target=".tab-2" class="go-back btn btn-primary btn-outline">Previous Step</button>
-                    <button class="btn btn-primary" type="submit" name="submit">Launch Experiment</button>
-                    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-sm">Test Modal</button> -->
-                  </div>
-                </div>
-              </form>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </div>
 <!-- end forms/typeahead -->

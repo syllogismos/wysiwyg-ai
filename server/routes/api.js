@@ -30,7 +30,8 @@ router.get('/posttest', (req, res) => {
 
 router.post('/posttest', (req, res) => {
   console.log(req.body);
-  res.sendStatus(200);
+  // res.sendStatus(200);
+  return res.json({message: 'success'})
 })
 
 

@@ -218,7 +218,7 @@ export class SupervisedComponent implements OnInit {
 
 
     // load exp config from local storage
-    var local_experiment_config = JSON.parse(localStorage.getItem('experiment_config'));
+    var local_experiment_config = JSON.parse(localStorage.getItem('supervised_exp_config'));
     if (local_experiment_config) {
       for (var s in local_experiment_config) {
         $('#' + s).val(local_experiment_config[s])

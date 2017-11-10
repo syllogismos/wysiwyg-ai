@@ -61,7 +61,7 @@ export class SupervisedExperimentComponent implements OnInit {
   }
 
   relaunchExperiment(): void {
-    localStorage.setItem('experiment_config', JSON.stringify(this.experiment.config.form_params))
+    localStorage.setItem('supervised_exp_config', JSON.stringify(this.experiment.config.form_params))
     this.router.navigate(['/escher/supervised'])
   }
 
