@@ -103,6 +103,23 @@ export class RlComponent implements OnInit {
     }
     approve.addTest(variantRange, 'variantRange')
 
+    var hiddenSizes = {
+      expects: [],
+      message: '{title} is a valid neural network hidden size config',
+      validate: function (value, pars) {
+        var every_char_check = _.every(value, x => _.includes('0123456789x', x))
+        var single_param_check = x => (parseInt(x) > 0)
+        if (every_char_check) {
+          if (value.split('x').length < 2) return false
+          return _.every(value.split('x'), single_param_check)
+        } else {
+          return false
+        }
+      }
+    }
+
+    approve.addTest(hiddenSizes, 'hiddenSizes')
+
 
     var string_inputs = [
       {
@@ -134,27 +151,6 @@ export class RlComponent implements OnInit {
         required: true
       },
       {
-        id: 'policy_hidden_sizes',
-        title: 'Policy Hidden Sizes',
-        success: 'Policy hidden sizes are valid',
-        error: 'Enter valid policy hidden sizes',
-        required: true
-      },
-      {
-        id: 'qf_hidden_sizes',
-        title: 'Qf Hidden Sizes',
-        success: 'Qf hidden sizes are valid',
-        error: 'Enter valid qf hidden sizes',
-        required: true
-      },
-      {
-        id: 'baseline_hidden_sizes',
-        title: 'Baseline Hidden Sizes',
-        success: 'Baseline hidden sizes are valid',
-        error: 'Enter valid hidden sizes',
-        required: true
-      },
-      {
         id: 'machine_type',
         title: 'Machine Type',
         success: 'Selected a valid machine type',
@@ -182,6 +178,30 @@ export class RlComponent implements OnInit {
         error: 'Please select a valid non linearity',
         required: true
       }
+    ]
+
+    var hidden_sizes_inputs = [
+      {
+        id: 'policy_hidden_sizes',
+        title: 'Policy Hidden Sizes',
+        success: 'Policy hidden sizes are valid',
+        error: 'Enter valid hidden size config, sample config looks like 100x200',
+        required: true
+      },
+      {
+        id: 'baseline_hidden_sizes',
+        title: 'Baseline Hidden Sizes',
+        success: 'Baseline hidden sizes are valid',
+        error: 'Enter valid hidden size config, sample config looks like 32x32',
+        required: true
+      },
+      {
+        id: 'qf_hidden_sizes',
+        title: 'Qf Hidden Sizes',
+        success: 'Qf hidden sizes are valid',
+        error: 'Enter valid hidden size config, sample config looks like 64x64',
+        required: true
+      },
     ]
 
     var numeric_inputs = [
@@ -329,124 +349,14 @@ export class RlComponent implements OnInit {
       }, variant.success, variant.error)
     }
 
-    // this.validateOnChange('#env-name-0', {
-    //   title: 'Environment Name',
-    //   required: true
-    // }, 'Environment Name is valid', 'Please select an Environment');
+    for (var hidden_size_input of hidden_sizes_inputs) {
+      this.validateOnChange('#' + hidden_size_input.id, {
+        title: hidden_size_input.title,
+        required: variant.required,
+        hiddenSizes: {}
+      }, hidden_size_input.success, hidden_size_input.error)
+    }
 
-    // this.validateOnChange('#exp-name-0', {
-    //   title: 'Experiment name',
-    //   required: true
-    // }, 'Experiment Name is valid', 'Please enter a valid Experiment name');
-
-    // this.validateOnChange('#save-freq-0', {
-    //   title: 'Save Frequency',
-    //   required: true,
-    //   numeric: true
-    // }, 'Save Frequency is valid', 'Please enter a valid Save Frequency');
-
-    // this.validateOnChange('#max-episodes-0', {
-    //   title: 'Max Episode',
-    //   numericRange: {
-    //     min: 10,
-    //     max: 1000000000
-    //   },
-    //   required: true,
-    // }, 'No of episodes to run the experiment', 'Please enter a number between 10-1000000000');
-
-    // this.validateOnChange('#algo-name-1', {
-    //   title: 'Algorithm name',
-    //   required: true
-    // }, 'Algorithm name is valid', "Please select the Algorithm");
-
-    // this.validateOnChange('#base-learning-rate-1', {
-    //   title: 'Base Learning Rate',
-    //   required: true,
-    //   numericRange: {
-    //     min: 0,
-    //     max: 1
-    //   }
-    // }, 'Base Learning Rate is valid', 'Please enter a number in range (0, 1)')
-
-    // this.validateOnChange('#max-kl-1', {
-    //   title: 'Max KL',
-    //   required: true,
-    //   numericRange:
-    //     {
-    //       min: 0,
-    //       max: 1
-    //     }
-    // }, 'Max KL is valid', 'Please enter a number in range (0, 1)');
-
-    // this.validateOnChange('#gae-lambda-1', {
-    //   title: 'GAE Lambda',
-    //   required: true,
-    //   numericRange: {
-    //     min: 0,
-    //     max: 1
-    //   }
-    // }, 'GAE Lambda is valid', 'Please select a number in range (0, 1)');
-
-    // this.validateOnChange('#scale-reward-1', {
-    //   title: 'Scale Reward',
-    //   required: true,
-    //   numericRange: {
-    //     min: 0,
-    //     max: 1
-    //   }
-    // }, 'Scale reward is valid', 'Please enter a number in range (0, 1)');
-
-    // this.validateOnChange('#replay-pool-size-1', {
-    //   title: 'Replay Pool Size',
-    //   required: true,
-    //   numericRange: {
-    //     min: 5000, max: 100000000
-    //   }
-    // }, 'Replay Pool size is valid', 'Please enter a number greater than 5000');
-
-    // this.validateOnChange('#policy-hidden-sizes-2', {
-    //   title: 'Policy Hidden sizes',
-    //   required: true
-    // }, 'Policy hidden sizes are valid', 'Please enter valid value for policy hidden sizes');
-
-    // this.validateOnChange('#policy-hidden-non-linearity-2', {
-    //   title: 'Policy Hidden Non Linearity',
-    //   required: true
-    // }, 'Policy hidden non linearity is valid', 'Enter a valid non linearity');
-
-    // this.validateOnChange('#baseline-hidden-sizes-2', {
-    //   title: 'Baseline Hidden sizes',
-    //   required: true
-    // }, 'Baseline Hidden sizes are valid', 'Please enter a valid value for baseline hidden sizes');
-
-    // this.validateOnChange('#baseline-hidden-non-linearity-2', {
-    //   title: 'Baseline Hidden Non Linearity',
-    //   required: true
-    // }, 'Baseline Hidden non linearity is valid', 'Please enter a valid non linearity');
-
-    // this.validateOnChange('#n-parallel-3', {
-    //   title: 'Number of parallel episode workers',
-    //   required: true,
-    //   numericRange: {
-    //     min: 1,
-    //     max: 64
-    //   }
-    // }, 'Number of parallel workers is valid', 'Please enter a valid number between 1-64')
-
-    // this.validateOnChange('#batch-sampler-3', {
-    //   title: 'Batch sampler',
-    //   required: true,
-    // }, 'Batch sampler value is valid', 'Please select a valid option')
-
-    // this.validateOnChange('#machine-type-3', {
-    //   title: 'Machine Type',
-    //   required: true,
-    // }, 'Selected a valid machine type', 'Please select a valid machine type')
-
-    // this.validateOnChange('#variants-description-3', {
-    //   title: 'Variants Description',
-    //   required: true,
-    // }, 'Valid variants description', 'Please enter a valid variant description')
 
 
     $('.go-back').on('click', function (e) {
@@ -544,40 +454,7 @@ export class RlComponent implements OnInit {
         return false
       }
 
-      // swal({
-      //   title: 'Are you sure?',
-      //   text: "You will be launching machines to train the RL environment according to the config you provided!",
-      //   type: 'warning',
-      //   showCancelButton: true,
-      //   confirmButtonColor: '#3085d6',
-      //   cancelButtonColor: '#d33',
-      //   confirmButtonText: 'Yes, launch machines!'
-      // }).then(() => {
-      //   console.log('sending params to the server');
-      //   var params = {}
-      //   $('.rl-params').serializeArray().map(x => params[x.name] = x.value);
-      //   self.http.post('/api/posttest', params)
-      //     .toPromise()
-      //     .then(resonse => {
-      //       console.log('right after post test response')
-      //     });
-      //   swal({
-      //     title: 'Running Exps!',
-      //     text: 'Your experiment are starting, redirecting you to the experiment page!',
-      //     type: 'success',
-      //     timer: 5000
-      //   }).then(() => {
-      //     console.log('ok button is clicked');
-      //     let link = ['escher/experiment'];
-      //     self.router.navigate(link);
-      //   }, dismiss => {
-      //     if (dismiss == 'timer') {
-      //       console.log('after timer');
-      //       let link = ['escher/experiment'];
-      //       self.router.navigate(link);
-      //     }
-      //   }).catch(swal.noop)
-      // }).catch(swal.noop)
+
       var params = {}
       var json_response
 
