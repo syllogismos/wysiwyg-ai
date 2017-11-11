@@ -224,7 +224,7 @@ export class SupervisedComponent implements OnInit {
         $('#' + s).val(local_experiment_config[s])
       }
       $('#sup .form-control').each(function () {
-        console.log($(this))
+        // console.log($(this))
         $(this).focus().blur();
       });
     }
