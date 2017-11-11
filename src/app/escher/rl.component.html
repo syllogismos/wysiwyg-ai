@@ -30,7 +30,7 @@
                 <a class="nav-link disabled tab-2" data-toggle="tab" data-target="#tab-2">Neural Network Settings</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled tab-3" data-toggle="tab" data-target="#tab-3">Variants</a>
+                <a class="nav-link disabled tab-3" data-toggle="tab" data-target="#tab-3">Launch Config</a>
               </li>
             </ul>
             <div class="tab-content">
@@ -40,7 +40,7 @@
                     <div class="col col-xl-6">
                       <div class="form-group">
                         <label>Experiment Name</label>
-                        <input type="text" class="form-control rl-params" id="exp" name="exp">
+                        <input type="text" class="form-control rl-params" id="exp" name="exp" placeholder="Name">
                         <small class="form-control-feedback"></small>
                       </div>
                     </div>
@@ -60,14 +60,14 @@
                     <div class="col col-xl-6">
                       <div class="form-group">
                         <label>Experiment Description</label>
-                        <textarea class="form-control rl-params" rows="e" id="exp_desc" name="exp_desc"></textarea>
+                        <textarea class="form-control rl-params" rows="e" id="exp_desc" name="exp_desc" placeholder="Description"></textarea>
                         <small class="form-control-feedback"></small>
                       </div>
                     </div>
                     <div class="col col-xl-6">
                       <div class="form-group">
                         <label>Max Episodes</label>
-                        <input type="text" class="form-control rl-params" id="max_episode" name="max_episode">
+                        <input type="text" class="form-control rl-params" id="max_episode" placeholder=10000 name="max_episode">
                         <small class="form-control-feedback"></small>
                       </div>
                     </div>
@@ -100,14 +100,14 @@
                     <div class="col col-xl-4">
                       <div class="form-group">
                         <label>Discount(v)</label>
-                        <input type="text" class="form-control rl-params variant" id="var_discount" name="var_discount">
+                        <input type="text" class="form-control rl-params variant" id="var_discount" name="var_discount" placeholder="0.99">
                         <small class="form-control-feedback"></small>
                       </div>
                     </div>
                     <div class="col col-xl-4">
                       <div class="form-group">
                         <label>Learning Rate(v)</label>
-                        <input type="text" class="form-control rl-params variant" id="var_learning_rate" name="var_learning_rate">
+                        <input type="text" class="form-control rl-params variant" id="var_learning_rate" name="var_learning_rate" placeholder="0.001">
                         <small class="form-control-feedback"></small>
                       </div>
                     </div>
@@ -116,21 +116,21 @@
                     <div class="col col-xl-4">
                       <div class="form-group">
                         <label>GAE Lambda(v)</label>
-                        <input type="text" class="form-control rl-params variant" id="var_gae_lambda" name="var_gae_lambda">
+                        <input type="text" class="form-control rl-params variant" id="var_gae_lambda" name="var_gae_lambda" placeholder="0.97">
                         <small class="form-control-feedback"></small>
                       </div>
                     </div>
                     <div class="col col-xl-4">
                       <div class="form-group">
                         <label>Step Size(v)</label>
-                        <input type="text" class="form-control rl-params variant" id="var_step_size" name="var_step_size">
+                        <input type="text" class="form-control rl-params variant" id="var_step_size" name="var_step_size" placeholder="0.01">
                         <small class="form-control-feedback"></small>
                       </div>
                     </div>
                     <div class="col col-xl-4">
                       <div class="form-group">
                         <label>Batch Size(v)</label>
-                        <input type="text" class="form-control rl-params variant" id="var_batch_size" name="var_batch_size">
+                        <input type="text" class="form-control rl-params variant" id="var_batch_size" name="var_batch_size" placeholder="10000">
                         <small class="form-control-feedback"></small>
                       </div>
                     </div>
@@ -139,21 +139,21 @@
                     <div class="col col-xl-4">
                       <div class="form-group">
                         <label>Replay Pool Size(v)</label>
-                        <input type="text" class="form-control rl-params variant" id="var_replay_pool_size" name="var_replay_pool_size">
+                        <input type="text" class="form-control rl-params variant" id="var_replay_pool_size" name="var_replay_pool_size" placeholder="1000000">
                         <small class="form-control-feedback"></small>
                       </div>
                     </div>
                     <div class="col col-xl-4">
                       <div class="form-group">
                         <label>QF Learning Rate(v)</label>
-                        <input type="text" class="form-control rl-params variant" id="var_qf_learning_rate" name="var_qf_learning_rate">
+                        <input type="text" class="form-control rl-params variant" id="var_qf_learning_rate" name="var_qf_learning_rate" placeholder="0.01">
                         <small class="form-control-feedback"></small>
                       </div>
                     </div>
                     <div class="col col-xl-4">
                       <div class="form-group">
                         <label>Policy Batch Size(v)</label>
-                        <input type="text" class="form-control rl-params variant" id="var_policy_batch_size" name="var_policy_batch_size">
+                        <input type="text" class="form-control rl-params variant" id="var_policy_batch_size" name="var_policy_batch_size" placeholder="64">
                         <small class="form-control-feedback"></small>
                       </div>
                     </div>
@@ -162,21 +162,21 @@
                     <div class="col col-xl-4">
                       <div class="form-group">
                         <label>QF Batch Size(v)</label>
-                        <input type="text" class="form-control rl-params variant" id="var_qf_batch_size" name="var_qf_batch_size">
+                        <input type="text" class="form-control rl-params variant" id="var_qf_batch_size" name="var_qf_batch_size" placeholder="64">
                         <small class="form-control-feedback"></small>
                       </div>
                     </div>
                     <div class="col col-xl-4">
                       <div class="form-group">
                         <label>Seed(v)</label>
-                        <input type="text" class="form-control rl-params variant" id="var_seed" name="var_seed">
+                        <input type="text" class="form-control rl-params variant" id="var_seed" name="var_seed" placeholder="1">
                         <small class="form-control-feedback"></small>
                       </div>
                     </div>
                     <div class="col col-xl-4">
                       <div class="form-group">
                         <label>Scale Reward(v)</label>
-                        <input type="text" class="form-control rl-params variant" id="var_scale_reward" name="var_scale_reward">
+                        <input type="text" class="form-control rl-params variant" id="var_scale_reward" name="var_scale_reward" placeholder="1.0">
                         <small class="form-control-feedback"></small>
                       </div>
                     </div>
@@ -195,7 +195,7 @@
                     <div class="col col-xl-4">
                       <div class="form-group">
                         <label>Policy Hidden Sizes</label>
-                        <input type="text" class="form-control rl-params" id="policy_hidden_sizes" name="policy_hidden_sizes">
+                        <input type="text" class="form-control rl-params" id="policy_hidden_sizes" name="policy_hidden_sizes" placeholder="200x100x50">
                         <small class="form-control-feedback"></small>
                       </div>
                     </div>
@@ -226,7 +226,7 @@
                     <div class="col col-xl-4">
                       <div class="form-group">
                         <label>QF Hidden Sizes</label>
-                        <input type="text" class="form-control rl-params" id="qf_hidden_sizes" name="qf_hidden_sizes">
+                        <input type="text" class="form-control rl-params" id="qf_hidden_sizes" name="qf_hidden_sizes" placeholder="64x64">
                         <small class="form-control-feedback"></small>
                       </div>
                     </div>
@@ -244,7 +244,7 @@
                     <div class="col col-xl-4">
                       <div class="form-group">
                         <label>Baseline Hidden Sizes</label>
-                        <input type="text" class="form-control rl-params" id="baseline_hidden_sizes" name="baseline_hidden_sizes">
+                        <input type="text" class="form-control rl-params" id="baseline_hidden_sizes" name="baseline_hidden_sizes" placeholder="32x32">
                         <small class="form-control-feedback"></small>
                       </div>
                     </div>
