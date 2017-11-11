@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 var exports = module.exports = {}
 
-var db = mongoose.connect('mongodb://localhost/eschernode')
+var db = mongoose.connect('mongodb://172.30.0.169/eschernode')
 
 var UserSchema = mongoose.Schema({
   username: String,
