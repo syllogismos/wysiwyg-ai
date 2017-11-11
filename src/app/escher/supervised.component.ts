@@ -177,7 +177,7 @@ export class SupervisedComponent implements OnInit {
         preConfirm: () => {
           $('.sup-params').serializeArray().map(x => params[x.name] = x.value)
           return new Promise((resolve, reject) => {
-            self.http.post('/api/supervised', params)
+            self.http.post('/api/new_supervised_exp', params)
               .toPromise()
               .then(response => {
                 console.log('right after post request')

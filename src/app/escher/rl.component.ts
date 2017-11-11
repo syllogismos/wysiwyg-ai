@@ -44,8 +44,8 @@ export class RlComponent implements OnInit {
    * Baseline Hidden sizes: baseline_hidden_sizes
    * 
    * Tab 4:
-   * No Parallel Episode Workers: n_parallel
-   * Machine Type: machine_type
+   * No: Parallel Episode Workers: n_parallel    Machine Type: machine_type
+   * Experiment Description: exp_desc
    * 
    * Summary:
    */
@@ -110,6 +110,13 @@ export class RlComponent implements OnInit {
         title: 'Experiment Name',
         success: 'Experiment Name is valid',
         error: 'Please enter valid Experiment Name',
+        required: true
+      },
+      {
+        id: 'exp_desc',
+        title: 'Experiment Description',
+        success: 'Experiment Description is valid',
+        error: 'Please enter some description',
         required: true
       },
       {
@@ -196,7 +203,7 @@ export class RlComponent implements OnInit {
 
     var variant_inputs = [
       {
-        id: 'batch_size',
+        id: 'var_batch_size',
         title: 'Batch Size',
         success: 'Valid batch size',
         error: 'Please enter a valid variant, comma seperated list of integers between 10, 1000000',
@@ -205,7 +212,7 @@ export class RlComponent implements OnInit {
         required: true
       },
       {
-        id: 'discount',
+        id: 'var_discount',
         title: 'Discount',
         success: 'Valid discount',
         error: 'Please enter a valid variant, between 0 and 1',
@@ -214,7 +221,7 @@ export class RlComponent implements OnInit {
         required: true
       },
       {
-        id: 'learning_rate',
+        id: 'var_learning_rate',
         title: 'Learning Rate',
         success: 'Valid learning rate',
         error: 'Please enter a valid variant, between 0 and 1',
@@ -223,7 +230,7 @@ export class RlComponent implements OnInit {
         required: true
       },
       {
-        id: 'gae_lambda',
+        id: 'var_gae_lambda',
         title: 'GAE Lambda',
         success: 'Valid gae lambda',
         error: 'Please enter a valid variant, between 0 and 1',
@@ -232,7 +239,7 @@ export class RlComponent implements OnInit {
         required: true
       },
       {
-        id: 'step_size',
+        id: 'var_step_size',
         title: 'Step Size',
         success: 'Valid step size',
         error: 'Please enter a valid step size variant, between 0 and 1',
@@ -241,7 +248,7 @@ export class RlComponent implements OnInit {
         required: true
       },
       {
-        id: 'scale_reward',
+        id: 'var_scale_reward',
         title: 'Scale Reward',
         success: 'Valid scale reward',
         error: 'Please enter a valid scale reward variant, between 0 and 1',
@@ -250,7 +257,7 @@ export class RlComponent implements OnInit {
         required: true
       },
       {
-        id: 'replay_pool_size',
+        id: 'var_replay_pool_size',
         title: 'Replay Pool Size',
         success: 'Valid pool size',
         error: 'Please enter a valid variant, between 10 and 10000000',
@@ -259,7 +266,7 @@ export class RlComponent implements OnInit {
         required: true
       },
       {
-        id: 'qf_learning_rate',
+        id: 'var_qf_learning_rate',
         title: 'QF Learning Rate',
         success: 'Valid learning rate',
         error: 'Please enter a valid variant, between 0 and 1',
@@ -268,7 +275,7 @@ export class RlComponent implements OnInit {
         required: true
       },
       {
-        id: 'policy_batch_size',
+        id: 'var_policy_batch_size',
         title: 'Policy Batch Size',
         success: 'Valid policy batch size',
         error: 'Please enter a valid variant, between 10 and 1000000',
@@ -277,7 +284,7 @@ export class RlComponent implements OnInit {
         required: true
       },
       {
-        id: 'qf_batch_size',
+        id: 'var_qf_batch_size',
         title: 'QF Batch Size',
         success: 'Valid qf batch size',
         error: 'Please enter a valid variant, between 10 and 1000000',
@@ -286,7 +293,7 @@ export class RlComponent implements OnInit {
         required: true
       },
       {
-        id: 'seed',
+        id: 'var_seed',
         title: 'Seed',
         success: 'Valid seed',
         error: 'Please enter a valid variant, integer between 1 and 1000000',
@@ -534,6 +541,7 @@ export class RlComponent implements OnInit {
           timeOut: 3000
         }
         toastr.error('Dont support more than 9 variants')
+        return false
       }
 
       // swal({
@@ -586,7 +594,7 @@ export class RlComponent implements OnInit {
         preConfirm: () => {
           $('.rl-params').serializeArray().map(x => params[x.name] = x.value)
           return new Promise((resolve, reject) => {
-            self.http.post('/api/posttest', params)
+            self.http.post('/api/new_rl_exp', params)
               .toPromise()
               .then(response => {
                 console.log('right after post request')

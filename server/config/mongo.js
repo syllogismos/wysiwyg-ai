@@ -36,6 +36,7 @@ var ExperimentSchema = mongoose.Schema({
   model: String,
   dataset: String,
   description: String,
+  env_name: String,
   config: {}
 }, {timestamps: true})
 

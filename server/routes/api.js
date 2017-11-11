@@ -214,8 +214,141 @@ router.post('/experiment', (req, res) => {
   })
 });
 
+/**
+   * Tab 1:
+   * Experiment Name: exp            Environment Name: env_name
+   * Max Episodes: max_episode       Batch Size(v): batch_size
+   * 
+   * Tab 2:
+   * Algorithm Name: algo_name     Discount(v): discount           Learning Rate(v): learning_rate
+   * GAE Lambda(v): gae_lambda     Step Size(v): step_size         Scale Reward(v): scale_reward
+   * Replay Pool Size(v): replay_pool_size  QF Learning Rate: qf_learning_rate Policy Batch Size(v): policy_batch_size
+   * QF Batch Size(v): qf_batch_size       Seed(v): seed
+   * 
+   * Tab 3:
+   * Policy Hidden Sizes: policy_hidden_sizes  Policy Hidden Nonlinearity: policy_hidden_nonlinearity  Policy Output Nonlinearity: policy_output_nonlinearity
+   * QF Hidden Sizes: qf_hidden_sizes      QF Hidden Nonlinearity: qf_hidden_nonlinearity
+   * Baseline Hidden sizes: baseline_hidden_sizes
+   * 
+   * Tab 4:
+   * No: Parallel Episode Workers: n_parallel    Machine Type: machine_type
+   * Experiment Description: exp_desc
+   * 
+   * Summary:
+   */
 
-router.post('/supervised', (req, res) => {
+router.post('/new_rl_exp', (req, res) => {
+  var config = {
+    form_params: req.body,
+    exp: req.body.exp,
+    env_name: req.body.env_name,
+    max_episode: req.body.max_episode,
+    algo_name: req.body.algo_name,
+    var_batch_size: req.body.var_batch_size.split(','),
+    var_discount: req.body.var_discount.split(','),
+    var_learning_rate: req.body.var_learning_rate.split(','),
+    var_gae_lambda: req.body.var_gae_lambda.split(','),
+    var_step_size: req.body.var_step_size.split(','),
+    var_scale_reward: req.body.var_scale_reward.split(','),
+    var_replay_pool_size: req.body.var_replay_pool_size.split(','),
+    var_qf_learning_rate: req.body.var_qf_learning_rate.split(','),
+    var_policy_batch_size: req.body.var_policy_batch_size.split(','),
+    var_qf_batch_size: req.body.var_qf_batch_size.split(','),
+    var_seed: req.body.var_seed.split(','),
+    policy_hidden_sizes: req.body.policy_hidden_sizes,
+    policy_hidden_nonlinearity: req.body.policy_hidden_nonlinearity,
+    policy_output_nonlinearity: req.body.policy_output_nonlinearity,
+    qf_hidden_sizes: req.body.qf_hidden_sizes,
+    qf_hidden_nonlinearity: req.body.qf_hidden_nonlinearity,
+    baseline_hidden_sizes: req.body.baseline_hidden_sizes,
+    n_parallel: req.body.n_parallel,
+    machine_type: req.body.machine_type,
+  }
+
+  var variant_lists = perms.product(
+    config.var_batch_size,
+    config.var_discount,
+    config.var_learning_rate,
+    config.var_gae_lambda,
+    config.var_step_size,
+    config.var_scale_reward,
+    config.var_replay_pool_size,
+    config.var_qf_learning_rate,
+    config.var_policy_batch_size,
+    config.var_qf_batch_size,
+    config.var_seed
+  )
+
+  var variant_dicts = _.map(variant_lists, x => {
+    return {
+      batch_size: x[0],
+      discount: x[1],
+      learning_rate: x[2],
+      gae_lambda: x[3],
+      step_size: x[4],
+      scale_reward: x[5],
+      replay_pool_size: x[6],
+      qf_learning_rate: x[7],
+      policy_batch_size: x[8],
+      qf_batch_size: x[9],
+      seed: x[10]
+    }
+  })
+
+  config.variants = variant_dicts
+
+  var newExperiment = new mongooseConfig.ExperimentModel({
+    name: req.body.exp,
+    description: req.body.exp_desc,
+    type: 'rl',
+    user: req.user._id,
+    env_name: req.body.env_name,
+    config: config
+  })
+
+  newExperiment.save((err, experiment) => {
+    if (err) {
+      console.log('error while saving experiment')
+      return res.json({
+        "exp_started": false,
+        "message": "unalbe to save experiment object"
+      })
+    } else {
+      var options = {
+        method: 'POST',
+        url: 'http://localhost:8000/launch/rl/',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: { exp_id: experiment._id },
+        json: true
+      };
+      request(options, function (error, response, body) {
+        if (error) {
+          console.log(error)
+          return res.json({
+            exp_started: false,
+            message: "failed to launch experiment from python server",
+            exp_id: experiment._id
+          })
+        } else if (body.status == 200) {
+          return res.json({
+            exp_started: true,
+            message: "starting experiment",
+            exp_id: experiment._id
+          })
+        } else {
+          return res.json({
+            exp_started: false,
+            message: "failed to lauch experiment, python server returend false status code other than 200"
+          })
+        }
+      });
+    }
+  })
+})
+
+router.post('/new_supervised_exp', (req, res) => {
   // New supervised experiment
   var config = {
     form_params: req.body,
@@ -275,7 +408,7 @@ router.post('/supervised', (req, res) => {
     } else {
       
       var options = { method: 'POST',
-        url: 'http://localhost:8000/supervised/launch/',
+        url: 'http://localhost:8000/launch/supervised/',
         headers: 
         { 
           'content-type': 'application/json'
