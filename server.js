@@ -5,6 +5,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 
 const mongooseConfig = require('./server/config/mongo.js');
 
@@ -17,7 +18,13 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(multer());
-app.use(session({ secret: 'this is the secret' }));
+app.use(session({
+  secret: 'this is the secret',
+  store: new MongoStore({ mongooseConnection: mongooseConfig.mongoose.connection }),
+  cookie: {
+    maxAge: 1000*60*60*24 // 1 day
+  }
+}));
 app.use(cookieParser());
 app.use(passport.initialize())
 app.use(passport.session());

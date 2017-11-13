@@ -51,3 +51,4 @@ exports.UserModel = mongoose.model('user', UserSchema);
 exports.NNModel = mongoose.model('nnmodel', NNModelSchema);
 exports.DatasetModel = mongoose.model('dataset', DatasetSchema)
 exports.ExperimentModel = mongoose.model('experiment', ExperimentSchema)
+exports.mongoose = mongoose
