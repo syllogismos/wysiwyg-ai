@@ -323,9 +323,10 @@
             <thead>
               <tr>
                 <th>Name</th>
+                <th>Type</th>
                 <th>Model</th>
                 <th>Dataset</th>
-                <th>Optim</th>
+                <!-- <th>Optim</th> -->
                 <th>Loss</th>
                 <th>Machine Type</th>
                 <th>Created at</th>
@@ -333,10 +334,14 @@
             </thead>
             <tbody>
               <tr *ngFor="let exp of experiments">
-                <td><a [routerLink]="['/escher/experiment-detail', exp._id]">{{exp.name}}</a></td>
+                <td>
+                  <a *ngIf="exp.type == 'supervised'" [routerLink]="['/escher/sup-experiment', exp._id]">{{exp.name}}</a>
+                  <a *ngIf="exp.type == 'rl'" [routerLink]="['/escher/rl-experiment', exp._id]">{{exp.name}}</a>
+                </td>
+                <td>{{exp.type}}</td>
                 <td>{{exp.model}}</td>
                 <td>{{exp.dataset}}</td>
-                <td>{{exp.config.optim}}</td>
+                <!-- <td>{{exp.config.optim}}</td> -->
                 <td>{{exp.config.loss}}</td>
                 <td>{{exp.config.machine_type}}</td>
                 <td>{{exp.createdAt}}</td>

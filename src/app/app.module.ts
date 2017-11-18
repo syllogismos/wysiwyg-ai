@@ -112,6 +112,7 @@ import { EverythingComponent } from './escher/everything.component';
 import { PaymentComponent } from './escher/payment.component';
 import { SupervisedComponent } from './escher/supervised.component';
 import { SupervisedExperimentComponent } from './escher/supervised-experiment.component';
+import { RlExperimentComponent } from './escher/rl-experiment.component';
 
 @NgModule({
   declarations: [
@@ -220,6 +221,7 @@ import { SupervisedExperimentComponent } from './escher/supervised-experiment.co
     PaymentComponent,
     SupervisedComponent,
     SupervisedExperimentComponent,
+    RlExperimentComponent,
   ],
   imports: [
     BrowserModule,
@@ -235,7 +237,8 @@ import { SupervisedExperimentComponent } from './escher/supervised-experiment.co
       { path: 'escher/model-zoo', component: ModelzooComponent, canActivate: [LoggedInGuard] },
       { path: 'escher/everything', component: EverythingComponent, canActivate: [LoggedInGuard] },
       { path: 'escher/payment', component: PaymentComponent, canActivate: [LoggedInGuard] },
-      { path: 'escher/experiment-detail/:exp_id', component: SupervisedExperimentComponent, canActivate: [LoggedInGuard] },      
+      { path: 'escher/sup-experiment/:exp_id', component: SupervisedExperimentComponent, canActivate: [LoggedInGuard] },      
+      { path: 'escher/rl-experiment/:exp_id', component: RlExperimentComponent, canActivate: [LoggedInGuard]},
       { path: 'pages/user-profile', component: UserProfileComponent, canActivate: [LoggedInGuard] },
       { path: 'pages/login', component: LoginComponent },      
       { path: 'pages/producthunt/create-account', component: CreateAccountComponent },

@@ -36,7 +36,9 @@ app.use(express.static(path.join(__dirname, 'dist')));
 
 // Define api end points go here
 const api = require('./server/routes/api');
+const elastic = require('./server/routes/elastic');
 app.use('/api', api);
+app.use('/elastic', elastic);
 
 // rest of the routes front end, angular build files
 app.get('*', (req, res) => {

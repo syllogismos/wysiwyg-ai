@@ -51,7 +51,9 @@ export class AppComponent {
 
     allUrls = allUrls.concat([
       '/',
-      '/escher/experiment-detail'
+      '/escher/experiment-detail',
+      '/escher/sup-experiment',
+      '/escher/rl-experiment'
     ])
 
     //reset localStorage on page load for demo purposes only. this can be removed in production
