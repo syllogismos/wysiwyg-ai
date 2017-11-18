@@ -9,7 +9,7 @@ router.post('/posttest', (req, res) => {
 })
 
 router.post('/getExperimentLogs', (req, res) => {
-    console.log(req.body);
+    console.log(req);
     return res.json({message: 'success'})
 })
 
