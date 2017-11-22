@@ -68,8 +68,8 @@ passport.deserializeUser(function (user, done) {
 router.post('/login', passport.authenticate('local'), (req, res) => {
   // console.log(req.body)
   // console.log('api login')
-  console.log(req.user)
-  console.log('@@@@@@@@@@@@@@@@@')
+  // console.log(req.user)
+  // console.log('@@@@@@@@@@@@@@@@@')
   res.json(req.user)
 })
 

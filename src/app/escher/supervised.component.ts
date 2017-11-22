@@ -201,12 +201,12 @@ export class SupervisedComponent implements OnInit {
           allowOutsideClick: false
         }).then(() => {
           console.log('ok button is clicked');
-          let link = ['escher/experiment-detail', json_response.exp_id]
+          let link = ['escher/sup-experiment', json_response.exp_id]
           self.router.navigate(link);
         }, dismiss => {
           if (dismiss == 'timer') {
             console.log('after timer');
-            let link = ['escher/experiment-detail', json_response.exp_id];
+            let link = ['escher/sup-experiment', json_response.exp_id];
             self.router.navigate(link);
           }
         }).catch(swal.noop)

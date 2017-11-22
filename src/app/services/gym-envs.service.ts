@@ -5,7 +5,9 @@ export class GymEnvsService {
 
   constructor() { }
 
-  gymEnvIds: Array<string> = ['RoadRunner-ramDeterministic-v4',
+  gymEnvIds: Array<string> = [
+    'Humanoid-v1',
+    'RoadRunner-ramDeterministic-v4',
     'Asteroids-ramDeterministic-v0',
     'Gopher-ramDeterministic-v4',
     'RoadRunner-ramDeterministic-v0',

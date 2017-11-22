@@ -44,7 +44,7 @@ export class ExperimentComponent implements OnInit {
       setTimeout(function () {
         $(function () {
           $('#experiment-datatable').DataTable({
-            "order": [[ 6, "desc" ]]
+            "order": [[ 3, "desc" ]]
           });
         });
       }, 10);

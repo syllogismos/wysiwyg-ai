@@ -1,10 +1,329 @@
 <div class="row">
+    <div class="col-12 col-md-12 col-xl-8">
+      <h4>Experiment Details:</h4>
+      <!-- <div class="row">
+        <div class="col title">
+          <h6>Environment Settings</h6>
+        </div>
+        <div class="col title">
+          <h6>Algorithm Settings</h6>
+        </div>
+      </div> -->
+      <div class="widget">
+        <div class="row">
+          <div class="col">
+            <div class="row">
+              <div class="table-responsive">
+                <table class="table table-hover table-bordered">
+                  <thead>
+                    <tr>
+                      <th colspan="2">Environment Settings</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Environment Name</td>
+                      <td>{{experiment.config.env_name}}</td>
+                    </tr>
+                    <tr>
+                      <td>Observation Dimension</td>
+                      <td>Box(2,)</td>
+                    </tr>
+                    <tr>
+                      <td>Action Dimension</td>
+                      <td>Box(2,)</td>
+                    </tr>
+                    <tr>
+                      <td>Target Return</td>
+                      <td>200</td>
+                    </tr>
+                    <tr>
+                      <td>Max Episode Length</td>
+                      <td>200 Timesteps</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="row">
+              <div class="table-responsive">
+                <table class="table table-hover table-bordered">
+                  <thead>
+                    <tr>
+                      <th colspan="2">EC2 Settings</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Machine Type</td>
+                      <td>{{experiment.config.machine_type}}</td>
+                    </tr>
+                    <tr>
+                      <td>Current Spot Price</td>
+                      <td>$0.4</td>
+                    </tr>
+                    <tr>
+                      <td>No. of vcpu</td>
+                      <td>4</td>
+                    </tr>
+                    <tr>
+                      <td>Memory</td>
+                      <td>4</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="table-responsive">
+              <table class="table table-hover table-bordered">
+                <thead>
+                  <tr>
+                    <th colspan="2">Algorithm Settings</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Algorithm Name</td>
+                    <td>{{experiment.config.algo_name}}</td>
+                  </tr>
+                  <tr>
+                    <td>Policy Network hidden sizes</td>
+                    <td>{{experiment.config.policy_hidden_sizes}}</td>
+                  </tr>
+                  <tr>
+                    <td>Policy Actiavtion</td>
+                    <td>{{experiment.config.policy_hidden_nonlinearity}}</td>
+                  </tr>
+                  <tr>
+                    <td>Baseline hidden sizes</td>
+                    <td>{{experiment.config.baseline_hidden_sizes}}</td>
+                  </tr>
+                  <tr>
+                    <td>QF Activation</td>
+                    <td>{{experiment.config.qf_hidden_nonlinearity}}</td>
+                  </tr>
+                  <tr>
+                    <td>Base Learning Rate</td>
+                    <td>{{experiment.config.form_params.var_learning_rate}}</td>
+                  </tr>
+                  <tr>
+                    <td>Max KL Divergence</td>
+                    <td>{{experiment.config.form_params.var_step_size}}</td>
+                  </tr>
+                  <tr>
+                    <td>No of Episodes</td>
+                    <td>{{experiment.config.max_episode}}</td>
+                  </tr>
+                  <tr>
+                    <td>GAE Lambda</td>
+                    <td>{{experiment.config.form_params.var_gae_lambda}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-12 col-xl-4">
+      <div class="row">
+        <div class="widget">
+          <div class="row">
+            <div class="col">
+              <div class="dropdown pull-right">
+                <button type="button" class="btn btn-default btn-rounded btn-outline dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
+                  Variants
+                </button>
+                <div class="dropdown-menu dropdown-menu-right from-right">
+                  <a class="dropdown-item">id: asf534</a>
+                  <a class="dropdown-item">id: r34t34</a>
+                  <a class="dropdown-item">id: dfa87l</a>
+                  <a class="dropdown-item">id: amn071</a>
+                </div>
+              </div>
+              <div class="title">Experiment timeline</div>
+              <div class="description">Recent experiment Activity</div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="timeline-widget-1">
+                <div class="row justify-content-start align-items-center timeline-warning">
+                  <div class="col">
+                    <div class="timeline-item">
+                      <p>10 minutes ago</p>
+                      <p>Manually terminated the run on Variant id: 9hoq31</p>
+                      <!-- <div class="actions">
+                            <span>Reply</span>
+                            <i class="fa fa-mail-reply"></i>
+                          </div> -->
+                    </div>
+                  </div>
+                </div>
+                <div class="row justify-content-start align-items-center timeline-success">
+                  <div class="col">
+                    <div class="timeline-item">
+                      <p>15 minutes ago</p>
+                      <p>Max Return greater than threshold of 4000 for the first time on Variant id: 8jaq0m</p>
+                      <!-- <div class="actions">
+                            <span>Like</span>
+                            <i class="fa fa-thumbs-o-up"></i>
+                            <span>Comment</span>
+                            <i class="fa fa-comment"></i>
+                          </div> -->
+                    </div>
+                  </div>
+                </div>
+                <div class="row justify-content-start align-itmes-center timeline-danger">
+                  <div class="col">
+                    <div class="timeline-item">
+                      <p>2 hours ago</p>
+                      <p>Under utilized CPU's in Variant id: 9hoq31</p>
+                      <!-- <div class="actions">
+                            <span>Stop</span>
+                            <i class="fa fa-stop"></i>
+                          </div> -->
+                    </div>
+                  </div>
+                </div>
+                <div class="row justify-content-start align-items-center timeline-info">
+                  <div class="col">
+                    <div class="timeline-item">
+                      <p>4 hours ago</p>
+                      <p>All 4 variants successfully started running on c4.large machines</p>
+                      <!-- <div class="actions">
+                            <span>Stop</span>
+                            <i class="fa fa-stop"></i>
+                          </div> -->
+                    </div>
+                  </div>
+                </div>
+                <div class="row justify-content-start align-items-center timeline-info">
+                  <div class="col">
+                    <div class="timeline-item">
+                      <p>4 hours ago</p>
+                      <p>New RL experiment created on Cartpole-v0 Environment</p>
+                      <!-- <div class="actions">
+                              <span>Stop</span>
+                              <i class="fa fa-stop"></i>
+                            </div> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <div class="widget">
+        <div class="table-responsive">
+          <table class="table table-hover table-bordered">
+            <thead>
+              <tr>
+                <th colspan="3">Variant Settings</th>
+              </tr>
+              <tr>
+                <th>Variant id</th>
+                <th>Max KL</th>
+                <th>Batch Size</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>92d8aa</td>
+                <td>0.01</td>
+                <td>25000</td>
+              </tr>
+              <tr>
+                <td>25ja92</td>
+                <td>0.01</td>
+                <td>50000</td>
+              </tr>
+              <tr>
+                <td>iu78aa</td>
+                <td>0.1</td>
+                <td>25000</td>
+              </tr>
+              <tr>
+                <td>27qt92</td>
+                <td>0.1</td>
+                <td>50000</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="widget">
+        <div class="row">
+          <h5>Variants Progress:</h5>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="easy-pie-chart-xs easy-pie-chart">
+              <div class="chart easy-pie-chart-primary-xs" data-percent="63"></div>
+              <span class="number color-primary">83%</span>
+            </div>
+          </div>
+          <div class="col">
+            <div class="easy-pie-chart-xs easy-pie-chart">
+              <div class="chart easy-pie-chart-primary-xs" data-percent="45"></div>
+              <span class="number color-primary">74%</span>
+            </div>
+          </div>
+          <div class="col">
+            <div class="easy-pie-chart-xs easy-pie-chart">
+              <div class="chart easy-pie-chart-primary-xs" data-percent="53"></div>
+              <span class="number color-primary">69%</span>
+            </div>
+          </div>
+          <div class="col">
+            <div class="easy-pie-chart-xs easy-pie-chart">
+              <div class="chart easy-pie-chart-danger-xs" data-percent="37"></div>
+              <span class="number color-danger">37%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h4>Results and Plots</h4>
+  <div class="row">
+    <div class="col-6">
+      <h5>Mean Reward</h5>
+      <div class="series-a-danger series-b-info series-c-success series-d-warning" style="height:500px">
+        <div id="avg-return-line-chart" class="ct-chart"></div>
+      </div>
+    </div>
+    <div class="col-6">
+      <h5>Entropy</h5>
+      <div class="series-a-danger series-b-info series-c-success series-d-warning" style="height:500px">
+        <div id="max-kl-line-chart" class="ct-chart"></div>
+      </div>
+    </div>
+  </div>
+
+<div class="row">
   <div class="col">
     <div class="widget">
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-4">
           <button class="btn btn-default" (click)="getExperimentLogs()">Refresh Experiment Logs</button>
         </div>
+      </div>
+    </div> -->
+    <div class="row">
+      <div class="col">
+        <table id="exp-logs-datatable" class="table table-hover table-striped table-bordered" style="width: 100%">
+        </table>
       </div>
     </div>
   </div>
