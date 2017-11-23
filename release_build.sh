@@ -14,7 +14,7 @@ echo "downloading build from s3"
 cd s3_build
 s3cmd get s3://eschernode-dashboard-build/dist_s3_build.zip dist_s3_build.zip --force
 rm -rf dist_build/
-unzip dist_s3_build.zip
+unzip -q dist_s3_build.zip
 cd ../
 
 echo "copying lates build to dist folder"
@@ -31,4 +31,4 @@ cp -r dist/* dist_old1/
 cp -r s3_build/dist_build/* dist/
 
 echo "restarting the express server using pm2"
-pm2 restart server
+/home/ubuntu/.nvm/versions/node/v8.1.2/bin/pm2 restart server
