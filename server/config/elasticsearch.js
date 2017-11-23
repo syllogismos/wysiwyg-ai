@@ -2,7 +2,7 @@ var elasticsearch=require('elasticsearch');
 
 var client;
 
-if (process.env.DEV) {
+if (process.env.ESCHERNODE_ENV == 'dev') {
     client = new elasticsearch.Client( {  
         hosts: [
           'localhost:9200'

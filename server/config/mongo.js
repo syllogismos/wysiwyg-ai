@@ -4,7 +4,7 @@ var exports = module.exports = {}
 
 var db;
 
-if (process.env.DEV) {
+if (process.env.ESCHERNODE_ENV == 'dev') {
   db = mongoose.connect('mongodb://52.2.113.244/eschernode')  
 } else {
   db = mongoose.connect('mongodb://172.30.0.169/eschernode')
