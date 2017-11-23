@@ -10,6 +10,7 @@
 /dist_old5
 /tmp
 /out-tsc
+/s3_build
 
 # dependencies
 /node_modules
