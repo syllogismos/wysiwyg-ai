@@ -30,5 +30,5 @@ cp -r dist_old1/* dist_old2/
 cp -r dist/* dist_old1/
 cp -r s3_build/dist_build/* dist/
 
-echo "restarting the express server using pm2"
-pm2 restart server
+# echo "restarting the express server using pm2"
+# pm2 restart server
