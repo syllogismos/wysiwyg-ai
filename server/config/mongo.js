@@ -6,7 +6,7 @@ var db;
 
 if (process.env.ESCHERNODE_ENV == 'dev') {
   db = mongoose.connect('mongodb://52.2.113.244/eschernode')  
-} else {
+} else if (process.env.ESCHERNODE_ENV == 'prod') {
   db = mongoose.connect('mongodb://172.30.0.169/eschernode')
 }
 
