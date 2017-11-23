@@ -2,9 +2,9 @@
 
 # creates the build and uploads to s3
 echo "removing old zip file"
-# rm s3_build/dist_s3_build.zip
+rm s3_build/dist_s3_build.zip
 echo "Creating new build"
-# npm run build
+npm run build
 echo "Creating zip file"
 zip -rq s3_build/dist_s3_build.zip dist_build
 
