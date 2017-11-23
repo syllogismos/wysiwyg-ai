@@ -2,9 +2,9 @@
 
 # git clone latest, npm install, download build files from s3, and pm2 restart
 
-echo "Fetching latest master of dashboard"
-git fetch --all
-git reset --hard origin/master
+# echo "Fetching latest master of dashboard"
+# git fetch --all
+# git reset --hard origin/master
 
 echo "npm install new packages"
 npm install
@@ -31,4 +31,4 @@ cp -r dist/* dist_old1/
 cp -r s3_build/dist_build/* dist/
 
 echo "restarting the express server using pm2"
-/home/ubuntu/.nvm/versions/node/v8.1.2/bin/pm2 restart server
+pm2 restart server
