@@ -14,6 +14,7 @@ declare var _: any;
 declare var Chartist: any;
 declare var nv: any;
 declare var d3: any;
+declare var moment: any;
 
 @Component({
   selector: 'app-rl-experiment',
@@ -126,7 +127,18 @@ export class RlExperimentComponent implements OnInit {
       .then(response => {
         console.log('right after timeline query')
         console.log(response.json())
-        this.exp_timeline = response.json().body.hits
+        // this.exp_timeline = response.json().body.hits
+        var hits = response.json().body.hits
+        hits = _.sortBy(hits, x => moment(x._source.json.timestamp))
+        hits = hits.reverse()
+        hits = hits.slice(0, 10)
+        var timeline_log
+        this.exp_timeline = _.map(hits, x => {
+          var timeline_log = x
+          timeline_log.moment = moment(x._source.json.timestamp).fromNow()
+          console.log(x.moment)
+          return timeline_log
+        })
       })
       .catch(this.handleHttpError)
   }

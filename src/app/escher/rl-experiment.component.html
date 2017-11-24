@@ -236,68 +236,26 @@
         <div class="row">
           <div class="col">
             <div class="timeline-widget-1">
-              <div class="row justify-content-start align-items-center timeline-warning">
+              <div *ngFor="let timeline_log of exp_timeline" class="row justify-content-start aligh-items-center timeline-{{timeline_log._source.json.timeline.level}}">
+                <div class="col">
+                  <div class="timeline-item">
+                    <p>{{timeline_log.moment}}</p>
+                    <p>{{timeline_log._source.json.timeline.message}}</p>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="row justify-content-start align-items-center timeline-warning">
                 <div class="col">
                   <div class="timeline-item">
                     <p>10 minutes ago</p>
                     <p>Manually terminated the run on Variant id: 9hoq31</p>
-                    <!-- <div class="actions">
+                    <div class="actions">
                             <span>Reply</span>
                             <i class="fa fa-mail-reply"></i>
-                          </div> -->
+                          </div>
                   </div>
                 </div>
-              </div>
-              <div class="row justify-content-start align-items-center timeline-success">
-                <div class="col">
-                  <div class="timeline-item">
-                    <p>15 minutes ago</p>
-                    <p>Max Return greater than threshold of 4000 for the first time on Variant id: 8jaq0m</p>
-                    <!-- <div class="actions">
-                            <span>Like</span>
-                            <i class="fa fa-thumbs-o-up"></i>
-                            <span>Comment</span>
-                            <i class="fa fa-comment"></i>
-                          </div> -->
-                  </div>
-                </div>
-              </div>
-              <div class="row justify-content-start align-itmes-center timeline-danger">
-                <div class="col">
-                  <div class="timeline-item">
-                    <p>2 hours ago</p>
-                    <p>Under utilized CPU's in Variant id: 9hoq31</p>
-                    <!-- <div class="actions">
-                            <span>Stop</span>
-                            <i class="fa fa-stop"></i>
-                          </div> -->
-                  </div>
-                </div>
-              </div>
-              <div class="row justify-content-start align-items-center timeline-info">
-                <div class="col">
-                  <div class="timeline-item">
-                    <p>4 hours ago</p>
-                    <p>All 4 variants successfully started running on c4.large machines</p>
-                    <!-- <div class="actions">
-                            <span>Stop</span>
-                            <i class="fa fa-stop"></i>
-                          </div> -->
-                  </div>
-                </div>
-              </div>
-              <div class="row justify-content-start align-items-center timeline-info">
-                <div class="col">
-                  <div class="timeline-item">
-                    <p>4 hours ago</p>
-                    <p>New RL experiment created on Cartpole-v0 Environment</p>
-                    <!-- <div class="actions">
-                              <span>Stop</span>
-                              <i class="fa fa-stop"></i>
-                            </div> -->
-                  </div>
-                </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
