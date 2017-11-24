@@ -11,7 +11,13 @@ const request = require("request");
 
 const bcryptSalt = bcrypt.genSaltSync(10);
 
+var BACKEND_URL;
 
+if (process.env.ESCHERNODE_ENV == 'dev') {
+  BACKEND_URL = 'http://localhost:8000'
+} else if (process.env.ESCHERNODE_ENV == 'prod') {
+  BACKEND_URL = 'http://172.30.0.251'
+}
 
 // basic test route
 router.get('/', (req, res) => {
@@ -316,7 +322,7 @@ router.post('/new_rl_exp', (req, res) => {
     } else {
       var options = {
         method: 'POST',
-        url: 'http://localhost:8000/launch/rl/',
+        url: BACKEND_URL + '/launch/rl/',
         headers: {
           'content-type': 'application/json'
         },
@@ -408,7 +414,7 @@ router.post('/new_supervised_exp', (req, res) => {
     } else {
       
       var options = { method: 'POST',
-        url: 'http://localhost:8000/launch/supervised/',
+        url: BACKEND_URL + '/launch/supervised/',
         headers: 
         { 
           'content-type': 'application/json'
