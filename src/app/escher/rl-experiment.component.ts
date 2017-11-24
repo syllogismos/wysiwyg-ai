@@ -49,6 +49,8 @@ export class RlExperimentComponent implements OnInit {
 
   experiment_logs: any;
   exp_timeline: any;
+  exp_timeline_all: any;
+  selectedTimelineVariant = 'all';
   hits: any;
   metrics = ['AverageReward'];
   variants: any = [0];
@@ -131,14 +133,15 @@ export class RlExperimentComponent implements OnInit {
         var hits = response.json().body.hits
         hits = _.sortBy(hits, x => moment(x._source.json.timestamp))
         hits = hits.reverse()
-        hits = hits.slice(0, 10)
+        // hits = hits.slice(0, 10)
         var timeline_log
-        this.exp_timeline = _.map(hits, x => {
+        this.exp_timeline_all = _.map(hits, x => {
           var timeline_log = x
           timeline_log.moment = moment(x._source.json.timestamp).fromNow()
           console.log(x.moment)
           return timeline_log
         })
+        this.exp_timeline = this.exp_timeline_all.slice(0, 10)
       })
       .catch(this.handleHttpError)
   }
@@ -306,6 +309,25 @@ export class RlExperimentComponent implements OnInit {
     this.nvD3Line1('#nvd3-metric svg', this.colors, ['Variant: 0'], [meanL], 'Iteration', 'Mean Length')
   }
 
+  modifyTimeline(variant: any = "all"): void {
+    if (variant == "all") {
+      this.exp_timeline = this.exp_timeline_all.slice(0, 10)
+    } else {
+      this.exp_timeline = _.filter(this.exp_timeline_all, x => {
+        if ('variant' in x._source.json.timeline && x._source.json.timeline.variant == variant) {
+          return true
+        } else {
+          return false
+        }
+      })
+      this.exp_timeline = this.exp_timeline.slice(0, 10)
+    }
+    this.selectedTimelineVariant = variant
+  }
+
+  allVariantsTimeline(): void{
+    this.modifyTimeline('all')
+  }
 
   modifyDataTable(variant: any = "all"): void {
     var keys;
@@ -361,6 +383,11 @@ export class RlExperimentComponent implements OnInit {
 
     this.nvD3Line1('#nvd3-metric svg', this.colors, legend_keys, metrics, 'Iteration', met)
   
+  }
+
+  relaunchExperiment(): void {
+    localStorage.setItem('rl_exp_config', JSON.stringify(this.experiment.config.form_params))
+    this.router.navigate(['/escher/rl'])
   }
 
 

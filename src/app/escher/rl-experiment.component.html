@@ -217,20 +217,31 @@
       <div class="widget">
         <div class="row">
           <div class="col">
+            <button class="btn btn-default" (click)="relaunchExperiment()">Relaunch Experiment</button>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col">
             <div class="dropdown pull-right">
               <button type="button" class="btn btn-default btn-rounded btn-outline dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="false" id="variant-dropdown">
                 Variants
               </button>
               <div class="dropdown-menu dropdown-menu-right from-right">
-                <a class="dropdown-item">id: asf534</a>
-                <a class="dropdown-item">id: r34t34</a>
-                <a class="dropdown-item">id: dfa87l</a>
-                <a class="dropdown-item">id: amn071</a>
+                <a *ngFor="let variant of variants" (click)="modifyTimeline(variant)" class="dropdown-item">Variant: {{variant}}</a>
+                <a (click)="allVariantsTimeline()" class="dropdown-item">All Variants</a>
               </div>
             </div>
             <div class="title">Experiment timeline</div>
-            <div class="description">Recent experiment Activity</div>
+            <!-- <div class="description">Recent experiment Activity</div> -->
+            <div *ngIf="selectedTimelineVariant=='all'; then thenTimelineBlock else elseTimelineBlock" class="description"></div>
+            <ng-template #thenTimelineBlock>
+              <div>All Variants Activity</div>
+            </ng-template>
+            <ng-template #elseTimelineBlock>
+              <div>Variant: {{selectedTimelineVariant}} Activity</div>
+            </ng-template>
           </div>
         </div>
         <div class="row">
@@ -263,16 +274,18 @@
     </div>
   </div>
 </div>
-
+<hr>
 <div class="row">
   <div class="col">
     <div class="widget">
+      <div class="row">
+        <div class="col">
+          <h5>Variant Settings</h5>
+        </div>
+      </div>
       <div class="table-responsive">
         <table class="table table-hover table-bordered">
           <thead>
-            <tr>
-              <th colspan="12">Variant Settings</th>
-            </tr>
             <tr>
               <th>Variant</th>
               <th>Seed</th>
@@ -286,6 +299,7 @@
               <th>LR</th>
               <th>Discount</th>
               <th>Batch Size</th>
+              <!-- <th>Progress</th> -->
             </tr>
           </thead>
           <tbody>
@@ -302,6 +316,11 @@
               <td>{{variant.learning_rate}}</td>
               <td>{{variant.discount}}</td>
               <td>{{variant.batch_size}}</td>
+              <!-- <td>
+                <div class="progress progress-sm">
+                  <div class="progress-bar bg-secondary" role="progressbar" style="width: 33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </td> -->
             </tr>
           </tbody>
         </table>
@@ -309,8 +328,9 @@
     </div>
   </div>
 </div>
+<hr>
 
-<div class="row">
+<!-- <div class="row">
   <div class="col">
     <div class="widget">
       <div class="row">
@@ -344,14 +364,18 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 
-<h4>Results and Plots</h4>
 
 <div class="row">
   <div class="col">
     <div class="widget">
+      <div class="row">
+        <div class="col">
+          <h4>Results and Plots</h4>
+        </div>
+      </div>
       <div class="row">
         <!-- <div class="col-3">
           <div class="title">Metric</div>

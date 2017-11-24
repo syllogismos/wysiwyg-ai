@@ -497,12 +497,12 @@ export class RlComponent implements OnInit {
           allowOutsideClick: false
         }).then(() => {
           console.log('ok button is clicked');
-          let link = ['escher/experiment']
+          let link = ['escher/rl-experiment', json_response.exp_id]
           self.router.navigate(link);
         }, dismiss => {
           if (dismiss == 'timer') {
             console.log('after timer');
-            let link = ['escher/experiment'];
+            let link = ['escher/rl-experiment', json_response.exp_id];
             self.router.navigate(link);
           }
         }).catch(swal.noop)
