@@ -119,22 +119,9 @@ export class RlExperimentComponent implements OnInit {
           return temp;
         })
         console.log(hits)
-        // hits = _.sortBy(hits, x => x.Iteration)
         this.hits = hits
         var variants = new Set(_.map(hits, x => x.Variant))
         this.variants = Array.from(variants)
-        // this.variants = [0,1]
-        // var metrics = []
-        // var metric
-        // var legend_keys = []
-        // for (let variant of this.variants) {
-        //   legend_keys.push('Variant: ' + variant)
-        //   metric = _.filter(this.hits, x => x.Variant == variant)
-        //   metric = _.sortBy(metric, x => x.Iteration)
-        //   metric = _.map(metric, x => x['AverageReturn'])
-        //   metrics.push(metric)
-        // }
-        // this.nvD3Line1('#nvd3-metric svg', this.colors, legend_keys, metrics, 'Iteration', 'AverageReward')
         var keys;
         var datatable_data;
         if (hits.length > 0) {
@@ -143,7 +130,6 @@ export class RlExperimentComponent implements OnInit {
           this.metrics = _.difference(this.metrics, ['Variant'])
           keys = ['Iteration'].concat(keys)
           keys = ['Iteration', 'MeanKL', 'AverageReturn', 'Entropy', 'MeanLength', 'NumTrajs', 'Time', 'Variant']
-          // console.log(keys)
           datatable_data = _.map(hits, row => {
             return _.map(keys, x => row[x])
           })
@@ -151,22 +137,6 @@ export class RlExperimentComponent implements OnInit {
           keys = []
         }
 
-        // var column_header = _.map(keys, x => {
-        //   return { title: x }
-        // })
-        // try {
-        //   $('#exp-logs-datatable').DataTable().destroy();
-        // } catch (e) {
-        //   console.log(e.message)
-        //   console.log("error caught while destroing the datatable")
-        // }
-        // $('#exp-logs-datatable').DataTable().destroy();
-        // this.dataTable.destroy();
-        // $('#exp-logs-datatable').empty()
-        // this.dataTable = $('#exp-logs-datatable').DataTable({
-        //   data: datatable_data,
-        //   columns: column_header
-        // })
         this.modifyDataTable(this.selectedVariant)
         this.modifyD3Table(this.selectedMetric)
       })
@@ -313,17 +283,6 @@ export class RlExperimentComponent implements OnInit {
         columns: column_header
       })
     }
-    // try {
-    //   $('#exp-logs-datatable').DataTable().destroy()
-    //   $('#exp-logs-datatable').empty()
-    // } catch (e) {
-    //   console.log(e)
-    //   console.log('failed to destroy datatable')
-    // }
-    // $('#exp-logs-datatable').DataTable({
-    //   data: datatable_data,
-    //   columns: column_header
-    // })
     this.selectedVariant = variant
   }
 
@@ -366,7 +325,4 @@ export class RlExperimentComponent implements OnInit {
       this.getExperimentLogs();
     }
   }
-
-
-
 }
