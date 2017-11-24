@@ -30,7 +30,7 @@ router.post('/getExperimentLogs', (req, res) => {
           ]
         }
       },
-      "size": 100
+      "size": 10000
     }
   }).then(function (resp) {
     console.log(resp.hits.total)

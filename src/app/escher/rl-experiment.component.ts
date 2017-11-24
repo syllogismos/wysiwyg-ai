@@ -47,6 +47,7 @@ export class RlExperimentComponent implements OnInit {
   experiment_id: any;
 
   experiment_logs: any;
+  exp_timeline: any;
   hits: any;
   metrics = ['AverageReward'];
   variants: any = [0];
@@ -62,6 +63,7 @@ export class RlExperimentComponent implements OnInit {
         console.log(exp)
         // this.experiment_id = exp.id
         this.experiment = exp
+        this.getExperimentTimeline();        
         this.getExperimentLogs()
         // return this.experiment = exp
       })
@@ -117,6 +119,17 @@ export class RlExperimentComponent implements OnInit {
   }
 
 
+  getExperimentTimeline(): void {
+    this.http.post('/elastic/getExperimentTimeline', {
+      exp_id: this.experiment._id
+    }).toPromise()
+      .then(response => {
+        console.log('right after timeline query')
+        console.log(response.json())
+        this.exp_timeline = response.json().body.hits
+      })
+      .catch(this.handleHttpError)
+  }
 
   /**
    * ["Iteration", "AbsLearnSignal", "AverageDiscountedReturn", "AverageReturn", 
