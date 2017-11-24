@@ -41,21 +41,22 @@ export class RlExperimentComponent implements OnInit {
     if (background == 'primary') {
       this.palette['borderColor'] = colorsService.darken(this.palette['borderColor'], 30);
     }
-   }
+  }
   colors: Object;
   palette: Object;
   experiment: any;
   experiment_id: any;
+  dataTable: any;
 
   experiment_logs: any;
   exp_timeline: any;
   exp_timeline_all: any;
   selectedTimelineVariant = 'all';
   hits: any;
-  metrics = ['AverageReward'];
+  metrics = ['AverageReturn'];
   variants: any = [0];
   selectedVariant = 'all'
-  selectedMetric = 'AverageReward'
+  selectedMetric = 'AverageReturn'
 
   ngOnInit() {
     this.route.paramMap
@@ -64,61 +65,13 @@ export class RlExperimentComponent implements OnInit {
       })
       .subscribe(exp => {
         console.log(exp)
-        // this.experiment_id = exp.id
         this.experiment = exp
-        this.getExperimentTimeline();        
+        this.getExperimentTimeline();
         this.getExperimentLogs()
-        // return this.experiment = exp
       })
-    
+
     this.easyPieChart('.easy-pie-chart-primary-xs', this.colors['primary'], this.palette['borderColor'], 100);
-    this.easyPieChart('.easy-pie-chart-danger-xs', this.colors['danger'], this.palette['borderColor'], 100); 
-    
-    $('#metric-select').on('change', () => {
-      const met = $('#metric-select').val()
-      var metrics = []
-      var metric
-      var legend_keys = []
-      for (let variant of this.variants) {
-        legend_keys.push('Variant: ' + variant)
-        metric = _.filter(this.hits, x => x.Variant == variant)
-        metric = _.sortBy(metric, x => x.Iteration)
-        metric = _.map(metric, x => x[met])
-        metrics.push(metric)
-      }
-
-      this.nvD3Line1('#nvd3-metric svg', this.colors, legend_keys, metrics, 'Iteration', met)
-    
-    })
-
-    $('#variant-select').on('change', () => {
-      const variant = parseInt($('#variant-select').val())
-      var keys;
-      var datatable_data;
-      if (this.hits.length > 0) {
-        keys = _.difference(Object.keys(this.hits[0]), ['Iteration'])
-        this.metrics = keys
-        keys = ['Iteration'].concat(keys)
-        keys = ['Iteration', 'MeanKL', 'AverageReturn', 'Entropy', 'MeanLength', 'NumTrajs', 'ExplainedVariance', 'Time']
-        // console.log(keys)
-        datatable_data = _.map(_.filter(this.hits, x => x.Variant == variant), row => {
-          return _.map(keys, x => row[x])
-        })
-      } else {
-        keys = []
-      }
-      
-      var column_header = _.map(keys, x => {
-        return {title: x}
-      })
-      $('#exp-logs-datatable').DataTable().destroy();
-      $('#exp-logs-datatable').DataTable({
-        data: datatable_data,
-        columns: column_header
-      })
-    })
-    
-    
+    this.easyPieChart('.easy-pie-chart-danger-xs', this.colors['danger'], this.palette['borderColor'], 100);
   }
 
 
@@ -129,11 +82,9 @@ export class RlExperimentComponent implements OnInit {
       .then(response => {
         console.log('right after timeline query')
         console.log(response.json())
-        // this.exp_timeline = response.json().body.hits
         var hits = response.json().body.hits
         hits = _.sortBy(hits, x => moment(x._source.json.timestamp))
         hits = hits.reverse()
-        // hits = hits.slice(0, 10)
         var timeline_log
         this.exp_timeline_all = _.map(hits, x => {
           var timeline_log = x
@@ -142,6 +93,7 @@ export class RlExperimentComponent implements OnInit {
           return timeline_log
         })
         this.exp_timeline = this.exp_timeline_all.slice(0, 10)
+        this.modifyTimeline(this.selectedTimelineVariant)
       })
       .catch(this.handleHttpError)
   }
@@ -172,17 +124,17 @@ export class RlExperimentComponent implements OnInit {
         var variants = new Set(_.map(hits, x => x.Variant))
         this.variants = Array.from(variants)
         // this.variants = [0,1]
-        var metrics = []
-        var metric
-        var legend_keys = []
-        for (let variant of this.variants) {
-          legend_keys.push('Variant: ' + variant)
-          metric = _.filter(this.hits, x => x.Variant == variant)
-          metric = _.sortBy(metric, x => x.Iteration)
-          metric = _.map(metric, x => x['AverageReturn'])
-          metrics.push(metric)
-        }
-        this.nvD3Line1('#nvd3-metric svg', this.colors, legend_keys, metrics, 'Iteration', 'AverageReward')
+        // var metrics = []
+        // var metric
+        // var legend_keys = []
+        // for (let variant of this.variants) {
+        //   legend_keys.push('Variant: ' + variant)
+        //   metric = _.filter(this.hits, x => x.Variant == variant)
+        //   metric = _.sortBy(metric, x => x.Iteration)
+        //   metric = _.map(metric, x => x['AverageReturn'])
+        //   metrics.push(metric)
+        // }
+        // this.nvD3Line1('#nvd3-metric svg', this.colors, legend_keys, metrics, 'Iteration', 'AverageReward')
         var keys;
         var datatable_data;
         if (hits.length > 0) {
@@ -198,10 +150,10 @@ export class RlExperimentComponent implements OnInit {
         } else {
           keys = []
         }
-        
-        var column_header = _.map(keys, x => {
-          return {title: x}
-        })
+
+        // var column_header = _.map(keys, x => {
+        //   return { title: x }
+        // })
         // try {
         //   $('#exp-logs-datatable').DataTable().destroy();
         // } catch (e) {
@@ -209,12 +161,17 @@ export class RlExperimentComponent implements OnInit {
         //   console.log("error caught while destroing the datatable")
         // }
         // $('#exp-logs-datatable').DataTable().destroy();
-        $('#exp-logs-datatable').DataTable({
-          data: datatable_data,
-          columns: column_header
-        })
+        // this.dataTable.destroy();
+        // $('#exp-logs-datatable').empty()
+        // this.dataTable = $('#exp-logs-datatable').DataTable({
+        //   data: datatable_data,
+        //   columns: column_header
+        // })
+        this.modifyDataTable(this.selectedVariant)
+        this.modifyD3Table(this.selectedMetric)
       })
       .catch(this.handleHttpError)
+
   }
 
   easyPieChart(element: string, barColor: string, trackColor: string, size: number): void {
@@ -229,19 +186,6 @@ export class RlExperimentComponent implements OnInit {
     })
   }
 
-
-  lineChart1(element: string, series: any, labels: any): void {
-    const data = {
-      labels: labels,
-      series: series
-    };
-    const options = {
-      fullWidth: true,
-      showArea: false
-      // ticks: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
-    };
-    new Chartist.Line(element, data, options);
-  }
 
 
   private handleHttpError(error: any): Promise<any> {
@@ -325,7 +269,7 @@ export class RlExperimentComponent implements OnInit {
     this.selectedTimelineVariant = variant
   }
 
-  allVariantsTimeline(): void{
+  allVariantsTimeline(): void {
     this.modifyTimeline('all')
   }
 
@@ -350,17 +294,36 @@ export class RlExperimentComponent implements OnInit {
     } else {
       keys = []
     }
-    
+
     var column_header = _.map(keys, x => {
-      return {title: x}
+      return { title: x }
     })
     console.log(column_header)
-    $('#exp-logs-datatable').DataTable().destroy();
-    $('#exp-logs-datatable').empty()
-    $('#exp-logs-datatable').DataTable({
-      data: datatable_data,
-      columns: column_header
-    })
+    // this.dataTable.destroy();
+    if ($.fn.dataTable.isDataTable('#exp-logs-datatable')) {
+      $('#exp-logs-datatable').DataTable().destroy();
+      $('#exp-logs-datatable').empty()
+      $('#exp-logs-datatable').DataTable({
+        data: datatable_data,
+        columns: column_header
+      })
+    } else {
+      $('#exp-logs-datatable').DataTable({
+        data: datatable_data,
+        columns: column_header
+      })
+    }
+    // try {
+    //   $('#exp-logs-datatable').DataTable().destroy()
+    //   $('#exp-logs-datatable').empty()
+    // } catch (e) {
+    //   console.log(e)
+    //   console.log('failed to destroy datatable')
+    // }
+    // $('#exp-logs-datatable').DataTable({
+    //   data: datatable_data,
+    //   columns: column_header
+    // })
     this.selectedVariant = variant
   }
 
@@ -369,25 +332,39 @@ export class RlExperimentComponent implements OnInit {
   }
 
   modifyD3Table(met: any): void {
+    console.log(met)
+    console.log('adsfadsfasdfasfdasd')
     var metrics = []
     var metric
     var legend_keys = []
     for (let variant of this.variants) {
       legend_keys.push('Variant: ' + variant)
       metric = _.filter(this.hits, x => x.Variant == variant)
+      console.log(metric)
       metric = _.sortBy(metric, x => x.Iteration)
+      console.log(metric)
       metric = _.map(metric, x => x[met])
+      console.log(metric)
       metrics.push(metric)
     }
     this.selectedMetric = met
+    console.log(legend_keys)
+    console.log(metrics)
 
     this.nvD3Line1('#nvd3-metric svg', this.colors, legend_keys, metrics, 'Iteration', met)
-  
+
   }
 
   relaunchExperiment(): void {
     localStorage.setItem('rl_exp_config', JSON.stringify(this.experiment.config.form_params))
     this.router.navigate(['/escher/rl'])
+  }
+
+  refreshData(): void {
+    if (this.experiment) {
+      this.getExperimentTimeline();
+      this.getExperimentLogs();
+    }
   }
 
 
