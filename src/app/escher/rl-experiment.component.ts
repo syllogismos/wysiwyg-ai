@@ -253,7 +253,7 @@ export class RlExperimentComponent implements OnInit {
     const self = this
 
     nv.addGraph(function () {
-      const chart = nv.models.lineChart()
+      const chart = nv.models.lineWithFocusChart()
         .useInteractiveGuideline(true)
         .showLegend(true)
         // .color([self.colors['primary']])
