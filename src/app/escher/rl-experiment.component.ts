@@ -44,7 +44,9 @@ export class RlExperimentComponent implements OnInit {
   }
   colors: Object;
   palette: Object;
-  experiment: any;
+  experiment: any = {
+    config: {form_params: {var_policy_batch_size: null,}} // initiate null experiment object to prevent errors on template
+  };
   experiment_id: any;
   dataTable: any;
 
