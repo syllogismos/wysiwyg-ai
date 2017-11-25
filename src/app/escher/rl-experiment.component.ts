@@ -92,7 +92,7 @@ export class RlExperimentComponent implements OnInit {
           console.log(x.moment)
           return timeline_log
         })
-        this.exp_timeline = this.exp_timeline_all.slice(0, 10)
+        this.exp_timeline = this.exp_timeline_all.slice(0, 8)
         this.modifyTimeline(this.selectedTimelineVariant)
       })
       .catch(this.handleHttpError)
@@ -125,14 +125,8 @@ export class RlExperimentComponent implements OnInit {
         var keys;
         var datatable_data;
         if (hits.length > 0) {
-          keys = _.difference(Object.keys(hits[0]), ['Iteration'])
-          this.metrics = keys
+          this.metrics = _.difference(Object.keys(hits[0]), ['Iteration'])
           this.metrics = _.difference(this.metrics, ['Variant'])
-          keys = ['Iteration'].concat(keys)
-          keys = ['Iteration', 'MeanKL', 'AverageReturn', 'Entropy', 'MeanLength', 'NumTrajs', 'Time', 'Variant']
-          datatable_data = _.map(hits, row => {
-            return _.map(keys, x => row[x])
-          })
         } else {
           keys = []
         }
@@ -261,28 +255,30 @@ export class RlExperimentComponent implements OnInit {
           return _.map(keys, x => row[x])
         })
       }
+      var column_header = _.map(keys, x => {
+        return { title: x }
+      })
+
+      if ($.fn.dataTable.isDataTable('#exp-logs-datatable')) {
+        console.log('datatable already initialized')
+        $('#exp-logs-datatable').DataTable().destroy();
+        $('#exp-logs-datatable').empty()
+        $('#exp-logs-datatable').DataTable({
+          data: datatable_data,
+          columns: column_header
+        })
+      } else {
+        console.log('datatable yet to be initialized')
+        $('#exp-logs-datatable').DataTable({
+          data: datatable_data,
+          columns: column_header
+        })
+      }
     } else {
       keys = []
+      datatable_data = []
     }
 
-    var column_header = _.map(keys, x => {
-      return { title: x }
-    })
-    console.log(column_header)
-    // this.dataTable.destroy();
-    if ($.fn.dataTable.isDataTable('#exp-logs-datatable')) {
-      $('#exp-logs-datatable').DataTable().destroy();
-      $('#exp-logs-datatable').empty()
-      $('#exp-logs-datatable').DataTable({
-        data: datatable_data,
-        columns: column_header
-      })
-    } else {
-      $('#exp-logs-datatable').DataTable({
-        data: datatable_data,
-        columns: column_header
-      })
-    }
     this.selectedVariant = variant
   }
 
