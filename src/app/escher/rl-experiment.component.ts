@@ -315,10 +315,16 @@ export class RlExperimentComponent implements OnInit {
     this.router.navigate(['/escher/rl'])
   }
 
-  refreshData(): void {
+  refreshTimeline(): void {
     if (this.experiment) {
       this.getExperimentTimeline();
-      this.getExperimentLogs();
+      // this.getExperimentLogs();
+    }
+  }
+
+  refreshData(): void {
+    if (this.experiment) {
+      this.getExperimentLogs()
     }
   }
 }

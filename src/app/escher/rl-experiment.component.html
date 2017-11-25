@@ -216,11 +216,11 @@
     <div class="row">
       <div class="widget">
         <div class="row">
-          <div class="col">
-            <button class="btn btn-default" (click)="relaunchExperiment()">Relaunch Experiment</button>
+          <div class="col-4">
+            <button class="btn btn-default" (click)="relaunchExperiment()">Relaunch</button>
           </div>
-          <div class="col">
-            <button class="btn btn-warning" (click)="refreshData()">Refresh</button>
+          <div class="col-4">
+            <button class="btn btn-warning" (click)="refreshTimeline()">Refresh</button>
           </div>
         </div>
         <hr>
@@ -383,7 +383,7 @@
         <!-- <div class="col-3">
           <div class="title">Metric</div>
         </div> -->
-        <div class="col">
+        <div class="col-3">
           <div class="title">
             Selected Metric:
           </div>
@@ -391,7 +391,11 @@
             {{selectedMetric}}
           </div>
         </div>
-        <div class="col">
+        <div class="col-5"></div>
+        <div class="col-2">
+          <button class="btn btn-warning pull-right" (click)="refreshData()">Refresh</button>            
+        </div>
+        <div class="col-2">
           <div class="dropdown pull-right">
             <button type="button" class="btn btn-default btn-rounded btn-outline dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false">
