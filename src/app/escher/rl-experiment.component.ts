@@ -64,7 +64,6 @@ export class RlExperimentComponent implements OnInit {
         return this.experimentService.getExperiment(params.get('exp_id'))
       })
       .subscribe(exp => {
-        console.log(exp)
         this.experiment = exp
         this.getExperimentTimeline();
         this.getExperimentLogs()
@@ -80,8 +79,6 @@ export class RlExperimentComponent implements OnInit {
       exp_id: this.experiment._id
     }).toPromise()
       .then(response => {
-        console.log('right after timeline query')
-        console.log(response.json())
         var hits = response.json().body.hits
         hits = _.sortBy(hits, x => moment(x._source.json.timestamp))
         hits = hits.reverse()
@@ -89,7 +86,6 @@ export class RlExperimentComponent implements OnInit {
         this.exp_timeline_all = _.map(hits, x => {
           var timeline_log = x
           timeline_log.moment = moment(x._source.json.timestamp).fromNow()
-          console.log(x.moment)
           return timeline_log
         })
         // this.exp_timeline = this.exp_timeline_all.slice(0, 8)
@@ -110,15 +106,12 @@ export class RlExperimentComponent implements OnInit {
       exp_id: this.experiment._id
     }).toPromise()
       .then(response => {
-        console.log('right after querying elastic')
-        console.log(response.json())
         var temp
         var hits = _.map(response.json().body.hits, x => {
           temp = x._source.json.rl_log
           temp['Variant'] = parseInt(x._source.json.variant)
           return temp;
         })
-        console.log(hits)
         this.hits = hits
         var variants = new Set(_.map(hits, x => x.Variant))
         this.variants = Array.from(variants)
@@ -260,7 +253,6 @@ export class RlExperimentComponent implements OnInit {
       })
 
       if ($.fn.dataTable.isDataTable('#exp-logs-datatable')) {
-        console.log('datatable already initialized')
         $('#exp-logs-datatable').DataTable().destroy();
         $('#exp-logs-datatable').empty()
         $('#exp-logs-datatable').DataTable({
@@ -268,7 +260,6 @@ export class RlExperimentComponent implements OnInit {
           columns: column_header
         })
       } else {
-        console.log('datatable yet to be initialized')
         $('#exp-logs-datatable').DataTable({
           data: datatable_data,
           columns: column_header
@@ -287,24 +278,17 @@ export class RlExperimentComponent implements OnInit {
   }
 
   modifyD3Table(met: any): void {
-    console.log(met)
-    console.log('adsfadsfasdfasfdasd')
     var metrics = []
     var metric
     var legend_keys = []
     for (let variant of this.variants) {
       legend_keys.push('Variant: ' + variant)
       metric = _.filter(this.hits, x => x.Variant == variant)
-      console.log(metric)
       metric = _.sortBy(metric, x => x.Iteration)
-      console.log(metric)
       metric = _.map(metric, x => x[met])
-      console.log(metric)
       metrics.push(metric)
     }
     this.selectedMetric = met
-    console.log(legend_keys)
-    console.log(metrics)
 
     this.nvD3Line1('#nvd3-metric svg', this.colors, legend_keys, metrics, 'Iteration', met)
 
