@@ -92,7 +92,7 @@ export class RlExperimentComponent implements OnInit {
           console.log(x.moment)
           return timeline_log
         })
-        this.exp_timeline = this.exp_timeline_all.slice(0, 8)
+        // this.exp_timeline = this.exp_timeline_all.slice(0, 8)
         this.modifyTimeline(this.selectedTimelineVariant)
       })
       .catch(this.handleHttpError)
@@ -219,7 +219,7 @@ export class RlExperimentComponent implements OnInit {
 
   modifyTimeline(variant: any = "all"): void {
     if (variant == "all") {
-      this.exp_timeline = this.exp_timeline_all.slice(0, 10)
+      this.exp_timeline = this.exp_timeline_all.slice(0, 8)
     } else {
       this.exp_timeline = _.filter(this.exp_timeline_all, x => {
         if ('variant' in x._source.json.timeline && x._source.json.timeline.variant == variant) {
@@ -228,7 +228,7 @@ export class RlExperimentComponent implements OnInit {
           return false
         }
       })
-      this.exp_timeline = this.exp_timeline.slice(0, 10)
+      this.exp_timeline = this.exp_timeline.slice(0, 8)
     }
     this.selectedTimelineVariant = variant
   }
