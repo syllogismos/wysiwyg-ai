@@ -8,6 +8,7 @@ import { Http, Headers } from "@angular/http";
 
 import { ExperimentService } from "./experiment.service";
 import { last } from '@angular/router/src/utils/collection';
+import { GymEnvsService } from 'app/services/gym-envs.service';
 
 declare var $: any;
 declare var _: any;
@@ -20,7 +21,7 @@ declare var moment: any;
   selector: 'app-rl-experiment',
   templateUrl: './rl-experiment.component.html',
   styleUrls: ['./rl-experiment.component.scss'],
-  providers: [ExperimentService, ColorsService]
+  providers: [ExperimentService, ColorsService, GymEnvsService]
 })
 export class RlExperimentComponent implements OnInit {
 
@@ -29,7 +30,8 @@ export class RlExperimentComponent implements OnInit {
     private experimentService: ExperimentService,
     private router: Router,
     private http: Http,
-    private colorsService: ColorsService
+    private colorsService: ColorsService,
+    private gymEnvService: GymEnvsService
   ) {
     const palettes = colorsService.getPalettes();
     const background = $('body').attr('data-background');
@@ -41,6 +43,7 @@ export class RlExperimentComponent implements OnInit {
     if (background == 'primary') {
       this.palette['borderColor'] = colorsService.darken(this.palette['borderColor'], 30);
     }
+    this.gymEnvService.loadMetadata
   }
   colors: Object;
   palette: Object;
@@ -51,6 +54,7 @@ export class RlExperimentComponent implements OnInit {
   dataTable: any;
 
   experiment_logs: any;
+  env_data: any;
   exp_timeline: any;
   exp_timeline_all: any;
   selectedTimelineVariant = 'all';
@@ -67,6 +71,7 @@ export class RlExperimentComponent implements OnInit {
       })
       .subscribe(exp => {
         this.experiment = exp
+        this.env_data = this.gymEnvService.getMetadataOfEnv(exp.config.env_name)
         this.getExperimentTimeline();
         this.getExperimentLogs()
       })

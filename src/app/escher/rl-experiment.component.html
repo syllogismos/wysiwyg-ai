@@ -23,20 +23,20 @@
                       <td>{{experiment.config.env_name}}</td>
                     </tr>
                     <tr>
-                      <td>Observation Dimension</td>
-                      <td>Box(2,)</td>
+                      <td>Observation Space</td>
+                      <td>{{env_data.observation_space}}</td>
                     </tr>
                     <tr>
-                      <td>Action Dimension</td>
-                      <td>Box(2,)</td>
+                      <td>Action Space</td>
+                      <td>{{env_data.action_space}}</td>
                     </tr>
                     <tr>
                       <td>Target Return</td>
-                      <td>200</td>
+                      <td>{{env_data.reward_threshold}}</td>
                     </tr>
                     <tr>
                       <td>Max Episode Length</td>
-                      <td>200 Timesteps</td>
+                      <td>{{env_data.timestep_limit}}</td>
                     </tr>
                   </tbody>
                 </table>
