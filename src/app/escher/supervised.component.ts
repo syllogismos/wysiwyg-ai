@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from "@angular/http";
+import { Http, Headers } from "@angular/http";
 import { Router } from "@angular/router";
 
 declare var $: any;
@@ -16,12 +16,20 @@ declare var toastr: any;
 })
 export class SupervisedComponent implements OnInit {
 
+  models: any
+  datasets: any
+
   constructor(
     private http: Http,
     private router: Router
   ) { }
 
   ngOnInit() {
+
+    this.getModels();
+    this.getDatasets();
+
+
     var numericRange = {
       expects: [
         'max',
@@ -217,10 +225,18 @@ export class SupervisedComponent implements OnInit {
     })
 
 
+    
+
+
+
+  }
+
+  loadExistingConfig() {
     // load exp config from local storage
     var local_experiment_config = JSON.parse(localStorage.getItem('supervised_exp_config'));
     if (local_experiment_config) {
       for (var s in local_experiment_config) {
+        console.log(s)
         $('#' + s).val(local_experiment_config[s])
       }
       $('#sup .form-control').each(function () {
@@ -228,9 +244,31 @@ export class SupervisedComponent implements OnInit {
         $(this).focus().blur();
       });
     }
+  }
 
+  getDatasets(): void {
+    this.datasets = [
+      { name: 'MNIST', value: 'MNIST' },
+      { name: 'TINY IMAGENET', value: 'tiny-imagenet-test'}
+    ]
+  }
+  private headers = new Headers({'Content-Type': 'application/json'})
+  getModels(): void {
+    this.http.post('/api/get_nnmodel_list', {
 
+    }).toPromise()
+      .then(response => {
+        // console.log(response.json())
+        this.models = response.json().nnmodels
+        setTimeout( () => this.loadExistingConfig(), 100)
+        // this.loadExistingConfig()
+      })
+      .catch(this.handleHttpError)
+  }
 
+  handleHttpError(error: any): Promise<any> {
+    console.error('An error occurred', error);
+    return Promise.reject(error.message || error);
   }
 
   isError(element, message) {

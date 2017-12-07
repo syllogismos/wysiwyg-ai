@@ -85,8 +85,9 @@
               <label>Select Model</label>
               <select class="form-control sup-params" id="model" name="model">
                 <option value="">Choose a Model</option>
-                <option value="59f9b41eb6fd9f3adee5e9a7">RESNET18</option>
-                <option value="59f9b3fbb6fd9f3adee5e9a6">MNIST</option>
+                <option *ngFor="let model of models" value="{{model._id}}">{{model.name}}</option>
+                <!-- <option value="59f9b41eb6fd9f3adee5e9a7">RESNET18</option>
+                <option value="59f9b3fbb6fd9f3adee5e9a6">MNIST</option> -->
               </select>
               <small class="form-control-feedback"></small>
             </div>

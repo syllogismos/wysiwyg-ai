@@ -451,8 +451,8 @@ router.post('/new_supervised_exp', (req, res) => {
 router.post('/get_experiment_list', (req, res) => {
   mongooseConfig.ExperimentModel.find({
     user: req.user._id
-  }).limit(20)
-    .sort({ _id: 1 })
+  }).sort({ _id: 1 })
+    .limit(30)
     .exec((err, experiments) => {
       if (err) {
         return res.json({
@@ -468,9 +468,24 @@ router.post('/get_experiment_list', (req, res) => {
 })
 
 router.post('/get_nnmodel_list', (req, res) => {
-  return res.json({
-    message: "not yet implemented"
-  })
+  mongooseConfig.NNModel.find({
+    user: req.user._id
+  }, {_id: 1, name: 1}).sort({ _id: 1 })
+    .exec((err, nnmodels) => {
+      if (err) {
+        return res.json({
+          message: "failed to query for nnmodels"
+        })
+      } else {
+        return res.json({
+          nnmodels: nnmodels,
+          message: "queried nnmodels successfully"
+        })
+      }
+    })
+  // return res.json({
+  //   message: "not yet implemented"
+  // })
 })
 
 router.post('/get_database_list', (req, res) => {

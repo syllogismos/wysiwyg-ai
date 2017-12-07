@@ -47,6 +47,7 @@ export class ConsoleComponent implements OnInit {
   relativePanX: number = 0
   relativePanY: number = 0
   localNetworkName = 'local name'
+  currentLayerId = 0
   currentLayer: any
   layerColors = {
     "CN": "#303f9f",
@@ -378,7 +379,11 @@ export class ConsoleComponent implements OnInit {
 
   addLayer(label, layerConfig): void {
     var sourceGroup = this.canvas.getActiveObject();
-    var destGroup = this.addRectTextGroup(this.layerColors[label], label, [this.left, this.top], layerConfig)
+    // we maintain a layer id for each layer, and increment it everytime we add a new layer
+    // layerConfig['layer_id'] = this.currentLayerId++
+    var currentLayerConfig = JSON.parse(JSON.stringify(layerConfig))
+    currentLayerConfig['layer_id'] = this.currentLayerId++
+    var destGroup = this.addRectTextGroup(this.layerColors[label], label, [this.left, this.top], currentLayerConfig)
     if (sourceGroup && sourceGroup.layer_type) {
       var line = this.makeLine([sourceGroup.left + 100, sourceGroup.top + 25, destGroup.left + 100, destGroup.top + 25])
       this.canvas.add(line);
@@ -505,22 +510,22 @@ export class ConsoleComponent implements OnInit {
   /**
    * Save the serialized canvas version into local storage
    */
-  saveCanvasOld(): void {
-    localStorage.setItem('fabricCanvas', JSON.stringify(this.canvas.toJSON()));
-  }
+  // saveCanvasOld(): void {
+  //   localStorage.setItem('fabricCanvas', JSON.stringify(this.canvas.toJSON()));
+  // }
 
-  loadCanvasFromString(stringCanvas): void {
-    this.canvas.clear();
-    this.canvas.loadFromJSON(stringCanvas);
-    for (var obj of this.canvas._objects) {
-      if (obj.type == 'line') {
-        obj.set({
-          selectable: false
-        })
-      }
-    }
-    this.canvas.requestRenderAll();
-  };
+  // loadCanvasFromString(stringCanvas): void {
+  //   this.canvas.clear();
+  //   this.canvas.loadFromJSON(stringCanvas);
+  //   for (var obj of this.canvas._objects) {
+  //     if (obj.type == 'line') {
+  //       obj.set({
+  //         selectable: false
+  //       })
+  //     }
+  //   }
+  //   this.canvas.requestRenderAll();
+  // };
 
   loadCanvas(): void {
     this.clearCanvas();
@@ -556,6 +561,14 @@ export class ConsoleComponent implements OnInit {
       this.canvas.add(newObject)
     }
 
+    var maxLayerId = _.max(_.map(newObjects, x => x.layerConfig.layer_id))
+    // console.log(newObjects)
+    // console.log(_.map(newObjects, x => x.layerConfig.layer_id))
+    console.log("@@@@@@@@@@@@@@@@@@@@@@@@")
+    console.log(maxLayerId)
+    this.currentLayerId = maxLayerId + 1
+    console.log(this.currentLayerId)
+
     var destLayersIndices;
     for (var i = 0; i < serializedCanvas.length; i++) {
       destLayersIndices = serializedCanvas[i].outputs;
@@ -577,13 +590,13 @@ export class ConsoleComponent implements OnInit {
   /**
    * load canvas from fabric canvas serialized json stored in localStorage
    */
-  loadCanvasOld(): void {
-    var fabric_canvas_string = localStorage.getItem('fabricCanvas')
-    if (fabric_canvas_string == null) {
-      fabric_canvas_string = this.escherService.sample_canvas;
-    }
-    this.loadCanvasFromString(fabric_canvas_string);
-  }
+  // loadCanvasOld(): void {
+  //   var fabric_canvas_string = localStorage.getItem('fabricCanvas')
+  //   if (fabric_canvas_string == null) {
+  //     fabric_canvas_string = this.escherService.sample_canvas;
+  //   }
+  //   this.loadCanvasFromString(fabric_canvas_string);
+  // }
 
   /**
    * clear the canvas board and make it blank
@@ -594,6 +607,7 @@ export class ConsoleComponent implements OnInit {
     this.canvas.requestRenderAll();
     this.top = 50;
     this.localNetworkName = "new name"
+    this.currentLayerId = 0
   }
 
 
@@ -626,32 +640,32 @@ export class ConsoleComponent implements OnInit {
   /**
    * Function that pastes fabric objects in clipboard on to canvas
    */
-  PasteOld(): void {
-    // console.log(this.canvas)
-    this._clipboard.clone(clonedObj => {
-      this.canvas.discardActiveObject();
-      clonedObj.set({
-        left: clonedObj.left + 10,
-        top: clonedObj.top + 10,
-        evented: true
-      });
+  // PasteOld(): void {
+  //   // console.log(this.canvas)
+  //   this._clipboard.clone(clonedObj => {
+  //     this.canvas.discardActiveObject();
+  //     clonedObj.set({
+  //       left: clonedObj.left + 10,
+  //       top: clonedObj.top + 10,
+  //       evented: true
+  //     });
 
-      if (clonedObj.type == 'activeSelection') {
-        clonedObj.canvas = this.canvas;
-        clonedObj.forEachObject(obj => {
-          this.canvas.add(obj);
-        });
-        clonedObj.setCoords();
-      } else {
-        this.canvas.add(clonedObj);
-      }
-      this._clipboard.top += 10;
-      this._clipboard.left += 10;
-      this.canvas.setActiveObject(clonedObj);
-      this.canvas.requestRenderAll();
-      // this.canvas.renderAll();
-    });
-  }
+  //     if (clonedObj.type == 'activeSelection') {
+  //       clonedObj.canvas = this.canvas;
+  //       clonedObj.forEachObject(obj => {
+  //         this.canvas.add(obj);
+  //       });
+  //       clonedObj.setCoords();
+  //     } else {
+  //       this.canvas.add(clonedObj);
+  //     }
+  //     this._clipboard.top += 10;
+  //     this._clipboard.left += 10;
+  //     this.canvas.setActiveObject(clonedObj);
+  //     this.canvas.requestRenderAll();
+  //     // this.canvas.renderAll();
+  //   });
+  // }
 
   Paste(): void {
     // console.log(this.canvas.getActiveObjects())
@@ -662,12 +676,15 @@ export class ConsoleComponent implements OnInit {
       // and within in the selection create the connections/arrows as well
       var newObjects = [];
       var newObject: any;
+      var newLayerConfig;
       var coords = [0, 0]
       console.log([this._clipboard.relativeLeft, this._clipboard.relativeTop])
       for (var object of this._clipboard.objects) {
         console.log([object.left, object.top])
         coords = [object.left + 50, object.top + 50]
-        newObject = this.addRectTextGroup(this.layerColors[object.layer_type], object.layer_type, coords, object.layerConfig)
+        newLayerConfig = JSON.parse(JSON.stringify(object.layerConfig))
+        newLayerConfig['layer_id'] = this.currentLayerId++
+        newObject = this.addRectTextGroup(this.layerColors[object.layer_type], object.layer_type, coords, newLayerConfig)
         newObject.inputs = []
         newObject.outputs = []
         newObjects = newObjects.concat(newObject)
