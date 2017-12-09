@@ -35,6 +35,13 @@ export class ExperimentService {
       .catch(this.handleError)
   }
 
+  getModel(id): Promise<any> {
+    return this.http.post('api/get_model', JSON.stringify({ model_id: id }), { headers: this.headers })
+      .toPromise()
+      .then(response => response.json().model)
+      .catch(this.handleError)
+  }
+
   handleError(error): Promise<any> {
     return Promise.reject(error.message || error);
     

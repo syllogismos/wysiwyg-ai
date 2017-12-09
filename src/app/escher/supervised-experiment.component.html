@@ -237,7 +237,6 @@
           </div>
         </div>
       </div>
-      <hr>
       <div class="row">
         <div class="col">
           <div id="nvd3-metric">
@@ -248,7 +247,6 @@
     </div>
   </div>
 </div>
-<hr>
 <div class="row">
   <div class="col">
     <div class="widget">
@@ -278,21 +276,62 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-7">
-          <h6>Train Data</h6>
+        <div class="col-6">
+          <h6>
+            <b>Train Data</b>
+          </h6>
         </div>
-        <div class="col-5">
-          <h6>Validation Data</h6>
+        <div class="col-6">
+          <h6>
+            <b>Validation Data</b>
+          </h6>
         </div>
       </div>
       <div class="row">
-        <div class="col-7">
+        <div class="col-6">
           <table id="exp-logs-datatable-train" class="table table-hover table-striped table-bordered" style="width:100%">
           </table>
         </div>
-        <div class="col-5">
+        <div class="col-6">
           <table id="exp-logs-datatable-val" class="table table-hover table-striped table-bordered" style="width:100%">
           </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col">
+    <div class="widget">
+      <div class="row">
+        <div class="col">
+          <h4>Debugging</h4>
+          <div class="description">Variant: {{selectedDebuggingVariant}}</div>
+        </div>
+        <div class="col">
+          <div class="dropdown pull-right">
+            <button type="button" class="btn btn-default btn-rounded btn-outline dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
+              Variants
+            </button>
+            <div class="dropdown-menu dropdown-menu-right from-right">
+              <a *ngFor="let variant of variants" (click)="debugVariant(variant)" class="dropdown-item">Variant: {{variant}}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-1">
+          <label class="title">Epoch:</label>
+        </div>
+        <div class="col-5">
+          <div id="debug-variant-slider" class="slider-primary"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div id="canvasWrapper" class="col-9">
+          <canvas id="canvas" style="border: 1px solid #ccc"></canvas>
         </div>
       </div>
     </div>

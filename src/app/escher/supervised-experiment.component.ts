@@ -6,18 +6,22 @@ import 'rxjs/add/operator/switchMap';
 import { ExperimentService } from "./experiment.service";
 import { ColorsService } from 'app/services/colors';
 import { Http, Headers } from '@angular/http';
+import { EditorService } from 'app/escher/editor.service';
 
 declare var $: any;
 declare var _: any;
 declare var nv: any;
 declare var d3: any;
 declare var moment: any;
+declare var noUiSlider: any;
+declare var fabric: any;
+declare var ResizeSensor: any;
 
 @Component({
   selector: 'app-supervised-experiment',
   templateUrl: './supervised-experiment.component.html',
   styleUrls: ['./supervised-experiment.component.scss'],
-  providers: [ExperimentService, ColorsService]
+  providers: [ExperimentService, ColorsService, EditorService]
 })
 export class SupervisedExperimentComponent implements OnInit {
 
@@ -26,8 +30,9 @@ export class SupervisedExperimentComponent implements OnInit {
     private experimentService: ExperimentService,
     private router: Router,
     private http: Http,
-    private colorsService: ColorsService
-  ) { 
+    private colorsService: ColorsService,
+    private editorService: EditorService
+  ) {
     this.colors = colorsService.getBootstrapColors();
   }
 
@@ -41,46 +46,65 @@ export class SupervisedExperimentComponent implements OnInit {
   variants: any = [0];
   selectedVariant = 'all'
   selectedMetric = 'loss'
-  timeline: any = [
-    {
-      "class": "timeline-warning",
-      "time": "10 minutes ago",
-      "desc": "Manually terminated the run on Variant id: 9dfaj"
-    },
-    {
-      "class": "timeline-info",
-      "time": "15 minutes ago",
-      "desc": "Max Return greater than threshold of 400 for the first time"
-    },
-    {
-      "class": "timeline-danger",
-      "time": "2 hours ago",
-      "desc": "Under utilized CPU's in Variant id: 9ho50q"
-    },
-    {
-      "class": "timeline-info",
-      "time": "4 hours ago",
-      "desc": "All 4 variants successfully started running on c4.8xlarge machines"
-    // },
-    // {
-    //   "class": "timeline-info",
-    //   "time": "8 hours ago",
-    //   "desc": "A new supervised experiment started on model"
-    }
-  ]
+  selectedDebuggingVariant = 0;
+  model: any;
+  debugSlider: any;
+  canvas: any;
+  canvasWrapper: any;
 
   ngOnInit() {
+
+    this.canvas = new fabric.Canvas('canvas')
+    this.canvasWrapper = $("#canvasWrapper")
+    this.editorService.init(this.canvas, this.canvasWrapper)
+    // this.editorService.initFabric()
+    
+
     this.route.paramMap
       .switchMap((params: ParamMap) => {
         return this.experimentService.getExperiment(params.get('exp_id'))
       })
       .subscribe(exp => {
-        console.log(exp)
         this.experiment = exp
         this.experiment.createdAt = moment(this.experiment.createdAt).fromNow()
+        this.getModel();
         this.getExperimentTimeline();
         this.getExperimentLogs();
       })
+
+    this.debugSlider = document.getElementById('debug-variant-slider')
+    noUiSlider.create(this.debugSlider, {
+      start: 0,
+      connect: [true, false],
+      step: 1,
+      tooltips: true,
+      format: {
+        to: x => Math.round(x),
+        from: x => Math.round(x)
+      },
+      range: {
+        min: 0,
+        max: 9.1
+      }
+    })
+  }
+
+  resizeCanvas() {
+    this.canvas.setWidth(this.canvasWrapper.width());
+    this.canvas.setHeight(800)
+    this.canvas.renderAll();
+  }
+
+
+  getModel(): void {
+    this.http.post('api/get_model', {
+      model_id: this.experiment.model
+    }).toPromise()
+      .then(response => {
+        console.log(response.json())
+        this.model = response.json().model
+      })
+      .catch(this.handleHttpError)
   }
 
   getExperimentTimeline(): void {
@@ -103,7 +127,7 @@ export class SupervisedExperimentComponent implements OnInit {
       .catch(this.handleHttpError)
   }
 
-  modifyTimeline(variant: any = "all"): void{
+  modifyTimeline(variant: any = "all"): void {
     console.log(variant)
     if (variant == "all") {
       this.exp_timeline = this.exp_timeline_all.slice(0, 5)
@@ -142,7 +166,7 @@ export class SupervisedExperimentComponent implements OnInit {
         this.variants = _.sortBy(Array.from(variants), x => x)
         console.log(hits)
         this.modifyDataTable(this.selectedVariant)
-        this.modifyD3Table(this.selectedMetric)        
+        this.modifyD3Table(this.selectedMetric)
       })
       .catch(this.handleHttpError)
   }
@@ -240,16 +264,16 @@ export class SupervisedExperimentComponent implements OnInit {
         var headerhtml = "<thead><tr><td colspan='3'><strong class='x-value'>" + header + "</strong></td></tr></thead>";
         var bodyhtml = "<tbody>";
         var series = d.series;
-        series.forEach(function(c) {
-            bodyhtml = bodyhtml + "<tr><td class='legend-color-guide'><div style='background-color: " + c.color + ";'></div></td><td class='key'>" + c.key + " " + c.data.tick + "</td><td class='value'>" + c.value + "</td></tr>";
+        series.forEach(function (c) {
+          bodyhtml = bodyhtml + "<tr><td class='legend-color-guide'><div style='background-color: " + c.color + ";'></div></td><td class='key'>" + c.key + " " + c.data.tick + "</td><td class='value'>" + c.value + "</td></tr>";
         });
-        bodyhtml = bodyhtml+"</tbody>";
-        return "<table>"+headerhtml+''+bodyhtml+"</table>";
+        bodyhtml = bodyhtml + "</tbody>";
+        return "<table>" + headerhtml + '' + bodyhtml + "</table>";
       })
       d3.select(element)
         .datum(data)
         .call(chart);
-      nv.utils.windowResize(function() {
+      nv.utils.windowResize(function () {
         chart.update()
       })
       return chart;
@@ -264,7 +288,7 @@ export class SupervisedExperimentComponent implements OnInit {
       legend_keys.push('Variant: ' + variant)
       metric = _.filter(this.experiment_logs, x => x.event == 'train_log')
       metric = _.filter(metric, x => x.Variant == variant)
-      metric = _.sortBy(metric, x => x.train_log.epoch*1000000 + x.train_log.batch_idx)
+      metric = _.sortBy(metric, x => x.train_log.epoch * 1000000 + x.train_log.batch_idx)
       metric = _.map(metric, x => {
         return {
           'metric': x.train_log[met],
@@ -295,12 +319,20 @@ export class SupervisedExperimentComponent implements OnInit {
     }
   }
 
-  refreshTimeline(): void {
+  debugVariant(variant: any): void {
+    this.selectedDebuggingVariant = variant
+  }
 
+  refreshTimeline(): void {
+    if (this.experiment) {
+      this.getExperimentTimeline();
+    }
   }
 
   refreshData(): void {
-
+    if (this.experiment) {
+      this.getExperimentLogs();
+    }
   }
 
   relaunchExperiment(): void {

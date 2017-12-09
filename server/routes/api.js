@@ -220,6 +220,32 @@ router.post('/experiment', (req, res) => {
   })
 });
 
+router.post('/get_model', (req, res) => {
+  console.log(req.body.model_id)
+  mongooseConfig.NNModel.findById(req.body.model_id, (err, model) => {
+    if (err) {
+      return res.json({
+        "message": "didn't find the model",
+        "model": null
+      })
+    } else {
+      console.log(req.user)
+      console.log(model)
+      if (req.user && model.user == req.user._id) {
+        return res.json({
+          "message": "found the model",
+          "model": model
+        })
+      } else {
+        return res.json({
+          "message": "found the exp but of a different user",
+          "model": model
+        })
+      }
+    }
+  })
+})
+
 /**
    * Tab 1:
    * Experiment Name: exp            Environment Name: env_name
