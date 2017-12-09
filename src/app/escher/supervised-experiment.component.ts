@@ -103,6 +103,7 @@ export class SupervisedExperimentComponent implements OnInit {
       .then(response => {
         console.log(response.json())
         this.model = response.json().model
+        this.editorService.loadModel(this.model.network)
       })
       .catch(this.handleHttpError)
   }
