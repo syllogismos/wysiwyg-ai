@@ -262,12 +262,12 @@ export class EditorService {
   }
 
   /**
- * Helper function that handles panning of the fabric canvas, that is
- * this helper is to be bound to the div wrapping the canvas element
- * on mousedown event
- * @param canvas fabric, canvas element inside the canvas wrapper
- * @param event event params given by the mousedown even
- */
+   * Helper function that handles panning of the fabric canvas, that is
+   * this helper is to be bound to the div wrapping the canvas element
+   * on mousedown event
+   * @param canvas fabric, canvas element inside the canvas wrapper
+   * @param event event params given by the mousedown even
+   */
   startPan(canvas, event): void {
     if (event.button != 2) {
       return;
@@ -297,8 +297,8 @@ export class EditorService {
   };
 
   /**
- * Cancel right click menu for pan implementation
- */
+   * Cancel right click menu for pan implementation
+   */
   cancelMenu() {
     $(window).off('contextmenu', this.cancelMenu);
     return false;
@@ -310,10 +310,10 @@ export class EditorService {
   }
 
   /**
- * Custom serialization function
- * Get all the layer objects, and for each layer store their location
- * the type of the layer, and their connections with other layers
- */
+   * Custom serialization function
+   * Get all the layer objects, and for each layer store their location
+   * the type of the layer, and their connections with other layers
+   */
   saveCanvas(): void {
     var allObjects = this.canvas.getObjects();
     localStorage.setItem('localFabricName', this.localNetworkName)
@@ -362,13 +362,13 @@ export class EditorService {
   }
 
   /**
- * Create a group of fabric Objects, that contain a rectangle, Text, and a small circle
- * in the center of the rectangle.
- * @param color of the rect box
- * @param label of the rect box
- *
- * Return the fabric Group
- */
+   * Create a group of fabric Objects, that contain a rectangle, Text, and a small circle
+   * in the center of the rectangle.
+   * @param color of the rect box
+   * @param label of the rect box
+   *
+   * Return the fabric Group
+   */
   addRectTextGroup(color, label, coords, layerConfig): any {
 
     var circle = new fabric.Circle({
@@ -457,8 +457,8 @@ export class EditorService {
   }
 
   /**
- * clear the canvas board and make it blank
- */
+   * clear the canvas board and make it blank
+   */
   clearCanvas(): void {
     this.canvas.clear();
     this.buildSupportGrid();
