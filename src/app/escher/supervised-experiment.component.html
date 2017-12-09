@@ -1,6 +1,118 @@
 <div class="row">
   <div class="col-12 col-md-12 col-xl-8">
-
+    <div class="widget">
+      <div class="row">
+        <div class="col">
+          <h5>
+            <b>Experiment Details:</b>
+          </h5>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <div class="row">
+            <div class="col">
+              <div class="table-responsive">
+                <table class="table table-hover table-bordered">
+                  <thead>
+                    <tr>
+                      <th colspan="2">Experiment Settings</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Name</td>
+                      <td>{{experiment.name}}</td>
+                    </tr>
+                    <tr>
+                      <td>Description</td>
+                      <td>{{experiment.description}}</td>
+                    </tr>
+                    <tr>
+                      <td>Created At</td>
+                      <td>{{experiment.createdAt}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="row">
+            <div class="col">
+              <div class="table-responsive">
+                <table class="table table-hover table-bordered">
+                  <thead>
+                    <tr>
+                      <th colspan="2">Model Details</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Model id:</td>
+                      <td>{{experiment.model}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="table-responsive">
+                <table class="table table-hover table-bordered">
+                  <thead>
+                    <tr>
+                      <th colspan="2">Dataset Details</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Dataset</td>
+                      <td>{{experiment.dataset}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+              <thead>
+                <tr>
+                  <th colspan="7">Variant Settings</th>
+                </tr>
+                <tr>
+                  <th>Variant id</th>
+                  <th>Learning rate</th>
+                  <th>Momentum</th>
+                  <th>Epochs</th>
+                  <th>Batch size</th>
+                  <th>Test batch size</th>
+                  <th>Seed</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let variant of experiment.config.variants; index as i">
+                  <td>{{i}}</td>
+                  <td>{{variant.lr}}</td>
+                  <td>{{variant.momentum}}</td>
+                  <td>{{variant.epochs}}</td>
+                  <td>{{variant.batch_size}}</td>
+                  <td>{{variant.test_batch_size}}</td>
+                  <td>{{variant.seed}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="col-12 col-md-12 col-xl-4">
     <div class="widget">
@@ -53,7 +165,7 @@
   </div>
 </div>
 <hr>
-<div class="row">
+<!-- <div class="row">
   <div class="col">
     <div class="widget">
       <div class="row">
@@ -89,7 +201,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 
 <div class="row">
@@ -136,7 +248,7 @@
     </div>
   </div>
 </div>
-
+<hr>
 <div class="row">
   <div class="col">
     <div class="widget">
@@ -166,8 +278,12 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-7"><h4>Train Data</h4></div>
-        <div class="col-5"><h4>Validation Data</h4></div>
+        <div class="col-7">
+          <h6>Train Data</h6>
+        </div>
+        <div class="col-5">
+          <h6>Validation Data</h6>
+        </div>
       </div>
       <div class="row">
         <div class="col-7">

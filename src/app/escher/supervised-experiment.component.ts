@@ -77,6 +77,7 @@ export class SupervisedExperimentComponent implements OnInit {
       .subscribe(exp => {
         console.log(exp)
         this.experiment = exp
+        this.experiment.createdAt = moment(this.experiment.createdAt).fromNow()
         this.getExperimentTimeline();
         this.getExperimentLogs();
       })
@@ -105,7 +106,7 @@ export class SupervisedExperimentComponent implements OnInit {
   modifyTimeline(variant: any = "all"): void{
     console.log(variant)
     if (variant == "all") {
-      this.exp_timeline = this.exp_timeline_all.slice(0, 8)
+      this.exp_timeline = this.exp_timeline_all.slice(0, 5)
     } else {
       this.exp_timeline = _.filter(this.exp_timeline_all, x => {
         if ('variant' in x._source.json.timeline && x._source.json.timeline.variant == variant) {
@@ -114,7 +115,7 @@ export class SupervisedExperimentComponent implements OnInit {
           return false
         }
       })
-      this.exp_timeline = this.exp_timeline.slice(0, 8)
+      this.exp_timeline = this.exp_timeline.slice(0, 5)
     }
     this.selectedTimelineVariant = variant
   }
@@ -138,7 +139,7 @@ export class SupervisedExperimentComponent implements OnInit {
         })
         this.experiment_logs = hits
         var variants = new Set(_.map(hits, x => x.Variant))
-        this.variants = Array.from(variants)
+        this.variants = _.sortBy(Array.from(variants), x => x)
         console.log(hits)
         this.modifyDataTable(this.selectedVariant)
         this.modifyD3Table(this.selectedMetric)        
@@ -227,6 +228,12 @@ export class SupervisedExperimentComponent implements OnInit {
       // chart.interactiveLayer.tooltip.headerFormatter(function (d) {
       //   return ""
       // })
+      // chart.interactiveLayer.tooltip.valueFormatter(function (d, i, p) {
+      //   console.log(d)
+      //   console.log(i)
+      //   console.log(p)
+      //   return ""
+      // })
       chart.interactiveLayer.tooltip.contentGenerator(function (d) {
         // console.log(d)
         var header = d.value;
@@ -286,6 +293,14 @@ export class SupervisedExperimentComponent implements OnInit {
       key: key,
       values: values_list
     }
+  }
+
+  refreshTimeline(): void {
+
+  }
+
+  refreshData(): void {
+
   }
 
   relaunchExperiment(): void {
