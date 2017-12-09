@@ -24,7 +24,7 @@ export class AppComponent {
   public topNavigation: string = 'light';//light,dark,indigo,blue-grey
   public logo: string = 'light';//light,dark,indigo,blue-grey
   public collapsed: boolean = false;//true,false
-  public controller: string = 'Escherboard';
+  public controller: string = 'Escher';
   public view: string;
 
   constructor(
@@ -150,6 +150,8 @@ export class AppComponent {
         let currentController = $('body').attr('data-controller');
         let currentView = $('body').attr('data-view');
 
+        console.log(data)
+        console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
         if (_.includes(demoRedirects, url)) {
           console.log('demo redirect', url, data);
           //modify urls to match layouts
@@ -279,10 +281,10 @@ export class AppComponent {
             self['controller'] = data[0];
             self['view'] = data[1];
           } else {
-            self['controller'] = 'Escherboard';
-            self['view'] = 'Console';
-            $('body').attr('data-controller', 'dashboards');
-            $('body').attr('data-view', 'dashboard');
+            self['controller'] = data[0];
+            self['view'] = data[1];
+            $('body').attr('data-controller', data[0]);
+            $('body').attr('data-view', data[1]);
           }
         }
 

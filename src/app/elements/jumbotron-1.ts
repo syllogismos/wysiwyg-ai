@@ -10,13 +10,13 @@ declare var _: any;
 
 export class Jumbotron1Component implements OnInit {
   
-  public controller: string = 'Escherboard';
+  public controller: string = 'Escher';
   public view: string = 'Console';
 
   constructor(private router: Router) {}
   
   ngOnInit(): void {
-    this.controller = 'Escherboard';
+    this.controller = 'Escher';
     this.view = 'Console';
 
     const self = this;
@@ -26,7 +26,7 @@ export class Jumbotron1Component implements OnInit {
         const data = copy.url
           .split('/')
           .filter(url => url.length > 0);
-        if (data.length == 2) {
+        if (data.length >= 2) {
           self.controller = _.startCase(data[0]).replace(/-/gi, ' ').replace(/Ui Elements/g, 'UI Elements');
           self.view = _.startCase(data[1]).replace(/-/gi, ' ');
         }
