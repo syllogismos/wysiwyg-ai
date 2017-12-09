@@ -109,7 +109,7 @@ export class RlExperimentComponent implements OnInit {
    */
 
   getExperimentLogs(): void {
-    this.http.post('/elastic/getExperimentLogs', {
+    this.http.post('/elastic/getRLExpLogs', {
       exp_id: this.experiment._id
     }).toPromise()
       .then(response => {

@@ -1,194 +1,188 @@
 <div class="row">
-  <div class="col">
+  <div class="col-12 col-md-12 col-xl-8">
+
+  </div>
+  <div class="col-12 col-md-12 col-xl-4">
     <div class="widget">
       <div class="row">
         <div class="col-4">
-          <div class="title">Supervised Experiment Details</div>
+          <button class="btn btn-default" (click)="relaunchExperiment()">Relaunch</button>
         </div>
         <div class="col-4">
-          <button class="btn btn-default" (click)="relaunchExperiment()">Relaunch Experiment</button>
-        </div>
-        <div class="col4">
-          <div class="title">Experiment timeline</div>
+          <button class="btn btn-warning" (click)="refreshTimeline()">Refresh</button>
         </div>
       </div>
+      <hr>
       <div class="row">
-        <div class="col-8">
-          <div class="row">
-            <div class="col-6">
-              <div class="table-responsive">
-                <table class="table table-hover table-bordered">
-                  <thead>
-                    <tr>
-                      <th colspan="2">Network Settings</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Model Name</td>
-                      <td>MNIST</td>
-                    </tr>
-                    <tr>
-                      <td>No of Nodes</td>
-                      <td>5</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="table-responsive">
-                <table class="table table-hover table-bordered">
-                  <thead>
-                    <tr>
-                      <th colspan="2">Dataset Details</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Dataset Name</td>
-                      <td>MNIST</td>
-                    </tr>
-                    <tr>
-                      <td>No of items</td>
-                      <td>10000</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+        <div class="col">
+          <div class="dropdown pull-right">
+            <button type="button" class="btn btn-default btn-rounded btn-outline dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false" id="variant-dropdown">
+              Variants
+            </button>
+            <div class="dropdown-menu dropdown-menu-right from-right">
+              <a *ngFor="let variant of variants" (click)="modifyTimeline(variant)" class="dropdown-item">Variant: {{variant}}</a>
+              <a (click)="modifyTimeline('all')" class="dropdown-item">All Variants</a>
             </div>
           </div>
-          <div class="row">
-            <div class="col-6">
-              <div class="table-responsive">
-                <table class="table table-hover table-bordered">
-                  <thead>
-                    <tr>
-                      <th colspan="2">Misc Details</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Optimizer</td>
-                      <td>SGD</td>
-                    </tr>
-                    <tr>
-                      <td>Loss Function</td>
-                      <td>Negative Log loss</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="table-responsive">
-                <table class="table table-hover table-bordered">
-                  <thead>
-                    <tr>
-                      <th colspan="2">Machine Details</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Machine Type</td>
-                      <td>c4.8xlarge</td>
-                    </tr>
-                    <tr>
-                      <td>No of machines</td>
-                      <td>2</td>
-                    </tr>
-                    <tr>
-                      <td>Price</td>
-                      <td>1.2</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
-        </div>
-        <div class="col-4">
-          <!-- <div class="widget"> -->
-            <!-- <div class="row">
-              <div class="col">
-                <div class="title">Experiment Timeline</div>
-                <div class="description">Recent experiment Activity</div>
-              </div>
-            </div> -->
-            <div class="row">
-              <div class="col">
-                <div class="timeline-widget-1">
-                  <div *ngFor="let event of timeline" class="row justify-content-start align-center {{event.class}}">
-                    <div class="col">
-                      <div class="timeline-item">
-                        <p>{{event.time}}</p>
-                        <p>{{event.desc}}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          <!-- </div> -->
+          <div class="title">Experiment timeline</div>
+          <div *ngIf="selectedTimelineVariant=='all'; then thenTimelineBlock else elseTimelineBlock" class="description"></div>
+          <ng-template #thenTimelineBlock>
+            <div>All Variants Activity</div>
+          </ng-template>
+          <ng-template #elseTimelineBlock>
+            <div>Variant: {{selectedTimelineVariant}} Activity</div>
+          </ng-template>
         </div>
       </div>
       <div class="row">
         <div class="col">
-          <div class="table-responsive">
-            <table class="table table-hover table-bordered">
-              <thead>
-                <tr>
-                  <th colspan="9">Variants</th>
-                </tr>
-                <tr>
-                  <th>Variant Name</th>
-                  <th>lr</th>
-                  <th>momentum</th>
-                  <th>Batch Size</th>
-                  <th>Test Batch Size</th>
-                  <th>Seed</th>
-                  <th>Epochs</th>
-                  <th>Progress</th>
-                  <th>ETA</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Variant 1</td>
-                  <td>0.1</td>
-                  <td>0.1</td>
-                  <td>64</td>
-                  <td>1000</td>
-                  <td>1</td>
-                  <td>10</td>
-                  <td>
-                    <div class="progress progress-sm">
-                      <div class="progress-bar bg-secondary" role="progressbar" style="width: 78%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </td>
-                  <td>10 mins</td>
-                </tr>
-                <tr>
-                  <td>Variant 2</td>
-                  <td>0.01</td>
-                  <td>0.01</td>
-                  <td>64</td>
-                  <td>1000</td>
-                  <td>2</td>
-                  <td>10</td>
-                  <td>
-                    <div class="progress progress-sm">
-                      <div class="progress-bar bg-secondary" role="progressbar" style="width: 33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </td>
-                  <td>30 mins</td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="timeline-widget-1">
+            <div *ngFor="let timeline_log of exp_timeline" class="row justify-content-start align-items-center timeline-{{timeline_log._source.json.timeline.level}}">
+              <div class="col">
+                <div class="timeline-item">
+                  <p>{{timeline_log.moment}}</p>
+                  <p>{{timeline_log._source.json.timeline.message}}</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+<hr>
+<div class="row">
+  <div class="col">
+    <div class="widget">
+      <div class="row">
+        <div class="col">
+          <h5>Variant Settings</h5>
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+          <thead>
+            <tr>
+              <th>Variant</th>
+              <th>Learning rate</th>
+              <th>Momentum</th>
+              <th>Epochs</th>
+              <th>Batch size</th>
+              <th>Test batch size</th>
+              <th>Seed</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let variant of experiment.config.variants; index as i">
+              <td>{{i}}</td>
+              <td>{{variant.lr}}</td>
+              <td>{{variant.momentum}}</td>
+              <td>{{variant.epochs}}</td>
+              <td>{{variant.batch_size}}</td>
+              <td>{{variant.test_batch_size}}</td>
+              <td>{{variant.seed}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col">
+    <div class="widget">
+      <div class="row">
+        <div class="col">
+          <h4>Results and Plots</h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3">
+          <div class="title">
+            Selected Metric:
+          </div>
+          <div class="description">
+            {{selectedMetric}}
+          </div>
+        </div>
+        <div class="col-5"></div>
+        <div class="col-2">
+          <button class="btn btn-warning pull-right" (click)="refreshData()">Refresh</button>
+        </div>
+        <div class="col-2">
+          <div class="dropdown pull-right">
+            <button type="button" class="btn btn-default btn-rounded btn-outline dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
+              Select Metric
+            </button>
+            <div class="dropdown-menu dropdown-menu-right from-right">
+              <a *ngFor="let metric of metrics" (click)="modifyD3Table(metric)" class="dropdown-item">{{metric}}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col">
+          <div id="nvd3-metric">
+            <svg style="height:400px;width:100%"></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <div class="widget">
+      <div class="row">
+        <div class="col-3">
+          <div class="title">Selected Variant:</div>
+          <div *ngIf="selectedVariant=='all'; then thenBlock else elseBlock" class="description">
+          </div>
+          <ng-template #thenBlock>
+            <div>All Variants</div>
+          </ng-template>
+          <ng-template #elseBlock>
+            <div>Variant: {{selectedVariant}}</div>
+          </ng-template>
+        </div>
+        <div class="col">
+          <div class="dropdown pull-right">
+            <button type="button" class="btn btn-default btn-rounded btn-outline dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
+              Variants
+            </button>
+            <div class="dropdown-menu dropdown-menu-right from-right">
+              <a *ngFor="let variant of variants" (click)="modifyDataTable(variant)" class="dropdown-item">Variant: {{variant}}</a>
+              <a (click)="modifyDataTable('all')" class="dropdown-item">All Variants</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-7"><h4>Train Data</h4></div>
+        <div class="col-5"><h4>Validation Data</h4></div>
+      </div>
+      <div class="row">
+        <div class="col-7">
+          <table id="exp-logs-datatable-train" class="table table-hover table-striped table-bordered" style="width:100%">
+          </table>
+        </div>
+        <div class="col-5">
+          <table id="exp-logs-datatable-val" class="table table-hover table-striped table-bordered" style="width:100%">
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+<br>
+<br>

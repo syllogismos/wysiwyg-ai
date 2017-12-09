@@ -452,7 +452,7 @@ router.post('/get_experiment_list', (req, res) => {
   mongooseConfig.ExperimentModel.find({
     user: req.user._id
   }).sort({ _id: 1 })
-    .limit(30)
+    .limit(100)
     .exec((err, experiments) => {
       if (err) {
         return res.json({

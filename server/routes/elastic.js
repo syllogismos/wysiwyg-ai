@@ -8,7 +8,7 @@ router.post('/posttest', (req, res) => {
   return res.json({ message: 'success' })
 })
 
-router.post('/getExperimentLogs', (req, res) => {
+router.post('/getRLExpLogs', (req, res) => {
   console.log(req.body);
   console.log(req.user);
   es.search({
@@ -40,6 +40,35 @@ router.post('/getExperimentLogs', (req, res) => {
     return res.json({ message: 'failure' })
   })
   // return res.json({message: 'success'})
+})
+
+router.post('/getSupExpLogs', (req, res) => {
+  console.log(req.body)
+  console.log(req.user);
+  es.search({
+    index: 'filebeat*',
+    body: {
+      "query": {
+        "bool" : {
+          "filter": {
+            "term" : { "json.exp" : req.body.exp_id }
+          },
+          "should" : [
+            { "term" : { "json.event" : "train_log" } },
+            { "term" : { "json.event" : "val_log" } }
+          ],
+          "minimum_should_match" : 1
+        }
+      },
+      "size": 10000
+    }
+  }).then(function (resp) {
+    console.log(resp.hits.total)
+    return res.json({ message: 'success', body: resp.hits })
+  }, function (error) {
+    console.log(error)
+    return res.json({ message: 'failure' })
+  })
 })
 
 
