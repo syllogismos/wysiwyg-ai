@@ -121,7 +121,7 @@ export class RlExperimentComponent implements OnInit {
         })
         this.hits = hits
         var variants = new Set(_.map(hits, x => x.Variant))
-        this.variants = Array.from(variants)
+        this.variants = _.sortBy(Array.from(variants), x => x)
         var keys;
         var datatable_data;
         if (hits.length > 0) {
