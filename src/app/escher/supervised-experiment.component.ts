@@ -92,7 +92,11 @@ export class SupervisedExperimentComponent implements OnInit {
     })
     this.modifySlider(this.selectedDebuggingVariant)
 
-    this.debugSlider.noUiSlider.on('change', x => {
+    this.debugSlider.noUiSlider.on('set', x => {
+      if (x[0] == 0) {
+        this.gradientData = undefined
+        this.editorService.loadGradientData(this.gradientData)        
+      }
       if (this.experiment && x[0] > 0) {
         this.http.post('/api/s3_object', {
           exp_id: this.experiment._id,
@@ -141,6 +145,7 @@ export class SupervisedExperimentComponent implements OnInit {
   }
 
   modifySlider(variant) {
+    this.debugSlider.noUiSlider.set(0)
     this.debugSlider.noUiSlider.updateOptions({
       range: {
         'min': 0,
@@ -392,7 +397,10 @@ export class SupervisedExperimentComponent implements OnInit {
   }
 
   debugVariant(variant: any): void {
-    this.selectedDebuggingVariant = variant
+    if (this.selectedDebuggingVariant != variant) {
+      this.selectedDebuggingVariant = variant
+      this.modifySlider(this.selectedDebuggingVariant)
+    }
   }
 
   refreshTimeline(): void {

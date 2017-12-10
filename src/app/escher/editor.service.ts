@@ -101,8 +101,10 @@ export class EditorService {
 
   loadGradientData(gradientData): void {
     this.gradientData = gradientData
-    if (this.currentLayer) {
+    if (this.currentLayer && this.gradientData) {
       this.currentLayerGrads = this.gradientData[this.currentLayer.layerConfig.layer_id]
+    } else {
+      this.currentLayerGrads = undefined
     }
   }
 
