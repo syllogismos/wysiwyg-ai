@@ -32,7 +32,7 @@ export class SupervisedExperimentComponent implements OnInit {
     private router: Router,
     private http: Http,
     private colorsService: ColorsService,
-    private editorService: EditorService
+    public editorService: EditorService
   ) {
     this.colors = colorsService.getBootstrapColors();
   }
