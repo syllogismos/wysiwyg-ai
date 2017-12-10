@@ -16,6 +16,7 @@ declare var moment: any;
 declare var noUiSlider: any;
 declare var fabric: any;
 declare var ResizeSensor: any;
+declare var toastr: any;
 
 @Component({
   selector: 'app-supervised-experiment',
@@ -44,6 +45,7 @@ export class SupervisedExperimentComponent implements OnInit {
   selectedTimelineVariant = 'all'
   metrics = ['loss'];
   variants: any = [0];
+  variantsData: any = { 0: { epoch: 0 } };
   selectedVariant = 'all'
   selectedMetric = 'loss'
   selectedDebuggingVariant = 0;
@@ -59,7 +61,7 @@ export class SupervisedExperimentComponent implements OnInit {
     this.canvasWrapper = $("#canvasWrapper")
     this.editorService.init(this.canvas, this.canvasWrapper)
     // this.editorService.initFabric()
-    
+
 
     this.route.paramMap
       .switchMap((params: ParamMap) => {
@@ -85,9 +87,10 @@ export class SupervisedExperimentComponent implements OnInit {
       },
       range: {
         min: 0,
-        max: 2
+        max: 0.1
       }
     })
+    this.modifySlider(this.selectedDebuggingVariant)
 
     this.debugSlider.noUiSlider.on('change', x => {
       if (this.experiment && x[0] > 0) {
@@ -97,24 +100,35 @@ export class SupervisedExperimentComponent implements OnInit {
           epoch: x[0]
         }).toPromise()
           .then(response => {
-            this.gradientData = response.json().gradients
-            for (let i of Object.keys(this.gradientData)) {
-              this.gradientData[i].norm = this.gradientData[i].norm.toFixed(5)
-              this.gradientData[i].positive = this.gradientData[i].positive.toFixed(5)
-              this.gradientData[i].negative = this.gradientData[i].negative.toFixed(5)
-              this.gradientData[i].zeros = this.gradientData[i].zeros.toFixed(5)
+            if (!response.json().gradients) {
+              toastr.options = {
+                iconClass: '',
+                positionClass: 'toast-top-right',
+                progressBar: true,
+                timeOut: 3000
+              }
+              toastr.info('Epoch not done yet, select previous epoch to get gradient data.')
+              // console.log("gradients s3 file doens't exist yet")
+            } else {
+              this.gradientData = response.json().gradients
+              for (let i of Object.keys(this.gradientData)) {
+                this.gradientData[i].norm = this.gradientData[i].norm.toFixed(5)
+                this.gradientData[i].positive = this.gradientData[i].positive.toFixed(5)
+                this.gradientData[i].negative = this.gradientData[i].negative.toFixed(5)
+                this.gradientData[i].zeros = this.gradientData[i].zeros.toFixed(5)
+              }
+              // this.gradientData = _.map(this.gradientData, x => {
+              //   return {
+              //     norm: x.norm.toFixed(5),
+              //     positive: x.positive.toFixed(5),
+              //     negative: x.negative.toFixed(5),
+              //     zeros: x.zeros.toFixed(5),
+              //     exploded: x.exploded
+              //   }
+              // })
+              // console.log(this.gradientData)
+              this.editorService.loadGradientData(this.gradientData)
             }
-            // this.gradientData = _.map(this.gradientData, x => {
-            //   return {
-            //     norm: x.norm.toFixed(5),
-            //     positive: x.positive.toFixed(5),
-            //     negative: x.negative.toFixed(5),
-            //     zeros: x.zeros.toFixed(5),
-            //     exploded: x.exploded
-            //   }
-            // })
-            console.log(this.gradientData)
-            this.editorService.loadGradientData(this.gradientData)
           })
       }
     })
@@ -124,6 +138,15 @@ export class SupervisedExperimentComponent implements OnInit {
     this.canvas.setWidth(this.canvasWrapper.width());
     this.canvas.setHeight(800)
     this.canvas.renderAll();
+  }
+
+  modifySlider(variant) {
+    this.debugSlider.noUiSlider.updateOptions({
+      range: {
+        'min': 0,
+        'max': this.variantsData[variant].epoch + 0.2
+      }
+    });
   }
 
 
@@ -196,7 +219,24 @@ export class SupervisedExperimentComponent implements OnInit {
         this.experiment_logs = hits
         var variants = new Set(_.map(hits, x => x.Variant))
         this.variants = _.sortBy(Array.from(variants), x => x)
-        console.log(hits)
+        this.variantsData = {}
+        for (let v of this.variants) {
+          // console.log(_.filter(this.experiment_logs, x => x.Variant == v && x.event == 'train_log'))
+          var maxLog = _.maxBy(
+            _.filter(this.experiment_logs,
+              x => x.Variant == v && x.event == 'val_log'),
+            y => y.val_log.epoch)
+          if (!maxLog) {
+            this.variantsData[v] = {epoch: 0}
+          } else {
+            this.variantsData[v] = {
+              epoch: maxLog.val_log.epoch
+            }
+          }
+        }
+        this.modifySlider(this.selectedDebuggingVariant)
+        // console.log(this.variantsData)
+        // console.log(hits)
         this.modifyDataTable(this.selectedVariant)
         this.modifyD3Table(this.selectedMetric)
       })
