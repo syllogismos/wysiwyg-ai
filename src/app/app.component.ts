@@ -78,7 +78,7 @@ export class AppComponent {
       $('#fakeloader').fakeLoader({
         timeToHide: loaderTime,
         zIndex: '99999',
-        spinner: 'spinner7',
+        spinner: 'spinner1',
         bgColor: '#263238'
       });
       setTimeout(function() {

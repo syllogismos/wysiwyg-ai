@@ -8,6 +8,8 @@ const _ = require('lodash');
 const perms = require('../utils/permutations')
 const bcrypt = require('bcryptjs');
 const request = require("request");
+const aws = require('aws-sdk');
+const s3 = new aws.S3();
 
 const bcryptSalt = bcrypt.genSaltSync(10);
 
@@ -518,6 +520,27 @@ router.post('/get_database_list', (req, res) => {
   return res.json({
     message: "not yet implemented"
   })
+})
+
+router.post('/s3_object', (req, res) => {
+  // console.log(req.body);
+  var key = req.body.exp_id + '/' + req.body.variant + '/stats_' + req.body.epoch + '.json'
+  // console.log(key)
+  var params = { Bucket: 'karaka_test', Key: key }
+  s3.getObject(params, function (err, data) {
+    if (err) {
+      res.json({
+        message: "error while querying s3"
+      })
+    } else {
+      var s3_obj = data.Body.toString();
+      res.json({
+        message: "successfully queried s3",
+        json: JSON.parse(s3_obj)
+      })
+    }
+  })
+  // res.send('get test in posttest works, check console logs');
 })
   
 

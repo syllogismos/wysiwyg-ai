@@ -24,6 +24,7 @@
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
     "assert-plus": "^1.0.0",
+    "aws-sdk": "^2.167.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.2",
     "connect-mongo": "^2.0.0",
