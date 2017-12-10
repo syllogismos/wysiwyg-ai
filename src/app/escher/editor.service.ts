@@ -23,7 +23,7 @@ export class EditorService {
   relativePanX: number = 0;
   relativePanY: number = 0
   localNetworkName = 'local name'
-  currentLayerId = 0
+  newLayerIndex = 0
   currentLayer: any
   layerColors = {
     "CN": "#303f9f",
@@ -435,8 +435,8 @@ export class EditorService {
     // console.log(_.map(newObjects, x => x.layerConfig.layer_id))
     console.log("@@@@@@@@@@@@@@@@@@@@@@@@")
     console.log(maxLayerId)
-    this.currentLayerId = maxLayerId + 1
-    console.log(this.currentLayerId)
+    this.newLayerIndex = maxLayerId + 1
+    console.log(this.newLayerIndex)
 
     var destLayersIndices;
     for (var i = 0; i < serializedCanvas.length; i++) {
@@ -465,7 +465,7 @@ export class EditorService {
     this.canvas.requestRenderAll();
     this.top = 50;
     this.localNetworkName = "new name"
-    this.currentLayerId = 0
+    this.newLayerIndex = 0
   }
 
   buildSupportGrid(): void {

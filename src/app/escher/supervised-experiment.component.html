@@ -22,15 +22,15 @@
                   <tbody>
                     <tr>
                       <td>Name</td>
-                      <td>{{experiment.name}}</td>
+                      <td>{{experiment?.name}}</td>
                     </tr>
                     <tr>
                       <td>Description</td>
-                      <td>{{experiment.description}}</td>
+                      <td>{{experiment?.description}}</td>
                     </tr>
                     <tr>
                       <td>Created At</td>
-                      <td>{{experiment.createdAt}}</td>
+                      <td>{{experiment?.createdAt}}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -51,7 +51,7 @@
                   <tbody>
                     <tr>
                       <td>Model id:</td>
-                      <td>{{experiment.model}}</td>
+                      <td>{{experiment?.model}}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -70,7 +70,7 @@
                   <tbody>
                     <tr>
                       <td>Dataset</td>
-                      <td>{{experiment.dataset}}</td>
+                      <td>{{experiment?.dataset}}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -98,7 +98,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let variant of experiment.config.variants; index as i">
+                <tr *ngFor="let variant of experiment?.config.variants; index as i">
                   <td>{{i}}</td>
                   <td>{{variant.lr}}</td>
                   <td>{{variant.momentum}}</td>
@@ -332,6 +332,10 @@
       <div class="row">
         <div id="canvasWrapper" class="col-9">
           <canvas id="canvas" style="border: 1px solid #ccc"></canvas>
+        </div>
+        <div class="col-3">
+          <h6>Layer Config</h6>
+          <div>{{editorService.currentLayer?.layer_type}}</div>
         </div>
       </div>
     </div>

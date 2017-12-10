@@ -47,7 +47,7 @@ export class ConsoleComponent implements OnInit {
   relativePanX: number = 0
   relativePanY: number = 0
   localNetworkName = 'local name'
-  currentLayerId = 0
+  newLayerIndex = 0
   currentLayer: any
   layerColors = {
     "CN": "#303f9f",
@@ -382,7 +382,7 @@ export class ConsoleComponent implements OnInit {
     // we maintain a layer id for each layer, and increment it everytime we add a new layer
     // layerConfig['layer_id'] = this.currentLayerId++
     var currentLayerConfig = JSON.parse(JSON.stringify(layerConfig))
-    currentLayerConfig['layer_id'] = this.currentLayerId++
+    currentLayerConfig['layer_id'] = this.newLayerIndex++
     var destGroup = this.addRectTextGroup(this.layerColors[label], label, [this.left, this.top], currentLayerConfig)
     if (sourceGroup && sourceGroup.layer_type) {
       var line = this.makeLine([sourceGroup.left + 100, sourceGroup.top + 25, destGroup.left + 100, destGroup.top + 25])
@@ -566,8 +566,8 @@ export class ConsoleComponent implements OnInit {
     // console.log(_.map(newObjects, x => x.layerConfig.layer_id))
     console.log("@@@@@@@@@@@@@@@@@@@@@@@@")
     console.log(maxLayerId)
-    this.currentLayerId = maxLayerId + 1
-    console.log(this.currentLayerId)
+    this.newLayerIndex = maxLayerId + 1
+    console.log(this.newLayerIndex)
 
     var destLayersIndices;
     for (var i = 0; i < serializedCanvas.length; i++) {
@@ -607,7 +607,7 @@ export class ConsoleComponent implements OnInit {
     this.canvas.requestRenderAll();
     this.top = 50;
     this.localNetworkName = "new name"
-    this.currentLayerId = 0
+    this.newLayerIndex = 0
   }
 
 
@@ -683,7 +683,7 @@ export class ConsoleComponent implements OnInit {
         console.log([object.left, object.top])
         coords = [object.left + 50, object.top + 50]
         newLayerConfig = JSON.parse(JSON.stringify(object.layerConfig))
-        newLayerConfig['layer_id'] = this.currentLayerId++
+        newLayerConfig['layer_id'] = this.newLayerIndex++
         newObject = this.addRectTextGroup(this.layerColors[object.layer_type], object.layer_type, coords, newLayerConfig)
         newObject.inputs = []
         newObject.outputs = []
