@@ -199,10 +199,10 @@ export class EditorService {
       var object = options.target
       if (object.layer_type != null) {
         this.currentLayer = object
-        console.log(object.layerConfig)
+        // console.log(object.layerConfig)
         if (this.gradientData) {
           this.currentLayerGrads = this.gradientData[this.currentLayer.layerConfig.layer_id]
-          console.log(this.currentLayerGrads)
+          // console.log(this.currentLayerGrads)
         }
       } else {
         this.currentLayer = null
