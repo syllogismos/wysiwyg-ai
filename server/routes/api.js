@@ -536,7 +536,7 @@ router.post('/s3_object', (req, res) => {
       var s3_obj = data.Body.toString();
       res.json({
         message: "successfully queried s3",
-        json: JSON.parse(s3_obj)
+        gradients: JSON.parse(s3_obj)
       })
     }
   })

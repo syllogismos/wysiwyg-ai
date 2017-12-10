@@ -25,6 +25,8 @@ export class EditorService {
   localNetworkName = 'local name'
   newLayerIndex = 0
   currentLayer: any
+  gradientData: any
+  currentLayerGrads: any
   layerColors = {
     "CN": "#303f9f",
     "AF": "#424242",
@@ -95,6 +97,13 @@ export class EditorService {
   loadModel(networkString): void {
     this.clearCanvas()
     this.loadCanvasFromCustomSerializedString(networkString)
+  }
+
+  loadGradientData(gradientData): void {
+    this.gradientData = gradientData
+    if (this.currentLayer) {
+      this.currentLayerGrads = this.gradientData[this.currentLayer.layerConfig.layer_id]
+    }
   }
 
   resizeCanvas(): void {
@@ -181,6 +190,9 @@ export class EditorService {
 
     this.canvas.on('selection:cleared', options => {
       this.currentLayer = null
+      if (this.gradientData) {
+        this.currentLayerGrads = null
+      }
     })
 
     this.canvas.on('object:selected', options => {
@@ -188,8 +200,15 @@ export class EditorService {
       if (object.layer_type != null) {
         this.currentLayer = object
         console.log(object.layerConfig)
+        if (this.gradientData) {
+          this.currentLayerGrads = this.gradientData[this.currentLayer.layerConfig.layer_id]
+          console.log(this.currentLayerGrads)
+        }
       } else {
         this.currentLayer = null
+        if (this.gradientData) {
+          this.currentLayerGrads = null
+        }
       }
       if ((this.connectLineFlag || this.disconnectLineFlag) && object.layer_type) {
         if (this.connectionInput == null) {

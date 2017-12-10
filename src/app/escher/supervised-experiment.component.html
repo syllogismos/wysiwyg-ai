@@ -333,9 +333,61 @@
         <div id="canvasWrapper" class="col-9">
           <canvas id="canvas" style="border: 1px solid #ccc"></canvas>
         </div>
-        <div class="col-3">
-          <h6>Layer Config</h6>
-          <div>{{editorService.currentLayer?.layer_type}}</div>
+        <div *ngIf="editorService.currentLayer" class="col-3">
+          <div *ngIf="editorService.currentLayer">
+            <h6 class="primary"><b>Layer Config</b></h6>
+            <div [ngSwitch]="editorService.currentLayer.layer_type">
+              <ng-template [ngSwitchCase]="'AC'">
+                <p><b>Layer Type:</b> Activation Layer</p>
+                <p><b>Activation:</b> {{editorService.currentLayer.layerConfig.activation_fn}}</p>
+              </ng-template>
+              <ng-template [ngSwitchCase]="'PL'">
+                <p><b>Layer Type:</b> Pooling Layer</p>
+                <p><b>Pool Type:</b> {{editorService.currentLayer.layerConfig.pool_type}}</p>
+                <p><b>Kernel Size:</b> {{editorService.currentLayer.layerConfig.kernel_size}}</p>
+                <p><b>Stride:</b> {{editorService.currentLayer.layerConfig.stride}}</p>
+                <p><b>Padding:</b> {{editorService.currentLayer.layerConfig.padding}}</p>
+              </ng-template>
+              <ng-template [ngSwitchCase]="'AF'">
+                <p><b>Layer Type:</b> Affine Layer</p>
+                <p><b>In Features:</b> {{editorService.currentLayer.layerConfig.in_features}}</p>
+                <p><b>Out Features:</b> {{editorService.currentLayer.layerConfig.out_features}}</p>
+              </ng-template>
+              <ng-template [ngSwitchCase]="'CN'">
+                <p><b>Layer Type:</b> Convolution Layer</p>
+                <p><b>In Channels:</b> {{editorService.currentLayer.layerConfig.in_channels}}</p>
+                <p><b>Out Channels:</b> {{editorService.currentLayer.layerConfig.out_channels}}</p>
+                <p><b>Kernel Size:</b> {{editorService.currentLayer.layerConfig.kernel_size}}</p>
+                <p><b>Stride:</b> {{editorService.currentLayer.layerConfig.stride}}</p>
+                <p><b>Padding:</b> {{editorService.currentLayer.layerConfig.padding}}</p>
+              </ng-template>
+              <ng-template [ngSwitchCase]="'BN'">
+                <p><b>Layer Type:</b> Batch Norm Layer</p>
+                <p><b>Num Features:</b> {{editorService.currentLayer.layerConfig.num_features}}</p>
+                <p><b>Epsilon:</b> {{editorService.currentLayer.layerConfig.epsilon}}</p>
+                <p><b>Momentum:</b> {{editorService.currentLayer.layerConfig.momentum}}</p>
+              </ng-template>
+              <ng-template [ngSwitchCase]="'DR'">
+                <p><b>Layer Type:</b> Dropout Layer</p>
+                <p><b>Percent:</b> {{editorService.currentLayer.layerConfig.percent}}</p>
+              </ng-template>
+              <ng-template [ngSwitchCase]="'RS'">
+                <p><b>Layer Type:</b> Reshape Layer</p>
+                <p><b>X dim:</b> {{editorService.currentLayer.layerConfig.x}}</p>
+                <p><b>Y dim:</b> {{editorService.currentLayer.layerConfig.y}}</p>
+              </ng-template>
+            </div>
+            <!-- <div>{{editorService.currentLayer?.layer_type}}</div> -->
+          </div>
+          <hr>
+          <div *ngIf="editorService.currentLayerGrads">
+            <h6><b>Layer Grads</b></h6>
+            <p><b>Norm:</b> {{editorService.currentLayerGrads.norm}}</p>
+            <p><b>Zero Percent:</b> {{editorService.currentLayerGrads.zeros}}</p>
+            <p><b>Positive Percent:</b> {{editorService.currentLayerGrads.positive}}</p>
+            <p><b>Negative Percent:</b> {{editorService.currentLayerGrads.negative}}</p>
+            <p><b>Exploded Grads:</b> {{editorService.currentLayerGrads.exploded}}</p>
+          </div>
         </div>
       </div>
     </div>

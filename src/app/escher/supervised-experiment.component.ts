@@ -51,6 +51,7 @@ export class SupervisedExperimentComponent implements OnInit {
   debugSlider: any;
   canvas: any;
   canvasWrapper: any;
+  gradientData: any;
 
   ngOnInit() {
 
@@ -84,7 +85,37 @@ export class SupervisedExperimentComponent implements OnInit {
       },
       range: {
         min: 0,
-        max: 9.1
+        max: 2
+      }
+    })
+
+    this.debugSlider.noUiSlider.on('change', x => {
+      if (this.experiment && x[0] > 0) {
+        this.http.post('/api/s3_object', {
+          exp_id: this.experiment._id,
+          variant: this.selectedDebuggingVariant,
+          epoch: x[0]
+        }).toPromise()
+          .then(response => {
+            this.gradientData = response.json().gradients
+            for (let i of Object.keys(this.gradientData)) {
+              this.gradientData[i].norm = this.gradientData[i].norm.toFixed(5)
+              this.gradientData[i].positive = this.gradientData[i].positive.toFixed(5)
+              this.gradientData[i].negative = this.gradientData[i].negative.toFixed(5)
+              this.gradientData[i].zeros = this.gradientData[i].zeros.toFixed(5)
+            }
+            // this.gradientData = _.map(this.gradientData, x => {
+            //   return {
+            //     norm: x.norm.toFixed(5),
+            //     positive: x.positive.toFixed(5),
+            //     negative: x.negative.toFixed(5),
+            //     zeros: x.zeros.toFixed(5),
+            //     exploded: x.exploded
+            //   }
+            // })
+            console.log(this.gradientData)
+            this.editorService.loadGradientData(this.gradientData)
+          })
       }
     })
   }
