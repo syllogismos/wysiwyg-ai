@@ -1,22 +1,23 @@
 <!-- <h2> Escher Board </h2> -->
-<div class="row row-top">
+
+<div class="row">
     <div class="col-2">
         <div class="text-widget-1 text-left">
             <div class="row flex-items-xs-middle">
                 <div class="col">
-                    <div class="title">Name</div>
+                    <div class="title">Model Name</div>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
                     <div>
-                        <input [(ngModel)]="localNetworkName" type="text" placeholder="canvas name">
+                        <input [(ngModel)]="editorService.localNetworkName" type="text" placeholder="canvas name">
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div *ngIf="currentLayer" class="col-2">
+    <div *ngIf="editorService.currentLayer" class="col-2">
         <div class="text-widget-1 text-left">
             <div class="row flex-items-xs-middle">
                 <div class="col">
@@ -26,13 +27,13 @@
         </div>
     </div>
     <div class="col-8">
-        <div *ngIf="currentLayer && currentLayer.layer_type == 'AC'">
+        <div *ngIf="editorService.currentLayer && editorService.currentLayer.layer_type == 'AC'">
             <div class="row">
                 <div class="col">
                     <form>
                         <div class="row">
                             <div class="col-2">
-                                <select [(ngModel)]="currentLayer.layerConfig.activation_fn" class="form-control" name="acl_activation_fn">
+                                <select [(ngModel)]="editorService.currentLayer.layerConfig.activation_fn" class="form-control" name="acl_activation_fn">
                                     <option value="ReLU">ReLU</option>
                                     <option value="tanh">tanh</option>
                                     <option value="log_softmax">Log Softmax</option>
@@ -44,13 +45,13 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="currentLayer && currentLayer.layer_type == 'PL'">
+        <div *ngIf="editorService.currentLayer && editorService.currentLayer.layer_type == 'PL'">
             <div class="row">
                 <div class="col">
                     <form>
                         <div class="row">
                             <div class="col-2">
-                                <select [(ngModel)]="currentLayer.layerConfig.pool_type" class="form-control" name="mpl_pool_type">
+                                <select [(ngModel)]="editorService.currentLayer.layerConfig.pool_type" class="form-control" name="mpl_pool_type">
                                     <option value="maxpool">Max Pool</option>
                                     <option value="avgpool">Average Pool</option>
                                 </select>
@@ -58,19 +59,20 @@
                             </div>
                             <div class="col-2">
                                 <div class="form-group">
-                                    <input [(ngModel)]="currentLayer.layerConfig.kernel_size" type="text" name="mpl_kernel_size" class="form-control" placeholder="3">
+                                    <input [(ngModel)]="editorService.currentLayer.layerConfig.kernel_size" type="text" name="mpl_kernel_size" class="form-control"
+                                        placeholder="3">
                                     <small class="form-text text-muted">MaxPool Layer Kernel size</small>
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="form-group">
-                                    <input [(ngModel)]="currentLayer.layerConfig.stride" type="text" name="mpl_stride" class="form-control" placeholder="1">
+                                    <input [(ngModel)]="editorService.currentLayer.layerConfig.stride" type="text" name="mpl_stride" class="form-control" placeholder="1">
                                     <small class="form-text text-muted">MaxPool Layer stride</small>
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="form-group">
-                                    <input [(ngModel)]="currentLayer.layerConfig.padding" type="text" name="mpl_padding" class="form-control" placeholder="1">
+                                    <input [(ngModel)]="editorService.currentLayer.layerConfig.padding" type="text" name="mpl_padding" class="form-control" placeholder="1">
                                     <small class="form-text text-muted">MaxPool Layer padding</small>
                                 </div>
                             </div>
@@ -79,20 +81,22 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="currentLayer && currentLayer.layer_type == 'AF'">
+        <div *ngIf="editorService.currentLayer && editorService.currentLayer.layer_type == 'AF'">
             <div class="row">
                 <div class="col">
                     <form>
                         <div class="row">
                             <div class="col-2">
                                 <div class="form-group">
-                                    <input [(ngModel)]="currentLayer.layerConfig.in_features" type="text" name="afl_in_features" class="form-control" placeholder="64">
+                                    <input [(ngModel)]="editorService.currentLayer.layerConfig.in_features" type="text" name="afl_in_features" class="form-control"
+                                        placeholder="64">
                                     <small class="form-text text-muted">Affine Layer In features</small>
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="form-group">
-                                    <input [(ngModel)]="currentLayer.layerConfig.out_features" type="text" name="afl_out_features" class="form-control" placeholder="64">
+                                    <input [(ngModel)]="editorService.currentLayer.layerConfig.out_features" type="text" name="afl_out_features" class="form-control"
+                                        placeholder="64">
                                     <small class="form-text text-muted">Affine Layer Out features</small>
                                 </div>
                             </div>
@@ -101,38 +105,41 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="currentLayer && currentLayer.layer_type == 'CN'">
+        <div *ngIf="editorService.currentLayer && editorService.currentLayer.layer_type == 'CN'">
             <div class="row">
                 <div class="col">
                     <form>
                         <div class="row">
                             <div class="col-2">
                                 <div class="form-group">
-                                    <input [(ngModel)]="currentLayer.layerConfig.in_channels" type="text" name="cnl_in_channels" class="form-control" placeholder="64">
+                                    <input [(ngModel)]="editorService.currentLayer.layerConfig.in_channels" type="text" name="cnl_in_channels" class="form-control"
+                                        placeholder="64">
                                     <small class="form-text text-muted">Conv Layer In Channel</small>
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="form-group">
-                                    <input [(ngModel)]="currentLayer.layerConfig.out_channels" type="text" name="cnl_out_channels" class="form-control" placeholder="64">
+                                    <input [(ngModel)]="editorService.currentLayer.layerConfig.out_channels" type="text" name="cnl_out_channels" class="form-control"
+                                        placeholder="64">
                                     <small class="form-text text-muted">Conv Layer Out Channel</small>
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="form-group">
-                                    <input [(ngModel)]="currentLayer.layerConfig.kernel_size" type="text" name="cnl_kernel_size" class="form-control" placeholder="3">
+                                    <input [(ngModel)]="editorService.currentLayer.layerConfig.kernel_size" type="text" name="cnl_kernel_size" class="form-control"
+                                        placeholder="3">
                                     <small class="form-text text-muted">Conv Layer Kernel Size</small>
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="form-group">
-                                    <input [(ngModel)]="currentLayer.layerConfig.stride" type="text" name="cnl_stride" class="form-control" placeholder="1">
+                                    <input [(ngModel)]="editorService.currentLayer.layerConfig.stride" type="text" name="cnl_stride" class="form-control" placeholder="1">
                                     <small class="form-text text-muted">Conv Layer stride</small>
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="form-group">
-                                    <input [(ngModel)]="currentLayer.layerConfig.padding" type="text" name="cnl_padding" class="form-control" placeholder="1">
+                                    <input [(ngModel)]="editorService.currentLayer.layerConfig.padding" type="text" name="cnl_padding" class="form-control" placeholder="1">
                                     <small class="form-text text-muted">Conf Layer padding</small>
                                 </div>
                             </div>
@@ -141,26 +148,28 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="currentLayer && currentLayer.layer_type == 'BN'">
+        <div *ngIf="editorService.currentLayer && editorService.currentLayer.layer_type == 'BN'">
             <div class="row">
                 <div class="col">
                     <form>
                         <div class="row">
                             <div class="col-2">
                                 <div class="form-group">
-                                    <input [(ngModel)]="currentLayer.layerConfig.num_features" type="text" name="bnl_num_features" class="form-control" placeholder="64">
+                                    <input [(ngModel)]="editorService.currentLayer.layerConfig.num_features" type="text" name="bnl_num_features" class="form-control"
+                                        placeholder="64">
                                     <small class="form-text text-muted">Batch Norm Layer num features</small>
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="form-group">
-                                    <input [(ngModel)]="currentLayer.layerConfig.epsilon" type="text" name="bnl_epsilon" class="form-control" placeholder="0.000001">
+                                    <input [(ngModel)]="editorService.currentLayer.layerConfig.epsilon" type="text" name="bnl_epsilon" class="form-control" placeholder="0.000001">
                                     <small class="form-text text-muted">Batch Norm Layer Epsilon</small>
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="form-group">
-                                    <input [(ngModel)]="currentLayer.layerConfig.momentum" type="text" name="bnl_momentum" class="form-control" placeholder="0.1">
+                                    <input [(ngModel)]="editorService.currentLayer.layerConfig.momentum" type="text" name="bnl_momentum" class="form-control"
+                                        placeholder="0.1">
                                     <small class="form-text text-muted">Batch Norm Layer momentum</small>
                                 </div>
                             </div>
@@ -169,14 +178,14 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="currentLayer && currentLayer.layer_type == 'DR'">
+        <div *ngIf="editorService.currentLayer && editorService.currentLayer.layer_type == 'DR'">
             <div class="row">
                 <div class="col">
                     <form>
                         <div class="row">
                             <div class="col-2">
                                 <div class="form-group">
-                                    <input [(ngModel)]="currentLayer.layerConfig.percent" type="text" name="drl_percent" class="form-control" placeholder="0.1">
+                                    <input [(ngModel)]="editorService.currentLayer.layerConfig.percent" type="text" name="drl_percent" class="form-control" placeholder="0.1">
                                     <small class="form-text text-muted">Dropout Layer percent</small>
                                 </div>
                             </div>
@@ -185,20 +194,20 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="currentLayer && currentLayer.layer_type == 'RS'">
+        <div *ngIf="editorService.currentLayer && editorService.currentLayer.layer_type == 'RS'">
             <div class="row">
                 <div class="col">
                     <form>
                         <div class="row">
                             <div class="col-2">
                                 <div class="form-group">
-                                    <input [(ngModel)]="currentLayer.layerConfig.x" type="text" name="rsl_x" class="form-control" placeholder="">
+                                    <input [(ngModel)]="editorService.currentLayer.layerConfig.x" type="text" name="rsl_x" class="form-control" placeholder="">
                                     <small class="form-text text-muted">Reshape Layer x dim</small>
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="form-group">
-                                    <input [(ngModel)]="currentLayer.layerConfig.y" type="text" name="rsl_y" class="form-control" placeholder="">
+                                    <input [(ngModel)]="editorService.currentLayer.layerConfig.y" type="text" name="rsl_y" class="form-control" placeholder="">
                                     <small class="form-text text-muted">Reshape Layer y dim</small>
                                 </div>
                             </div>
@@ -209,88 +218,95 @@
         </div>
     </div>
 </div>
+
 <div class="row">
-    <div id="canvasWrapper" class="col-9">
-        <canvas id="canvas" style="border: 1px solid #ccc"></canvas>
-    </div>
-    <div class="col-3">
-        <div class="row">
-            <div class="col">
-                <button type="button" (click)="saveCanvas()" class="btn btn-default btn-circle btn-xs btn-icon" data-toggle="tooltip" data-placement="top"
-                    title="Save to Disk">
-                    <i class="sli-pencil"></i>
+    <div class="col">
+        <div class="widget">
+            <div class="row">
+                <div id="canvasWrapper" class="col-9">
+                    <canvas id="canvas" style="border: 1px solid #ccc"></canvas>
+                </div>
+                <div class="col-3">
+                    <div class="row">
+                        <div class="col">
+                            <button type="button" (click)="saveCanvas()" class="btn btn-default btn-circle btn-xs btn-icon" data-toggle="tooltip" data-placement="top"
+                                title="Save to Disk">
+                                <i class="sli-pencil"></i>
 
-                </button>
+                            </button>
 
-                <button type="button" (click)="loadCanvas()" class="btn btn-secondary btn-circle btn-xs btn-icon" data-toggle="tooltip" data-placement="top"
-                    title="Load from Disk">
-                    <i class="sli-folder"></i>
+                            <button type="button" (click)="loadCanvas()" class="btn btn-secondary btn-circle btn-xs btn-icon" data-toggle="tooltip" data-placement="top"
+                                title="Load from Disk">
+                                <i class="sli-folder"></i>
 
-                </button>
-                <button type="button" (click)="clearCanvas()" class="btn btn-danger btn-circle btn-xs btn-icon" data-toggle="tooltip" data-placement="top"
-                    title="Clear Board">
-                    <i class="sli-trash"></i>
+                            </button>
+                            <button type="button" (click)="clearCanvas()" class="btn btn-danger btn-circle btn-xs btn-icon" data-toggle="tooltip" data-placement="top"
+                                title="Clear Board">
+                                <i class="sli-trash"></i>
 
-                </button>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button type="button" (click)="addConnection()" class="btn btn-default btn-circle btn-xs btn-icon" data-toggle="tooltip"
+                                data-placement="top" title="Link Layers">
+                                <i class="sli-link"></i>
+                            </button>
+                            <button type="button" (click)="removeConnection()" class="btn btn-default btn-circle btn-xs btn-icon" data-toggle="tooltip"
+                                data-placement="top" title="Unlink Layers">
+                                <i class="sli-shuffle"></i>
+                            </button>
+                            <button type="button" (click)="refreshCanvas()" class="btn btn-default btn-circle btn-xs btn-icon" data-toggle="tooltip"
+                                data-placement="top" title="Refresh Canvas">
+                                <i class="sli-refresh"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button type="button" class="btn btn-info" (click)="loadResnet18()">Load resnet18</button>
+                    </div>
+                    <div class="row">
+                        <button type="button" class="btn btn-info" (click)="loadMNIST()">Load MNIST</button>
+                    </div>
+                    <div class="row">
+                        <button type="button" class="btn btn-default" (click)="addNetworkLayer('CN')">Add Conv Layer</button>
+                    </div>
+                    <div class="row">
+                        <button type="button" class="btn btn-default" (click)="addNetworkLayer('AF')">Add Affine Layer</button>
+                    </div>
+                    <div class="row">
+                        <button type="button" class="btn btn-default" (click)="addNetworkLayer('AC')">Add Activation</button>
+                    </div>
+                    <div class="row">
+                        <button type="button" class="btn btn-default" (click)="addNetworkLayer('DR')">Add Dropout Layer</button>
+                    </div>
+                    <div class="row">
+                        <button type="button" class="btn btn-default" (click)="addNetworkLayer('BN')">Add Batch Norm</button>
+                    </div>
+                    <div class="row">
+                        <button type="button" class="btn btn-default" (click)="addNetworkLayer('PL')">Add Pool Layer</button>
+                    </div>
+                    <div class="row">
+                        <button type="button" class="btn btn-default" (click)="addNetworkLayer('RS')">Add Reshape Layer</button>
+                    </div>
+                    <div class="row">
+                        <button type="button" class="btn btn-warning" (click)="Copy()">Copy Selection</button>
+                    </div>
+                    <div class="row">
+                        <button type="button" class="btn btn-warning" (click)="Paste()">Paste Selection</button>
+                    </div>
+                    <div class="row">
+                        <button type="button" class="btn btn-danger" (click)="Delete()">Delete Selection</button>
+                    </div>
+                    <div class="row">
+                        <button type="button" class="btn btn-default btn-toast" (click)="saveToDb()">Save To DB</button>
+                    </div>
+                    <div class="row">
+                        <button type="button" class="btn btn-default" (click)="TestButton()">Test</button>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <button type="button" (click)="addConnection()" class="btn btn-default btn-circle btn-xs btn-icon" data-toggle="tooltip"
-                    data-placement="top" title="Link Layers">
-                    <i class="sli-link"></i>
-                </button>
-                <button type="button" (click)="removeConnection()" class="btn btn-default btn-circle btn-xs btn-icon" data-toggle="tooltip"
-                    data-placement="top" title="Unlink Layers">
-                    <i class="sli-shuffle"></i>
-                </button>
-                <button type="button" (click)="refreshCanvas()" class="btn btn-default btn-circle btn-xs btn-icon" data-toggle="tooltip"
-                    data-placement="top" title="Refresh Canvas">
-                    <i class="sli-refresh"></i>
-                </button>
-            </div>
-        </div>
-        <div class="row">
-            <button type="button" class="btn btn-info" (click)="loadResnet18()">Load resnet18</button>
-        </div>
-        <div class="row">
-            <button type="button" class="btn btn-info" (click)="loadMNIST()">Load MNIST</button>
-        </div>
-        <div class="row">
-            <button type="button" class="btn btn-default" (click)="addConvLayer()">Add Conv Layer</button>
-        </div>
-        <div class="row">
-            <button type="button" class="btn btn-default" (click)="addAffine()">Add Affine Layer</button>
-        </div>
-        <div class="row">
-            <button type="button" class="btn btn-default" (click)="addActivation()">Add Activation</button>
-        </div>
-        <div class="row">
-            <button type="button" class="btn btn-default" (click)="addDropout()">Add Dropout Layer</button>
-        </div>
-        <div class="row">
-            <button type="button" class="btn btn-default" (click)="addBatchNorm()">Add Batch Norm</button>
-        </div>
-        <div class="row">
-            <button type="button" class="btn btn-default" (click)="addPoolLayer()">Add Pool Layer</button>
-        </div>
-        <div class="row">
-            <button type="button" class="btn btn-default" (click)="addReshapeLayer()">Add Reshape Layer</button>
-        </div>
-        <div class="row">
-            <button type="button" class="btn btn-warning" (click)="Copy()">Copy Selection</button>
-        </div>
-        <div class="row">
-            <button type="button" class="btn btn-warning" (click)="Paste()">Paste Selection</button>
-        </div>
-        <div class="row">
-            <button type="button" class="btn btn-danger" (click)="Delete()">Delete Selection</button>
-        </div>
-        <div class="row">
-            <button type="button" class="btn btn-default btn-toast" (click)="saveToDb()">Save To DB</button>
-        </div>
-        <div class="row">
-            <button type="button" class="btn btn-default" (click)="TestButton()">Test</button>
         </div>
     </div>
 </div>

@@ -1,10 +1,17 @@
 import { Injectable } from '@angular/core';
+import { EscherService } from 'app/escher/escher.service';
+import { Http } from "@angular/http";
 
 declare var fabric: any;
 declare var $: any;
 declare var ResizeSensor: any;
 declare var _: any;
+declare var toastr: any;
 
+
+import { Observable } from "rxjs/Observable";
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class EditorService {
@@ -22,7 +29,7 @@ export class EditorService {
   disconnectLineFlag: boolean = false;
   relativePanX: number = 0;
   relativePanY: number = 0
-  localNetworkName = 'local name'
+  localNetworkName = 'my model'
   newLayerIndex = 0
   currentLayer: any
   gradientData: any
@@ -73,7 +80,10 @@ export class EditorService {
   }
 
 
-  constructor() { }
+  constructor(
+    private escherService: EscherService,
+    private http: Http
+  ) { }
 
   init(canvas: any, canvasWrapper: any): void {
     this.initFabric()
@@ -330,20 +340,23 @@ export class EditorService {
     this.loadCanvas();
   }
 
+
+  serializeCanvas(): string {
+    var allObjects = this.canvas.getObjects();
+    var allLayerObjs = _.filter(allObjects, obj => (obj.type != 'line' && obj.type != 'lineArrow'))
+    var serializedCanvas = _.map(allLayerObjs, obj => this.serializeLayer(obj, allLayerObjs))
+    return JSON.stringify(serializedCanvas)
+  }
+
   /**
    * Custom serialization function
    * Get all the layer objects, and for each layer store their location
    * the type of the layer, and their connections with other layers
    */
   saveCanvas(): void {
-    var allObjects = this.canvas.getObjects();
     localStorage.setItem('localFabricName', this.localNetworkName)
-    var allLayerObjs = _.filter(allObjects, obj => (obj.type != 'line' && obj.type != 'lineArrow'))
-    // console.log(allLayerObjs)
-    var serializedCanvas = _.map(allLayerObjs, obj => this.serializeLayer(obj, allLayerObjs))
-    // console.log(JSON.stringify(serializedCanvas));
-    // console.log(JSON.parse(JSON.stringify(serializedCanvas)));
-    localStorage.setItem('localFabricCanvas', JSON.stringify(serializedCanvas));
+    var json_string = this.serializeCanvas()
+    localStorage.setItem('localFabricCanvas', json_string);
   }
 
   loadCanvas(): void {
@@ -429,6 +442,29 @@ export class EditorService {
     return group;
   }
 
+  addLayer(label): void {
+    var sourceGroup = this.canvas.getActiveObject();
+    // we maintain a layer id for each layer, and increment it everytime we add a new layer
+    // layerConfig['layer_id'] = this.currentLayerId++
+    var currentLayerConfig = JSON.parse(JSON.stringify(this.defaultLayerConfigs[label]))
+    currentLayerConfig['layer_id'] = this.newLayerIndex++
+    var destGroup = this.addRectTextGroup(this.layerColors[label], label, [this.left, this.top], currentLayerConfig)
+    if (sourceGroup && sourceGroup.layer_type) {
+      var line = this.makeLine([sourceGroup.left + 100, sourceGroup.top + 25, destGroup.left + 100, destGroup.top + 25])
+      this.canvas.add(line);
+      line.source = sourceGroup;
+      line.dest = destGroup;
+      sourceGroup.outputs = sourceGroup.outputs.concat(line);
+      destGroup.inputs = [line]
+    } else {
+      destGroup.inputs = []
+    }
+    destGroup.outputs = []
+    console.log(destGroup.layer_type)
+    this.canvas.add(destGroup).setActiveObject(destGroup);
+    this.top += 50
+  }
+
   loadCanvasFromCustomSerializedString(stringCanvas): void {
     var serializedCanvas = JSON.parse(stringCanvas);
     var newObjects = []
@@ -496,7 +532,6 @@ export class EditorService {
     }
   }
 
-
   makeLine(coords): any {
     // return new fabric.Line(coords, {
     return new fabric.LineArrow(coords, {
@@ -506,6 +541,183 @@ export class EditorService {
       opacity: 0.3,
       selectable: false
     })
+  }
+
+  loadResnet18(): void {
+    var canvasSerialized = this.escherService.resnet18;
+    this.clearCanvas()
+    this.localNetworkName = "RESNET18"
+    this.loadCanvasFromCustomSerializedString(canvasSerialized)
+  }
+
+  loadMNIST(): void {
+    this.clearCanvas()
+    this.loadCanvasFromCustomSerializedString(this.escherService.mnist);
+    this.localNetworkName = 'MNIST'
+  }
+
+
+
+  saveToDb(): void {
+    var allObjects = this.canvas.getObjects();
+    var name = this.localNetworkName
+    var allLayerObjs = _.filter(allObjects, obj => (obj.type != 'line' && obj.type != 'lineArrow'))
+    var serializedCanvas = _.map(allLayerObjs, obj => this.serializeLayer(obj, allLayerObjs))
+    var network = JSON.stringify(serializedCanvas);
+    this.http.post('/api/savennmodel', {
+      name: name,
+      network: network
+    }).toPromise()
+      .then(response => {
+        console.log(response)
+        toastr.options = {
+          iconClass: '',
+          positionClass: 'toast-top-right',
+          progressBar: true,
+          timeOut: 3000
+        }
+        var response_json = response.json()
+        if (response_json.saved) {
+          toastr.info(response_json['message'])
+        } else {
+          toastr.info(response_json['message'])
+        }
+      }).catch(this.handleHttpError)
+  }
+
+  Paste(): void {
+    // console.log(this.canvas.getActiveObjects())
+    // console.log(this._clipboard.objects.length)
+    if (this._clipboard.objects.length && this._clipboard.objects.length > 1) {
+      this.canvas.discardActiveObject()
+      // case when multiple layers are selected, you recreate all the layers seperately
+      // and within in the selection create the connections/arrows as well
+      var newObjects = [];
+      var newObject: any;
+      var newLayerConfig;
+      var coords = [0, 0]
+      console.log([this._clipboard.relativeLeft, this._clipboard.relativeTop])
+      for (var object of this._clipboard.objects) {
+        console.log([object.left, object.top])
+        coords = [object.left + 50, object.top + 50]
+        newLayerConfig = JSON.parse(JSON.stringify(object.layerConfig))
+        newLayerConfig['layer_id'] = this.newLayerIndex++
+        newObject = this.addRectTextGroup(this.layerColors[object.layer_type], object.layer_type, coords, newLayerConfig)
+        newObject.inputs = []
+        newObject.outputs = []
+        newObjects = newObjects.concat(newObject)
+        this.canvas.add(newObject)
+      }
+      // this.canvas.discardActiveObject();
+      // var selection = new fabric.ActiveSelection(newObjects, {
+      //   canvas: this.canvas
+      // })
+      // this.canvas.setActiveObject(selection)
+
+      var destLayers
+      var destLayersIndices
+      var object
+      // var i
+      for (var i = 0; i < this._clipboard.objects.length; i++) {
+        object = this._clipboard.objects[i]
+        destLayers = _.map(object.outputs, line => line.dest)
+        // console.log(destLayers)
+        destLayersIndices = _.map(destLayers, obj => _.indexOf(this._clipboard.objects, obj))
+        destLayersIndices = _.filter(destLayersIndices, ind => ind != -1)
+        // console.log(destLayersIndices)
+        for (var ind of destLayersIndices) {
+          // console.log("adding line")
+          // console.log([newObjects[i].left + 100, newObjects[i].top + 25, newObjects[ind].left + 100, newObjects[ind].top + 25])
+          var line = this.makeLine([newObjects[i].left + 100, newObjects[i].top + 25, newObjects[ind].left + 100, newObjects[ind].top + 25])
+          this.canvas.add(line);
+          line.source = newObjects[i];
+          line.dest = newObjects[ind];
+          newObjects[i].outputs = newObjects[i].outputs.concat(line);
+          newObjects[ind].inputs = newObjects[ind].inputs.concat(line);
+        }
+      }
+
+      this.canvas.discardActiveObject();
+      var selection = new fabric.ActiveSelection(newObjects, {
+        canvas: this.canvas
+      })
+      this.canvas.setActiveObject(selection)
+
+
+
+      this.canvas.requestRenderAll()
+    } else if (this._clipboard.objects.length && this._clipboard.objects.length == 1) {
+      // when only one layer was in the clipboard, you just create a new layer of that type
+      // just below the old one.
+      var layer = this._clipboard.objects[0]
+      var layer_type = layer.layer_type;
+      var newLayer = this.addRectTextGroup(this.layerColors[layer_type], layer_type, [layer.left, layer.top + 50], layer.layerConfig)
+      newLayer.inputs = []
+      newLayer.outputs = []
+      this.canvas.add(newLayer)
+      this.canvas.setActiveObject(newLayer).renderAll()
+    }
+  }
+
+    /**
+   * Function that copies the selected fabric objects to clipboard
+   */
+  Copy(): void {
+    // clone what are you copying since you
+    // may want copy and paste on different moment.
+    // and you do not want the changes happened
+    // later to reflect on the copy.
+    // this.canvas.getActiveObject().clone(cloned => {
+    //   this._clipboard = cloned;
+    // });
+    var activeObject = this.canvas.getActiveObject()
+    this._clipboard = {
+      objects: this.canvas.getActiveObjects(),
+      relativeTop: activeObject.top + activeObject.height / 2,
+      relativeLeft: activeObject.left + activeObject.width / 2
+    };
+  }
+
+  Delete(): void {
+    var activeObjects = this.canvas.getActiveObjects();
+    // console.log(activeObject.type);
+    // console.log(activeObject);
+    var lines = []
+    for (var object of activeObjects) {
+      if (object.layer_type != null) {
+        lines = lines.concat(object.inputs)
+        lines = lines.concat(object.outputs)
+      }
+    }
+    lines = _.uniq(lines)
+    this.canvas.discardActiveObject();
+    if (activeObjects.length) {
+      // console.log("lol")
+      // activeObject.remove();
+      this.canvas.remove.apply(this.canvas, activeObjects.concat(lines));
+    }
+    this.canvas.renderAll();
+  }
+
+
+  addConnection(): void {
+    this.canvas.discardActiveObject().renderAll()
+    this.connectLineFlag = true
+    this.disconnectLineFlag = false
+    this.connectionInput = null
+    this.connectionOutput = null
+  }
+
+  removeConnection(): void {
+    this.canvas.discardActiveObject()
+    this.disconnectLineFlag = true
+    this.connectLineFlag = false
+    this.connectionInput = null
+    this.connectionOutput = null
+  }
+
+  private handleHttpError(error: any): Promise<any> {
+    return Promise.reject(error.message || error);
   }
 
 }

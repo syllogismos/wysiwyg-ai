@@ -7,6 +7,7 @@ import { ExperimentService } from "./experiment.service";
 import { ColorsService } from 'app/services/colors';
 import { Http, Headers } from '@angular/http';
 import { EditorService } from 'app/escher/editor.service';
+import { EscherService } from 'app/escher/escher.service';
 
 declare var $: any;
 declare var _: any;
@@ -22,7 +23,7 @@ declare var toastr: any;
   selector: 'app-supervised-experiment',
   templateUrl: './supervised-experiment.component.html',
   styleUrls: ['./supervised-experiment.component.scss'],
-  providers: [ExperimentService, ColorsService, EditorService]
+  providers: [ExperimentService, ColorsService, EditorService, EscherService]
 })
 export class SupervisedExperimentComponent implements OnInit {
 
@@ -138,11 +139,6 @@ export class SupervisedExperimentComponent implements OnInit {
     })
   }
 
-  resizeCanvas() {
-    this.canvas.setWidth(this.canvasWrapper.width());
-    this.canvas.setHeight(800)
-    this.canvas.renderAll();
-  }
 
   modifySlider(variant) {
     this.debugSlider.noUiSlider.set(0)
