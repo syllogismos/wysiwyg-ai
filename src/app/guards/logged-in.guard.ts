@@ -25,7 +25,9 @@ export class LoggedInGuard implements CanActivate {
       } else {
         return true
       }
+    }).catch(x => {
+      this.router.navigate(['pages/login'])
+      return false
     })
-      
   }
 }

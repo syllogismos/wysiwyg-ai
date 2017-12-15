@@ -86,6 +86,7 @@ router.post('/login', passport.authenticate('local'), (req, res) => {
 router.get('/loggedin', (req, res) => {
   // console.log(req.body)
   // console.log(req.isAuthenticated())
+  // setTimeout(x => res.send(req.isAuthenticated() ? req.user: '0'), 3000)
   res.send(req.isAuthenticated() ? req.user : '0');
 })
 

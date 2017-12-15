@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from "@angular/http";
 
 import "rxjs/add/operator/toPromise";
+import 'rxjs/add/operator/timeout'
+
 
 @Injectable()
 export class AuthService {
@@ -12,6 +14,7 @@ export class AuthService {
 
   isLoggedOut(): Promise<boolean> {
     return this.http.get('/api/loggedin')
+      // .timeout(2000)
       .toPromise()
       .then(response => {
         // console.log("just called api/loggedin")
