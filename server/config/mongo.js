@@ -44,11 +44,18 @@ var ExperimentSchema = mongoose.Schema({
   description: String,
   env_name: String,
   config: {}
-}, {timestamps: true})
+}, { timestamps: true })
+
+var PayPalPaymentSchema = mongoose.Schema({
+  user: String,
+  amount: String,
+  payment_info: String
+}, { timestamps: true })
 
 
 exports.UserModel = mongoose.model('user', UserSchema);
 exports.NNModel = mongoose.model('nnmodel', NNModelSchema);
 exports.DatasetModel = mongoose.model('dataset', DatasetSchema)
 exports.ExperimentModel = mongoose.model('experiment', ExperimentSchema)
+exports.PayPalPaymentModel = mongoose.model('paypalpayment', PayPalPaymentSchema)
 exports.mongoose = mongoose

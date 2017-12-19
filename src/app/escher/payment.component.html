@@ -28,15 +28,18 @@
   <div class="col">
     <div class="widget">
       <div class="row">
-        <div class="col">
+        <div class="col-3">
           <div class="title">Payment History</div>
           <div class="description">Last 10 transactions</div>
         </div>
+        <div class="col-2">
+          <button type="button" class="btn btn-default" (click)="refreshPaymentHistory()">Refresh</button>
+        </div>
       </div>
       <div class="row">
-        <div class="col-4">
+        <div class="col-5">
           <div class="table-responsive">
-            <table class="table table-hover table-bordered">
+            <table id="payment-records-datatable" class="table table-hover table-bordered table-striped">
               <thead>
                 <tr>
                   <th>Amount</th>
@@ -44,7 +47,11 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <tr *ngFor="let record of paymentHistory">
+                  <td>{{record.amount}}</td>
+                  <td>{{record.createdAt}}</td>
+                </tr>
+                <!-- <tr>
                   <td>20.00</td>
                   <td>Wed 11 Oct 2017 13:16:20 IST</td>
                 </tr>
@@ -63,7 +70,7 @@
                 <tr>
                   <td>35.00</td>
                   <td>Sun, 08 Oct 2017 21:12:22</td>
-                </tr>
+                </tr> -->
               </tbody>
             </table>
           </div>

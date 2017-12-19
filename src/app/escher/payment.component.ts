@@ -1,4 +1,5 @@
 import { Component, AfterViewChecked, OnInit } from '@angular/core';
+import { Http } from '@angular/http';
 // https://github.com/KevinShiCA/ng4-paypal-button/blob/master/src/app/app.component.ts
 
 declare let $: any;
@@ -15,9 +16,10 @@ export class PaymentComponent implements OnInit {
 
   private didPaypalScriptLoad: boolean = false;
   private loading: boolean = true;
+  paymentHistory: any;
   
   private paypalConfig: any = {
-    env: 'production',
+    env: 'sandbox',
     client: {
       sandbox: 'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R',
       production: 'AWOiVbJwfNPPewRCkB3sfbiPQbLAHL6k3AjF_Che6aLLMGAMcxTs-NbyZsO0FB7yrDeWF5GbiwL5HdNx'
@@ -36,6 +38,23 @@ export class PaymentComponent implements OnInit {
       // show success page
       console.log("success payment");
       console.log($("#paypalAmount").val())
+      console.log(data)
+      console.log(actions)
+      return actions.payment.execute().then(payment => {
+        console.log("inside payment execute")
+        var params = {}
+        params['payment'] = JSON.stringify(payment)
+        params['amount'] = $("#paypalAmount").val()
+        console.log(payment.transactions[0].amount.total)
+        this.http.post('/api/record_paypal_payment', params)
+          .toPromise()
+          .then(response => {
+            console.log('right after post request')
+            console.log(response)
+            this.refreshPaymentHistory()
+          })
+          .catch(this.handleHttpError)
+      })
     },
     validate: (actions) => {
       this.validatePaypalButton(actions)
@@ -43,6 +62,10 @@ export class PaymentComponent implements OnInit {
         console.log('inside change event handler')
         this.validatePaypalButton(actions);
       })
+    },
+    onError: (err) => {
+      console.log('paypal on error')
+      console.log(err)
     },
     onClick: () => {
       console.log("on click paypal")
@@ -81,6 +104,8 @@ export class PaymentComponent implements OnInit {
       console.log('paypal button click')
     })
 
+    this.refreshPaymentHistory(true)
+
   }
 
   isError(element, message) {
@@ -106,6 +131,33 @@ export class PaymentComponent implements OnInit {
     el.next().text('');
   }
 
-  constructor() { }
+  refreshPaymentHistory(firstTime: boolean = false): void {
+    this.http.post('/api/get_paypal_records', {})
+      .toPromise()
+      .then(response => {
+        this.paymentHistory = response.json().payment_records
+        console.log(response.json())
+        if (!firstTime) {
+          $('#payment-records-datatable').DataTable().destroy();
+        }
+        setTimeout(function () {
+          $(function () {
+            $('#payment-records-datatable').DataTable({
+              "order": [[1, "desc"]]
+            });
+          });
+        }, 100);
+      })
+      .catch(this.handleHttpError)
+
+  }
+
+  handleHttpError(error): Promise<any> {
+    return Promise.reject(error.message || error);
+  }
+
+  constructor(
+    private http: Http
+  ) { }
 
 }

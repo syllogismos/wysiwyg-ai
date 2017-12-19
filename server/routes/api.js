@@ -37,7 +37,8 @@ router.get('/posttest', (req, res) => {
 })
 
 router.post('/posttest', (req, res) => {
-  console.log(req.body);
+  // console.log(JSON.parse(req.body.payment));
+  console.log(req.body)
   // res.sendStatus(200);
   return res.json({message: 'success'})
 })
@@ -189,13 +190,57 @@ router.post('/savennmodel', (req, res) => {
           })
         } else {
           return res.json({
-            "saved": false,
+            "saved": true,
             "message": "Saved the model"
           })
         }
       })
     }
   })
+})
+
+router.post('/record_paypal_payment', (req, res) => {
+  var user = req.user._id
+  var amount = req.body.amount
+  var payment_info = req.body.payment
+  console.log(req.body.payment)
+  var newPayPalPayment = new mongooseConfig.PayPalPaymentModel({
+    user: user,
+    amount: amount,
+    payment_info: payment_info
+  })
+  newPayPalPayment.save((err, payPalPaymentModel) => {
+    if (err) {
+      return res.json({
+        "saved": false,
+        "message": "unable to save payment record"
+      })
+    } else {
+      return res.json({
+        "saved": true,
+        "message": "Saved payment record"
+      })
+    }
+  })
+})
+
+router.post('/get_paypal_records', (req, res) => {
+  mongooseConfig.PayPalPaymentModel.find({
+    user: req.user._id
+  }).sort({ _id: 1 })
+    .limit(100)
+    .exec((err, payment_records) => {
+      if (err) {
+        return res.json({
+          message: "failed to query for payment records"
+        })
+      } else {
+        return res.json({
+          payment_records: payment_records,
+          message: "queried 100 payment history"
+        })
+      }
+    })
 })
 
 

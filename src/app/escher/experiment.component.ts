@@ -38,17 +38,17 @@ export class ExperimentComponent implements OnInit {
   ngOnInit() {
 
     this.experimentService.getExperiments()
-    .then(exps => {
-      console.log(exps)
-      this.experiments = exps
-      setTimeout(function () {
-        $(function () {
-          $('#experiment-datatable').DataTable({
-            "order": [[ 3, "desc" ]]
+      .then(exps => {
+        console.log(exps)
+        this.experiments = exps
+        setTimeout(function () {
+          $(function () {
+            $('#experiment-datatable').DataTable({
+              "order": [[ 3, "desc" ]]
+            });
           });
-        });
-      }, 10);
-      // $('#experiment-datatable').DataTable();
+        }, 10);
+        // $('#experiment-datatable').DataTable();
     })
 
     $.get('/assets/json/stats.json', data => {
@@ -121,7 +121,7 @@ export class ExperimentComponent implements OnInit {
         setTimeout(function () {
           $(function () {
             $('#experiment-datatable').DataTable({
-              "order": [[ 6, "desc" ]]
+              "order": [[ 3, "desc" ]]
             });
           });
         }, 100);
