@@ -40,6 +40,7 @@ export class SupervisedExperimentComponent implements OnInit {
 
   colors: Object
   experiment: any;
+  experiment_id: any;
   experiment_logs: any;
   exp_timeline: any;
   exp_timeline_all: any;
@@ -55,6 +56,12 @@ export class SupervisedExperimentComponent implements OnInit {
   canvas: any;
   canvasWrapper: any;
   gradientData: any;
+  lr_var = false
+  momentum_var = false
+  epochs_var = false
+  batch_size_var = false
+  test_batch_size_var = false
+  seed_var = false
 
   ngOnInit() {
 
@@ -66,10 +73,21 @@ export class SupervisedExperimentComponent implements OnInit {
 
     this.route.paramMap
       .switchMap((params: ParamMap) => {
+        this.experiment_id = params.get('exp_id')
         return this.experimentService.getExperiment(params.get('exp_id'))
       })
       .subscribe(exp => {
         this.experiment = exp
+        
+        // shitty code to identify what hyperparameters to highlight
+        // have to fix as we add more hyperparameters
+        this.lr_var = exp.config.var_lr.length > 1
+        this.momentum_var = exp.config.var_momentum.length > 1
+        this.epochs_var = exp.config.var_epochs.length > 1
+        this.batch_size_var = exp.config.var_batch_size.length > 1
+        this.test_batch_size_var = exp.config.var_test_batch_size.length > 1
+        this.seed_var = exp.config.var_seed.length > 1
+
         this.experiment.createdAt = moment(this.experiment.createdAt).fromNow()
         this.getModel();
         this.getExperimentTimeline();

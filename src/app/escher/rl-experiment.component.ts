@@ -16,6 +16,7 @@ declare var Chartist: any;
 declare var nv: any;
 declare var d3: any;
 declare var moment: any;
+declare var noUiSlider: any;
 
 @Component({
   selector: 'app-rl-experiment',
@@ -24,6 +25,13 @@ declare var moment: any;
   providers: [ExperimentService, ColorsService, GymEnvsService]
 })
 export class RlExperimentComponent implements OnInit {
+
+  variant_table_header = ['seed', 'qf_batch_size', 'policy_batch_size',
+    'qf_learning_rate', 'replay_pool_size', 'scale_reward', 'step_size',
+    'gae_lambda', 'learning_rate', 'discount', 'batch_size'
+  ]
+
+  actual_variants: any
 
   constructor(
     private route: ActivatedRoute,
@@ -63,23 +71,101 @@ export class RlExperimentComponent implements OnInit {
   variants: any = [0];
   selectedVariant = 'all'
   selectedMetric = 'AverageReturn'
+  selectedDebuggingVariant: any = 0
+  variantsData: any = {
+    0: {
+      iteration: 0
+    }
+  }
+  variantIterationVideoSrc: String //= "https://s3.amazonaws.com/karaka_test/5a4b9c9108d1a338d21d38ef/0/escher/rl_exp/gym_log/openaigym.video.0.1.video000022.mp4"
+  angularLogo = 'https://angular.io/assets/images/logos/angular/angular.svg';
+  debugSlider: any;
+
 
   ngOnInit() {
     this.route.paramMap
       .switchMap((params: ParamMap) => {
+        this.experiment_id = params.get('exp_id')
+        console.log('inside switch map')
+        console.log(this.experiment_id)
         return this.experimentService.getExperiment(params.get('exp_id'))
       })
       .subscribe(exp => {
         this.experiment = exp
         this.env_data = this.gymEnvService.getMetadataOfEnv(exp.config.env_name)
         this.getExperimentTimeline();
-        this.getExperimentLogs()
+        this.getExperimentLogs();
+        this.presentVariantDataTable();
       })
+    
+    this.debugSlider = document.getElementById('debug-variant-slider')
+    noUiSlider.create(this.debugSlider, {
+      start: 0,
+      connect: [true, false],
+      step: 1,
+      tooltips: true,
+      format: {
+        to: x => Math.round(x),
+        from: x => Math.round(x)
+      },
+      range: {
+        min: 0,
+        max: 0.1
+      }
+    })
 
-    this.easyPieChart('.easy-pie-chart-primary-xs', this.colors['primary'], this.palette['borderColor'], 100);
-    this.easyPieChart('.easy-pie-chart-danger-xs', this.colors['danger'], this.palette['borderColor'], 100);
+    this.debugSlider.noUiSlider.on('set', x => {
+      if (this.experiment) {
+        this.variantIterationVideoSrc = 'https://s3.amazonaws.com/karaka_test/' + this.experiment._id + '/' + String(this.selectedDebuggingVariant) + '/escher/rl_exp/gym_log/openaigym.video.0.1.video' + this.padNumberWithZeros(x[0], 6) + '.mp4'
+      }
+    })
+
+    this.modifySlider(this.selectedDebuggingVariant)
+
+
   }
 
+  presentVariantDataTable(): void {
+    this.actual_variants = this.variant_table_header.map((e, i) => {
+      return [i, this.experiment.config['var_' + e].length]
+    })
+    this.actual_variants = _.filter(this.actual_variants, x => x[1] > 1)
+    this.actual_variants = _.map(this.actual_variants, x => x[0])
+    console.log(this.actual_variants)
+    console.log("actual variants lamo")
+    setTimeout(() => {
+      var table = $('#variants-table').DataTable();
+      // hilighting the variant column parameters
+      _.map(this.actual_variants, v => $(table.column(v + 1).nodes()).addClass('highlight'));
+    }, 1000)
+  }
+
+  modifySlider(variant) {
+    var timeoutToLoadExperiment
+    if (this.experiment._id) {
+      timeoutToLoadExperiment = 10
+      console.log('exp loaded')
+    } else {
+      timeoutToLoadExperiment = 5000
+      console.log('exp didnt load')
+    }
+    setTimeout(() => {
+      this.debugSlider.noUiSlider.updateOptions({
+        range: {
+          'min': 0,
+          'max': this.variantsData[variant].iteration + 0.2
+        }
+      });
+      this.debugSlider.noUiSlider.set(0)
+    }, timeoutToLoadExperiment)
+    
+  }
+
+  padNumberWithZeros = (num, size) => {
+    var s = String(num);
+    while (s.length < (size || 2)) {s = "0" + s;}
+    return s;
+  }
 
   getExperimentTimeline(): void {
     this.http.post('/elastic/getExperimentTimeline', {
@@ -131,8 +217,16 @@ export class RlExperimentComponent implements OnInit {
           keys = []
         }
 
+        // console.log(this.hits)
+        for (let i of this.variants) {
+          this.variantsData[i] = {
+            iteration: _.maxBy(_.filter(this.hits, x => x.Variant == i), y => y.Iteration).Iteration
+          }
+        }
+
         this.modifyDataTable(this.selectedVariant)
         this.modifyD3Table(this.selectedMetric)
+        this.modifySlider(this.selectedDebuggingVariant)
       })
       .catch(this.handleHttpError)
 
@@ -150,7 +244,12 @@ export class RlExperimentComponent implements OnInit {
     })
   }
 
-
+  debugVariant(variant: any): void {
+    if (this.selectedDebuggingVariant != variant) {
+      this.selectedDebuggingVariant = variant
+      this.modifySlider(this.selectedDebuggingVariant)
+    }
+  }
 
   private handleHttpError(error: any): Promise<any> {
     console.error('An error occurred', error);

@@ -100,13 +100,122 @@
               <tbody>
                 <tr *ngFor="let variant of experiment?.config.variants; index as i">
                   <td>{{i}}</td>
-                  <td>{{variant.lr}}</td>
-                  <td>{{variant.momentum}}</td>
-                  <td>{{variant.epochs}}</td>
-                  <td>{{variant.batch_size}}</td>
-                  <td>{{variant.test_batch_size}}</td>
-                  <td>{{variant.seed}}</td>
+                  <th *ngIf="lr_var">{{variant.lr}}</th>
+                  <td *ngIf="!lr_var">{{variant.lr}}</td>
+
+                  <th *ngIf="momentum_var">{{variant.momentum}}</th>
+                  <td *ngIf="!momentum_var">{{variant.momentum}}</td>
+
+                  <th *ngIf="epochs_var">{{variant.epochs}}</th>
+                  <td *ngIf="!epochs_var">{{variant.epochs}}</td>
+
+                  <th *ngIf="batch_size_var">{{variant.batch_size}}</th>
+                  <td *ngIf="!batch_size_var">{{variant.batch_size}}</td>
+
+                  <th *ngIf="test_batch_size_var">{{variant.test_batch_size}}</th>
+                  <td *ngIf="!test_batch_size_var">{{variant.test_batch_size}}</td>
+
+                  <th *ngIf="seed_var">{{variant.seed}}</th>
+                  <td *ngIf="!seed_var">{{variant.seed}}</td>
                 </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+              <thead>
+                <tr>
+                  <th colspan="2">Train Transforms</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngFor="let transform of experiment?.config.form_params.train_transforms">
+                  <tr>
+                    <th colspan="2">{{transform}}</th>
+                  </tr>
+                  <ng-container [ngSwitch]="transform">
+                    <ng-template [ngSwitchCase]="'Normalize'">
+                      <tr>
+                        <td>Mean</td>
+                        <td>{{experiment?.config.form_params.train_normalize_mean}}</td>
+                      </tr>
+                      <tr>
+                        <td>Std</td>
+                        <td>{{experiment?.config.form_params.train_normalize_std}}</td>
+                      </tr>
+                    </ng-template>
+                    <ng-template [ngSwitchCase]="'RandomSizedCrop'">
+                      <tr>
+                        <td>Size</td>
+                        <td>{{experiment?.config.form_params.train_random_sized_crop}}</td>
+                      </tr>
+                    </ng-template>
+                    <ng-template [ngSwitchCase]="'CenterCrop'">
+                      <tr>
+                        <td>Size</td>
+                        <td>{{experiment?.config.form_params.train_center_crop}}</td>
+                      </tr>
+                    </ng-template>
+                    <ng-template [ngSwitchCase]="'Scale'">
+                      <tr>
+                        <td>Size</td>
+                        <td>{{experiment?.config.form_params.train_scale}}</td>
+                      </tr>
+                    </ng-template>
+                  </ng-container>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col">
+          <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+              <thead>
+                <tr>
+                  <th colspan="2">Validation Transforms</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngFor="let transform of experiment?.config.form_params.val_transforms">
+                  <tr>
+                    <th colspan="2">{{transform}}</th>
+                  </tr>
+                  <ng-container [ngSwitch]="transform">
+                    <ng-template [ngSwitchCase]="'Normalize'">
+                      <tr>
+                        <td>Mean</td>
+                        <td>{{experiment?.config.form_params.val_normalize_mean}}</td>
+                      </tr>
+                      <tr>
+                        <td>Std</td>
+                        <td>{{experiment?.config.form_params.val_normalize_std}}</td>
+                      </tr>
+                    </ng-template>
+                    <ng-template [ngSwitchCase]="'RandomSizedCrop'">
+                      <tr>
+                        <td>Size</td>
+                        <td>{{experiment?.config.form_params.val_random_sized_crop}}</td>
+                      </tr>
+                    </ng-template>
+                    <ng-template [ngSwitchCase]="'CenterCrop'">
+                      <tr>
+                        <td>Size</td>
+                        <td>{{experiment?.config.form_params.val_center_crop}}</td>
+                      </tr>
+                    </ng-template>
+                    <ng-template [ngSwitchCase]="'Scale'">
+                      <tr>
+                        <td>Size</td>
+                        <td>{{experiment?.config.form_params.val_scale}}</td>
+                      </tr>
+                    </ng-template>
+                  </ng-container>
+                </ng-container>
               </tbody>
             </table>
           </div>
@@ -130,7 +239,7 @@
           <div class="dropdown pull-right">
             <button type="button" class="btn btn-default btn-rounded btn-outline dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false" id="variant-dropdown">
-              Variants
+              Select Variant
             </button>
             <div class="dropdown-menu dropdown-menu-right from-right">
               <a *ngFor="let variant of variants" (click)="modifyTimeline(variant)" class="dropdown-item">Variant: {{variant}}</a>
@@ -266,7 +375,7 @@
           <div class="dropdown pull-right">
             <button type="button" class="btn btn-default btn-rounded btn-outline dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false">
-              Variants
+              Select Variant
             </button>
             <div class="dropdown-menu dropdown-menu-right from-right">
               <a *ngFor="let variant of variants" (click)="modifyDataTable(variant)" class="dropdown-item">Variant: {{variant}}</a>
@@ -313,7 +422,7 @@
           <div class="dropdown pull-right">
             <button type="button" class="btn btn-default btn-rounded btn-outline dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false">
-              Variants
+              Select Variant
             </button>
             <div class="dropdown-menu dropdown-menu-right from-right">
               <a *ngFor="let variant of variants" (click)="debugVariant(variant)" class="dropdown-item">Variant: {{variant}}</a>
@@ -393,6 +502,8 @@
     </div>
   </div>
 </div>
+<hr>
+<app-exp-cpu-plots [experiment]="experiment_id"></app-exp-cpu-plots>
 <br>
 <br>
 <br>

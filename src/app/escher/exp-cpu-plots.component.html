@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col">
+    <div class="widget">
+      <div class="row">
+        <div class="col">
+          <h4>System Stats</h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3">
+          <div class="title">
+            Selected Metric:
+          </div>
+          <div class="description">
+            {{selectedMetric}}
+          </div>
+        </div>
+        <div class="col-5"></div>
+        <div class="col-2">
+          <button class="btn btn-warning pull-right" (click)="refreshData()">Refresh</button>
+        </div>
+        <div class="col-2">
+          <div class="dropdown pull-right">
+            <button type="button" class="btn btn-default btn-rounded btn-outline dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
+              Select Metric
+            </button>
+            <div class="dropdown-menu dropdown-menu-right from-right">
+              <a *ngFor="let metric of metrics" (click)="modifyD3Table(metric)" class="dropdown-item">{{metric}}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div id="nvd3-system">
+            <svg style="height:400px;width:100%"></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

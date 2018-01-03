@@ -8,14 +8,6 @@
         </div>
       </div>
       <form id="sup">
-        <!-- <div class="row">
-          <div class="col col-xl-6">
-            <div class="title">Experiment Details</div>
-          </div>
-          <div class="col col-xl-6">
-            <div class="title">Traning Details</div>
-          </div>
-        </div> -->
         <div class="row">
           <div class="col col-xl-6">
             <div class="form-group">
@@ -24,6 +16,23 @@
               <small class="form-control-feedback"></small>
             </div>
           </div>
+          <div class="col col-xl-3">
+            <div class="form-group">
+              <label>Epochs</label>
+              <input type="text" class="form-control sup-params variant" id="epochs" name="epochs">
+              <small class="form-control-feedback"></small>
+            </div>
+          </div>
+          <div class="col col-xl-3">
+            <div class="form-group">
+              <label>Batch Size</label>
+              <input type="text" class="form-control sup-params variant" id="batch_size" name="batch_size">
+              <small class="form-control-feedback"></small>
+            </div>
+          </div>
+
+        </div>
+        <div class="row">
           <div class="col col-xl-3">
             <div class="form-group">
               <label>Optimizer</label>
@@ -45,42 +54,23 @@
               <small class="form-control-feedback"></small>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col col-xl-6">
+          <div class="col col-xl-3">
             <div class="form-group">
-              <label>Experiment Description</label>
-              <textarea class="form-control sup-params" rows="3" id="exp_desc" name="exp_desc"></textarea>
+              <label>Learning Rate</label>
+              <input type="text" class="form-control sup-params variant" id="lr" name="lr">
               <small class="form-control-feedback"></small>
             </div>
           </div>
-          <div class="col col-xl-6">
-            <div class="row">
-              <div class="col-6">
-                <div class="form-group">
-                  <label>Learning Rate</label>
-                  <input type="text" class="form-control sup-params variant" id="lr" name="lr">
-                  <small class="form-control-feedback"></small>
-                </div>
-              </div>
-              <div class="col-6">
-                <div class="form-group">
-                  <label>Momentum</label>
-                  <input type="text" class="form-control sup-params variant" id="momentum" name="momentum">
-                  <small class="form-control-feedback"></small>
-                </div>
-              </div>
+          <div class="col col-xl-3">
+            <div class="form-group">
+              <label>Momentum</label>
+              <input type="text" class="form-control sup-params variant" id="momentum" name="momentum">
+              <small class="form-control-feedback"></small>
             </div>
           </div>
         </div>
-        <!-- <div class="row">
-        <div class="col col-xl-6">
-          <div class="title">Network Details</div>
-          <div class="description">Select Neural network details</div>
-        </div>
-      </div> -->
         <div class="row">
-          <div class="col col-xl-6">
+          <div class="col col-xl-3">
             <div class="form-group">
               <label>Select Model</label>
               <select class="form-control sup-params" id="model" name="model">
@@ -92,66 +82,34 @@
               <small class="form-control-feedback"></small>
             </div>
           </div>
-          <div class="col col-xl-6">
-            <div class="row">
-              <div class="col-6">
-                <div class="form-group">
-                  <label>Test Batch Size</label>
-                  <input type="text" class="form-control sup-params variant" id="test_batch_size" name="test_batch_size">
-                  <small class="form-control-feedback"></small>
-                </div>
-              </div>
-              <div class="col-6">
-                <div class="form-group">
-                  <label>Seed</label>
-                  <input type="text" class="form-control sup-params variant" id="seed" name="seed">
-                  <small class="form-control-feedback"></small>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- <div class="row">
-        <div class="col col-xl-6">
-          <div class="title">Dataset Details</div>
-          <div class="description">Dataset and preprocessing details</div>
-        </div>
-      </div> -->
-        <div class="row">
-          <div class="col col-xl-6">
+          <div class="col col-xl-3">
             <div class="form-group">
               <label>Select Dataset</label>
               <select class="form-control sup-params" id="dataset" name="dataset">
                 <option value="">Choose a dataset</option>
                 <option value="MNIST">Mnist Digits</option>
                 <option value="tiny-imagenet-test">Tiny Imagenet</option>
-                <!-- <option value="test-imagenet">Test Imagenet</option>
-                <option value="imagenet">Imagenet</option> -->
               </select>
               <small class="form-control-feedback"></small>
             </div>
           </div>
-          <div class="col col-xl-6">
-            <div class="row">
-              <div class="col-6">
-                <div class="form-group">
-                  <label>Epochs</label>
-                  <input type="text" class="form-control sup-params variant" id="epochs" name="epochs">
-                  <small class="form-control-feedback"></small>
-                </div>
-              </div>
-              <div class="col-6">
-                <div class="form-group">
-                  <label>Batch Size</label>
-                  <input type="text" class="form-control sup-params variant" id="batch_size" name="batch_size">
-                  <small class="form-control-feedback"></small>
-                </div>
-              </div>
+          <div class="col col-xl-3">
+            <div class="form-group">
+              <label>Test Batch Size</label>
+              <input type="text" class="form-control sup-params variant" id="test_batch_size" name="test_batch_size">
+              <small class="form-control-feedback"></small>
+            </div>
+          </div>
+          <div class="col col-xl-3">
+            <div class="form-group">
+              <label>Seed</label>
+              <input type="text" class="form-control sup-params variant" id="seed" name="seed">
+              <small class="form-control-feedback"></small>
             </div>
           </div>
         </div>
         <div class="row">
-          <div class="col">
+          <div class="col col-xl-3">
             <div class="form-group">
               <label>Machine Type</label>
               <select class="form-control sup-params" id="machine_type" name="machine_type">
@@ -175,13 +133,154 @@
               <small class="form-control-feedback"></small>
             </div>
           </div>
-          <div class="col">
-            <div class="widget">
-              <button class="btn btn-primary btn-lg" type="submit" name="submit">Train</button>
+          <div class="col col-xl-3">
+            <div class="form-group">
+              <label>Experiment Notes</label>
+              <textarea class="form-control sup-params" rows="3" id="exp_desc" name="exp_desc"></textarea>
+              <small class="form-control-feedback"></small>
             </div>
+          </div>
+          <div class="col col-xl-3">
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="row">
+              <div class="col">
+                <div class="title">Data Transforms</div>
+                <!-- <div class="description">Select the data transforms to be applied on train and validation sets</div> -->
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-4" id="train-transforms-wrapper">
+                <label>Train Data Transforms</label>
+                <select data-placeholder="Choose Train Transforms.." multiple="multiple" class="" id="train-transforms" name="train-transforms">
+                  <!-- <option value='ToTensor'>ToTensor</option> -->
+                  <option value='Normalize'>Normalize</option>
+                  <option value='RandomSizedCrop'>Random Sized Crop</option>
+                  <option value='Scale'>Scale</option>
+                  <option value='CenterCrop'>Center Crop</option>
+                </select>
+                <small class="form-control-feedback"></small>
+                <div *ngIf="trainTransforms">
+                  <br>
+                  <div *ngFor="let transform of trainTransforms">
+                    <div [ngSwitch]="transform">
+                      <ng-template [ngSwitchCase]="'RandomSizedCrop'">
+                        <div class="form-group">
+                          <div class="input-group">
+                            <input type="text" class="form-control sup-params" id="train_random_sized_crop" name="train_random_sized_crop" placeholder="300">
+                            <span class="input-group-addon">Random Sized Crop</span>
+                          </div>
+                        </div>
+                      </ng-template>
+                      <ng-template [ngSwitchCase]="'Normalize'">
+                        <!-- <p>Train Normalize selected</p> -->
+                        <div class="form-group">
+                          <div class="input-group">
+                            <input type="text" class="form-control sup-params" id="train_normalize_mean" name="train_normalize_mean" placeholder="mean">
+                            <input type="text" class="form-control sup-params" placeholder="std" id="train_normalize_std" name="train_normalize_std">
+                            <span class="input-group-addon">Normalize</span>
+                          </div>
+                          <!-- <small class="form-text text-muted">Please enter your email</small> -->
+                        </div>
+                      </ng-template>
+                      <ng-template [ngSwitchCase]="'Scale'">
+                        <div class="form-group">
+                          <div class="input-group">
+                            <input type="text" class="form-control sup-params" placeholder="225" id="train_scale" name="train_scale">
+                            <span class="input-group-addon">Scale</span>
+                          </div>
+                          <!-- <small class="form-text text-muted">Please enter your username</small> -->
+                        </div>
+                      </ng-template>
+                      <ng-template [ngSwitchCase]="'CenterCrop'">
+                        <!-- <p>Train Center Crop selected</p> -->
+                        <div class="form-group">
+                          <div class="input-group">
+                            <input type="text" class="form-control sup-params" id="train_center_crop" name="train_center_crop" placeholder="200">
+                            <span class="input-group-addon">Center Crop</span>
+                          </div>
+                        </div>
+                      </ng-template>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4" id="val-transforms-wrapper">
+                <label>Validation Data Transforms</label>
+                <select data-placeholder="Choose Val Transforms.." multiple="multiple" class="" id="val-transforms" name="val-transforms">
+                  <!-- <option value='ToTensor'>ToTensor</option> -->
+                  <option value='Normalize'>Normalize</option>
+                  <option value='RandomSizedCrop'>Random Sized Crop</option>
+                  <option value='Scale'>Scale</option>
+                  <option value='CenterCrop'>Center Crop</option>
+                </select>
+                <small class="form-control-feedback"></small>
+                <div *ngIf="valTransforms">
+                  <br>
+                  <div *ngFor="let transform of valTransforms">
+                    <div [ngSwitch]="transform">
+                      <ng-template [ngSwitchCase]="'RandomSizedCrop'">
+                        <div class="form-group">
+                          <div class="input-group">
+                            <input type="text" class="form-control sup-params" id="val_random_sized_crop" name="val_random_sized_crop" placeholder="300">
+                            <span class="input-group-addon">Random Sized Crop</span>
+                          </div>
+                        </div>
+                      </ng-template>
+                      <ng-template [ngSwitchCase]="'Normalize'">
+                        <!-- <p>Train Normalize selected</p> -->
+                        <div class="form-group">
+                          <div class="input-group">
+                            <input type="text" class="form-control sup-params" id="val_normalize_mean" name="val_normalize_mean" placeholder="mean">
+                            <input type="text" class="form-control sup-params" placeholder="std" id="val_normalize_std" name="val_normalize_std">
+                            <span class="input-group-addon">Normalize</span>
+                          </div>
+                          <!-- <small class="form-text text-muted">Please enter your email</small> -->
+                        </div>
+                      </ng-template>
+                      <ng-template [ngSwitchCase]="'Scale'">
+                        <div class="form-group">
+                          <div class="input-group">
+                            <input type="text" class="form-control sup-params" placeholder="225" id="val_scale" name="val_scale">
+                            <span class="input-group-addon">Scale</span>
+                          </div>
+                          <!-- <small class="form-text text-muted">Please enter your username</small> -->
+                        </div>
+                      </ng-template>
+                      <ng-template [ngSwitchCase]="'CenterCrop'">
+                        <!-- <p>Train Center Crop selected</p> -->
+                        <div class="form-group">
+                          <div class="input-group">
+                            <input type="text" class="form-control sup-params" id="val_center_crop" name="val_center_crop" placeholder="200">
+                            <span class="input-group-addon">Center Crop</span>
+                          </div>
+                        </div>
+                      </ng-template>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="widget">
+                  <button class="btn btn-primary btn-lg" type="submit" name="submit">Train</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+
           </div>
         </div>
       </form>
     </div>
   </div>
 </div>
+<br>
+<br>
+<br>
+<br>

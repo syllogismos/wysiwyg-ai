@@ -19,7 +19,7 @@ export class PaymentComponent implements OnInit {
   paymentHistory: any;
   
   private paypalConfig: any = {
-    env: 'sandbox',
+    env: 'production',
     client: {
       sandbox: 'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R',
       production: 'AWOiVbJwfNPPewRCkB3sfbiPQbLAHL6k3AjF_Che6aLLMGAMcxTs-NbyZsO0FB7yrDeWF5GbiwL5HdNx'

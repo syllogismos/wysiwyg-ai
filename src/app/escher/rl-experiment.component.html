@@ -24,19 +24,19 @@
                     </tr>
                     <tr>
                       <td>Observation Space</td>
-                      <td>{{env_data.observation_space}}</td>
+                      <td>{{env_data?.observation_space}}</td>
                     </tr>
                     <tr>
                       <td>Action Space</td>
-                      <td>{{env_data.action_space}}</td>
+                      <td>{{env_data?.action_space}}</td>
                     </tr>
                     <tr>
                       <td>Target Return</td>
-                      <td>{{env_data.reward_threshold}}</td>
+                      <td>{{env_data?.reward_threshold}}</td>
                     </tr>
                     <tr>
                       <td>Max Episode Length</td>
-                      <td>{{env_data.timestep_limit}}</td>
+                      <td>{{env_data?.timestep_limit}}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -229,7 +229,7 @@
             <div class="dropdown pull-right">
               <button type="button" class="btn btn-default btn-rounded btn-outline dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="false" id="variant-dropdown">
-                Variants
+                Select Variant
               </button>
               <div class="dropdown-menu dropdown-menu-right from-right">
                 <a *ngFor="let variant of variants" (click)="modifyTimeline(variant)" class="dropdown-item">Variant: {{variant}}</a>
@@ -287,7 +287,7 @@
         </div>
       </div>
       <div class="table-responsive">
-        <table class="table table-hover table-bordered">
+        <table id="variants-table" class="table table-hover table-bordered">
           <thead>
             <tr>
               <th>Variant</th>
@@ -447,7 +447,7 @@
           <div class="dropdown pull-right">
             <button type="button" class="btn btn-default btn-rounded btn-outline dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false">
-              Variants
+              Select Variant
             </button>
             <div class="dropdown-menu dropdown-menu-right from-right">
               <a *ngFor="let variant of variants" (click)="modifyDataTable(variant)" class="dropdown-item">Variant: {{variant}}</a>
@@ -473,6 +473,50 @@
     </div>
   </div>
 </div>
+<hr>
+<div class="row">
+  <div class="col">
+    <div class="widget">
+      <div class="row">
+        <div class="col-8">
+          <h4>Debugging</h4>
+          <div class="description">Variant: <b>{{selectedDebuggingVariant}}</b>, {{variantsData[selectedDebuggingVariant].iteration}} Iterations. Select an iteration using the slider to see the trained agent.</div>
+        </div>
+        <div class="col-4">
+          <div class="dropdown pull-right">
+            <button type="button" class="btn btn-default btn-rounded btn-outline dropdown-toggle" data-toggle="dropdown" aira-haspopup="true" aria-expanded="false">
+              Select Variant
+            </button>
+            <div class="dropdown-menu dropdown-menu-right from-right">
+              <a *ngFor="let variant of variants" (click)="debugVariant(variant)" class="dropdown-item">Variant: {{variant}}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-1">
+          <label class="title">Iteration: </label>
+        </div>
+        <div class="col-5">
+          <div id="debug-variant-slider" class="slider-primary"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <video [src]="variantIterationVideoSrc" width="600" height="400" controls>
+            <!-- <source src="https://s3.amazonaws.com/karaka_test/5a4b9c9108d1a338d21d38ef/0/escher/rl_exp/gym_log/openaigym.video.0.1.video000022.mp4" type="video/mp4"> -->
+            <!-- <source src="variantIterationVideoSrc" type="video/mp4"> -->
+          </video>
+          <!-- <img src="{{ angularLogo }}">
+          <img [src]="angularLogo">
+          <img bind-src="angularLogo"> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<hr>
+<app-exp-cpu-plots [experiment]="experiment_id"></app-exp-cpu-plots>
 <br>
 <br>
 <br>

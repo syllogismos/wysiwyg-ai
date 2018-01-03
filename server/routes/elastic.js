@@ -8,6 +8,31 @@ router.post('/posttest', (req, res) => {
   return res.json({ message: 'success' })
 })
 
+router.post('/getSystemStats', (req, res) => {
+  es.search({
+    index: 'metricbeat*',
+    body: {
+      "query": {
+        "bool": {
+          "filter": [
+            {
+              "term": {
+                "fields.experiment": req.body.exp_id
+              }
+            }
+          ]
+        }
+      },
+      "size": 10000
+    }
+  }).then(function (resp) {
+    return res.json({ message: 'success', body: resp.hits })
+  }, function (error) {
+    console.log(error)
+    return res.json({ message: 'failure' })
+  })
+})
+
 router.post('/getRLExpLogs', (req, res) => {
   console.log(req.body);
   console.log(req.user);
@@ -49,15 +74,15 @@ router.post('/getSupExpLogs', (req, res) => {
     index: 'filebeat*',
     body: {
       "query": {
-        "bool" : {
+        "bool": {
           "filter": {
-            "term" : { "json.exp" : req.body.exp_id }
+            "term": { "json.exp": req.body.exp_id }
           },
-          "should" : [
-            { "term" : { "json.event" : "train_log" } },
-            { "term" : { "json.event" : "val_log" } }
+          "should": [
+            { "term": { "json.event": "train_log" } },
+            { "term": { "json.event": "val_log" } }
           ],
-          "minimum_should_match" : 1
+          "minimum_should_match": 1
         }
       },
       "size": 10000
@@ -97,9 +122,9 @@ router.post('/getExperimentTimeline', (req, res) => {
   }).then(function (resp) {
     console.log(resp.hits.total)
     return res.json({ message: 'success', body: resp.hits })
-    }, function (error) {
-      console.log(error)
-      return res.json({ message: 'failure' })
+  }, function (error) {
+    console.log(error)
+    return res.json({ message: 'failure' })
   })
 })
 

@@ -8,6 +8,8 @@ declare var approve: any;
 declare var swal: any;
 declare var _: any;
 declare var toastr: any;
+declare var ChosenOrder: any;
+declare var ResizeSensor: any;
 
 @Component({
   selector: 'app-supervised',
@@ -18,6 +20,10 @@ export class SupervisedComponent implements OnInit {
 
   models: any
   datasets: any
+  trainTransforms: any = []
+  trainSelect: any
+  valSelect: any
+  valTransforms: any = []
 
   constructor(
     private http: Http,
@@ -29,6 +35,36 @@ export class SupervisedComponent implements OnInit {
     this.getModels();
     this.getDatasets();
 
+    this.trainSelect = $('#train-transforms')
+    this.trainSelect.chosen()
+
+    this.valSelect = $('#val-transforms')
+    this.valSelect.chosen()
+
+    $('#train_transforms_chosen').width($('#train-transforms-wrapper').width())
+    new ResizeSensor($('#train-transforms-wrapper'), e => {
+      $('#train_transforms_chosen').width($('#train-transforms-wrapper').width())
+    })
+
+    $('#val_transforms_chosen').width($('#val-transforms-wrapper').width())
+    new ResizeSensor($('#val-transforms-wrapper'), e => {
+      $('#val_transforms_chosen').width($('#val-transforms-wrapper').width())
+    })
+
+
+    this.trainSelect.on('change', (e, params) => {
+      setTimeout(() => {
+        this.trainTransforms = ChosenOrder.getSelectionOrder(this.trainSelect)
+        console.log(this.trainTransforms)
+      }, 100)
+    })
+
+    this.valSelect.on('change', (e, params) => {
+      setTimeout(() => {
+        this.valTransforms = ChosenOrder.getSelectionOrder(this.valSelect)
+        console.log(this.valTransforms)
+      }, 100)
+    })
 
     var numericRange = {
       expects: [
@@ -68,6 +104,96 @@ export class SupervisedComponent implements OnInit {
       title: 'Loss Function',
       required: true
     }, 'Loss Function is valid', 'Please select an option')
+
+    this.validateOnChange('#train_normalize_mean', {
+      title: "Train Normalize Mean",
+      required: true,
+      numericRange: {
+        min: 0,
+        max: 1
+      },
+    }, '', '')
+
+    this.validateOnChange('#train_normalize_std', {
+      title: "Train Normalize Std",
+      required: true,
+      numericRange: {
+        min: 0,
+        max: 1
+      },
+    }, '', '')
+
+    this.validateOnChange('#train_random_sized_crop', {
+      title: 'Train Random Sized Crop',
+      required: true,
+      numericRange: {
+        min: 0,
+        max: 2000
+      }
+    }, '', '')
+
+    this.validateOnChange('#train_scale', {
+      title: 'Train Scale',
+      required: true,
+      numericRange: {
+        min: 0,
+        max: 2000
+      }
+    }, '', '')
+
+    this.validateOnChange('#train_center_crop', {
+      title: 'Train Center Crop',
+      required: true,
+      numericRange: {
+        min: 0,
+        max: 2000
+      }
+    }, '', '')
+
+    this.validateOnChange('#val_normalize_mean', {
+      title: "Train Normalize Mean",
+      required: true,
+      numericRange: {
+        min: 0,
+        max: 1
+      },
+    }, '', '')
+
+    this.validateOnChange('#val_normalize_std', {
+      title: "Train Normalize Std",
+      required: true,
+      numericRange: {
+        min: 0,
+        max: 1
+      },
+    }, '', '')
+
+    this.validateOnChange('#val_random_sized_crop', {
+      title: 'Train Random Sized Crop',
+      required: true,
+      numericRange: {
+        min: 0,
+        max: 2000
+      }
+    }, '', '')
+
+    this.validateOnChange('#val_scale', {
+      title: 'Train Scale',
+      required: true,
+      numericRange: {
+        min: 0,
+        max: 2000
+      }
+    }, '', '')
+
+    this.validateOnChange('#val_center_crop', {
+      title: 'Train Center Crop',
+      required: true,
+      numericRange: {
+        min: 0,
+        max: 2000
+      }
+    }, '', '')
 
     this.validateOnChange('#lr', {
       title: 'Learning rate',
@@ -184,6 +310,9 @@ export class SupervisedComponent implements OnInit {
         allowOutsideClick: false,
         preConfirm: () => {
           $('.sup-params').serializeArray().map(x => params[x.name] = x.value)
+          params['train_transforms'] = self.trainTransforms
+          params['val_transforms'] = self.valTransforms
+          // console.log(params)
           return new Promise((resolve, reject) => {
             self.http.post('/api/new_supervised_exp', params)
               .toPromise()
@@ -235,24 +364,36 @@ export class SupervisedComponent implements OnInit {
     // load exp config from local storage
     var local_experiment_config = JSON.parse(localStorage.getItem('supervised_exp_config'));
     if (local_experiment_config) {
-      for (var s in local_experiment_config) {
-        console.log(s)
-        $('#' + s).val(local_experiment_config[s])
-      }
-      $('#sup .form-control').each(function () {
-        // console.log($(this))
-        $(this).focus().blur();
-      });
+      console.log(local_experiment_config)
+      this.trainTransforms = local_experiment_config.train_transforms || []
+      this.valTransforms = local_experiment_config.val_transforms || []
+      ChosenOrder.setSelectionOrder(this.trainSelect, this.trainTransforms, true)
+      ChosenOrder.setSelectionOrder(this.valSelect, this.valTransforms, true)
+      // load the params and focus blur each form element after a timeout
+      // so that ngIf, ngFor for trainTransforms, valTransforms to take into effect
+      setTimeout(
+        () => {
+          for (var s in local_experiment_config) {
+            console.log(s)
+            $('#' + s).val(local_experiment_config[s])
+          }
+          $('#sup .form-control').each(function () {
+            // console.log($(this))
+            $(this).focus().blur();
+          });
+        }, 100
+      )
+      
     }
   }
 
   getDatasets(): void {
     this.datasets = [
       { name: 'MNIST', value: 'MNIST' },
-      { name: 'TINY IMAGENET', value: 'tiny-imagenet-test'}
+      { name: 'TINY IMAGENET', value: 'tiny-imagenet-test' }
     ]
   }
-  private headers = new Headers({'Content-Type': 'application/json'})
+  private headers = new Headers({ 'Content-Type': 'application/json' })
   getModels(): void {
     this.http.post('/api/get_nnmodel_list', {
 
@@ -260,7 +401,8 @@ export class SupervisedComponent implements OnInit {
       .then(response => {
         // console.log(response.json())
         this.models = response.json().nnmodels
-        setTimeout( () => this.loadExistingConfig(), 100)
+        // settimeout so that ngFor models select element loads all the models
+        setTimeout(() => this.loadExistingConfig(), 100)
         // this.loadExistingConfig()
       })
       .catch(this.handleHttpError)
@@ -275,7 +417,9 @@ export class SupervisedComponent implements OnInit {
     var el = $(element)
     el.parent().removeClass('has-success').addClass('has-danger');
     el.removeClass('form-control-success').addClass('form-control-danger');
+    if (message != '') {
     el.next().text(message).removeClass('text-success').addClass('text-danger');
+    }
     el.attr('data-valid', false);
   }
 
@@ -283,7 +427,9 @@ export class SupervisedComponent implements OnInit {
     var el = $(element);
     el.parent().removeClass('has-danger').addClass('has-success');
     el.removeClass('form-control-danger').addClass('form-control-success');
+    if (message != '') {
     el.next().text(message).removeClass('text-danger').addClass('text-success');
+    }
     el.attr('data-valid', true);
   }
 

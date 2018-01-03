@@ -50,6 +50,7 @@ import { PaymentComponent } from './escher/payment.component';
 import { SupervisedComponent } from './escher/supervised.component';
 import { SupervisedExperimentComponent } from './escher/supervised-experiment.component';
 import { RlExperimentComponent } from './escher/rl-experiment.component';
+import { ExpCpuPlotsComponent } from './escher/exp-cpu-plots.component';
 
 @NgModule({
   declarations: [
@@ -96,6 +97,7 @@ import { RlExperimentComponent } from './escher/rl-experiment.component';
     SupervisedComponent,
     SupervisedExperimentComponent,
     RlExperimentComponent,
+    ExpCpuPlotsComponent,
   ],
   imports: [
     BrowserModule,
