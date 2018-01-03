@@ -31,7 +31,7 @@ export class ConsoleComponent implements OnInit {
 
   constructor(
     private escherService: EscherService,
-    private editorService: EditorService,
+    public editorService: EditorService,
     private http: Http
   ) { }
 
