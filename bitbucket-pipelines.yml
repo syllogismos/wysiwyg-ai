@@ -6,12 +6,12 @@
 image: node:8.1.2
 
 pipelines:
-  default:
-    - step:
-        caches:
-          - node
-        trigger: manual
-        script: # Modify the commands below to build your repository.
-          - npm install
-          # - npm test
-          - npm run build
+  custom:
+    build:
+      - step:
+          caches:
+            - node
+          script: # Modify the commands below to build your repository.
+            - npm install
+            # - npm test
+            - npm run build
