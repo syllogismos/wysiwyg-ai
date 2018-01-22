@@ -544,7 +544,7 @@ router.post('/get_experiment_list', (req, res) => {
 router.post('/get_nnmodel_list', (req, res) => {
   mongooseConfig.NNModel.find({
     user: req.user._id
-  }, {_id: 1, name: 1}).sort({ _id: 1 })
+  }).sort({ _id: 1 })
     .exec((err, nnmodels) => {
       if (err) {
         return res.json({
