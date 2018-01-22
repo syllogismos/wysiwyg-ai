@@ -112,4 +112,10 @@ export class ModelzooComponent implements OnInit {
     }
   }
 
+  editModel(model): void {
+    localStorage.setItem('localFabricName', model.name)
+    localStorage.setItem('localFabricCanvas', model.network)
+    this.router.navigate(['/escher/console'])
+  }
+
 }

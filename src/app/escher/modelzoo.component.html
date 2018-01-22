@@ -54,12 +54,12 @@
             <td>{{model.createdAt}}</td>
             <td>
               <div class="btn-group btn-group-outline" role="group">
-                <button type="button" class="btn btn-primary btn-icon btn-outline" data-toggle="tooltip" placement="top" title="Edit">
+                <button type="button" (click)="editModel(model)" class="btn btn-primary btn-icon btn-outline" data-toggle="tooltip" placement="top" title="Edit">
                   <i class="sli-pencil"></i>
                 </button>
-                <button type="button" class="btn btn-secondary btn-icon btn-outline" data-toggle="tooltip" placement="top" title="Download Weights">
+                <!-- <button type="button" class="btn btn-secondary btn-icon btn-outline" data-toggle="tooltip" placement="top" title="Download Weights">
                   <i class="sli-star"></i>
-                </button>
+                </button> -->
               </div>
             </td>
           </tr>

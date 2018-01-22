@@ -43,7 +43,11 @@ export class ConsoleComponent implements OnInit {
     this.canvas = new fabric.Canvas('canvas')
     this.canvasWrapper = $("#canvasWrapper")
     this.editorService.init(this.canvas, this.canvasWrapper)
-    this.editorService.loadResnet18();
+    if (localStorage.getItem('localFabricCanvas') != null) {
+      this.editorService.loadModel(localStorage.getItem('localFabricCanvas'))
+    } else {
+      this.editorService.loadResnet18();
+    }
   }
 
   addConnection(): void{
