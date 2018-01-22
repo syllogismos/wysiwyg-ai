@@ -28,65 +28,8 @@ export class ModelzooComponent implements OnInit {
       $(this).tooltip('hide')
     })
 
-    // this.models = [
-    //   {
-    //     name: "Co-co captioning Model",
-    //     description : "feedforward cnn for object recognition",
-    //     hidden: 200,
-    //     iterations: 200,
-    //     id: 'co-co1'
-    //   },
-    //   {
-    //     name: "Co-co captioning Model",
-    //     description : "feedforward cnn for object recognition",
-    //     hidden: 200,
-    //     iterations: 200,
-    //     id: 'co-co1'
-    //   },
-    //   {
-    //     name: "Co-co captioning Model",
-    //     description : "feedforward cnn for object recognition",
-    //     hidden: 200,
-    //     iterations: 200,
-    //     id: 'co-co1'
-    //   },
-    //   {
-    //     name: "Co-co captioning Model",
-    //     description : "feedforward cnn for object recognition",
-    //     hidden: 200,
-    //     iterations: 200,
-    //     id: 'co-co1'
-    //   },
-    //   {
-    //     name: "Co-co captioning Model",
-    //     description : "feedforward cnn for object recognition",
-    //     hidden: 200,
-    //     iterations: 200,
-    //     id: 'co-co1'
-    //   },
-    //   {
-    //     name: "Co-co captioning Model",
-    //     description : "feedforward cnn for object recognition",
-    //     hidden: 200,
-    //     iterations: 200,
-    //     id: 'co-co1'
-    //   },
-    //   {
-    //     name: "Co-co captioning Model",
-    //     description : "feedforward cnn for object recognition",
-    //     hidden: 200,
-    //     iterations: 200,
-    //     id: 'co-co1'
-    //   }
-    // ]
 
-    // $('#model-datatable').DataTable().destroy();
     this.models = []
-    // setTimeout(function () {
-    //   $('#model-datatable').DataTable({
-
-    //   }, 10)
-    // })
 
     this.getModels()
 
