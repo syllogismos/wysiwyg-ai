@@ -48,118 +48,103 @@
             <td class="center">
               <input type="checkbox">
             </td>
-            <td><a (click)="selectModel(model.network)"><u>{{model.name}}</u></a></td>
+            <td><a (click)="selectModel(model)"><u>{{model.name}}</u></a></td>
             <td>{{model.description}}</td>
             <td>{{model.hidden}}</td>
             <td>{{model.createdAt}}</td>
             <td>
               <div class="btn-group btn-group-outline" role="group">
-                <button type="button" class="btn btn-primary btn-icon" data-toggle="tooltip" placement="top" title="Edit">
+                <button type="button" class="btn btn-primary btn-icon btn-outline" data-toggle="tooltip" placement="top" title="Edit">
                   <i class="sli-pencil"></i>
                 </button>
-                <button type="button" class="btn btn-secondary btn-icon" data-toggle="tooltip" placement="top" title="Download Weights">
+                <button type="button" class="btn btn-secondary btn-icon btn-outline" data-toggle="tooltip" placement="top" title="Download Weights">
                   <i class="sli-star"></i>
                 </button>
               </div>
             </td>
           </tr>
-          <!-- <tr>
-            <td class="center">
-              <input type="checkbox">
-            </td>
-            <td>AlexNet</td>
-            <td>Feedford CNN with Relu, dropout, 11x11, 3x3 convolutions on Imagenet 2012</td>
-            <td>13</td>
-            <td>None</td>
-            <td>
-              <div class="btn-group btn-group-outline" role="group">
-                <button type="button" (click)="goToEscherBoard()" class="btn btn-primary btn-icon" data-toggle="tooltip" placement="top" title="Edit">
-                  <i class="sli-pencil"></i>
-                </button>
-                <button type="button" (click)="goToExperiment()" class="btn btn-secondary btn-icon" data-toggle="tooltip" placement="top" title="Train">
-                  <i class="sli-chemistry"></i>
-                </button>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="center">
-              <input type="checkbox">
-            </td>
-            <td>Co-Co Captioning Model</td>
-            <td>Feedforward CNN for object recognition</td>
-            <td>6</td>
-            <td>900</td>
-            <td>
-              <div class="btn-group btn-group-outline" role="group">
-                <button type="button" (click)="goToEscherBoard()" class="btn btn-primary btn-icon" data-toggle="tooltip" placement="top" title="Edit">
-                  <i class="sli-pencil"></i>
-                </button>
-                <button type="button" (click)="goToExperiment()" class="btn btn-secondary btn-icon" data-toggle="tooltip" placement="top" title="Train">
-                  <i class="sli-chemistry"></i>
-                </button>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="center">
-              <input type="checkbox">
-            </td>
-            <td>Test Model</td>
-            <td>Simple neural netowork</td>
-            <td>3</td>
-            <td>100</td>
-            <td>
-              <div class="btn-group btn-group-outline" role="group">
-                <button type="button" (click)="goToEscherBoard()" class="btn btn-primary btn-icon" data-toggle="tooltip" placement="top" title="Edit">
-                  <i class="sli-pencil"></i>
-                </button>
-                <button type="button" (click)="goToExperiment()" class="btn btn-secondary btn-icon" data-toggle="tooltip" placement="top" title="Train">
-                  <i class="sli-chemistry"></i>
-                </button>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="center">
-              <input type="checkbox">
-            </td>
-            <td>Inception</td>
-            <td>5x5, 3x3 and 1x1 convolutions</td>
-            <td>26</td>
-            <td>560</td>
-            <td>
-              <div class="btn-group btn-group-outline" role="group">
-                <button type="button" (click)="goToEscherBoard()" class="btn btn-primary btn-icon" data-toggle="tooltip" placement="top" title="Edit">
-                  <i class="sli-pencil"></i>
-                </button>
-                <button type="button" (click)="goToExperiment()" class="btn btn-secondary btn-icon" data-toggle="tooltip" placement="top" title="Train">
-                  <i class="sli-chemistry"></i>
-                </button>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="center">
-              <input type="checkbox">
-            </td>
-            <td>ResNet</td>
-            <td>feed the output of two successive convolutional layer AND also bypass the input to the next layers</td>
-            <td>5</td>
-            <td>200</td>
-            <td>
-              <div class="btn-group btn-group-outline" role="group">
-                <button type="button" (click)="goToEscherBoard()" class="btn btn-primary btn-icon" data-toggle="tooltip" placement="top" title="Edit">
-                  <i class="sli-pencil"></i>
-                </button>
-                <button type="button" (click)="goToExperiment()" class="btn btn-secondary btn-icon" data-toggle="tooltip" placement="top" title="Train">
-                  <i class="sli-chemistry"></i>
-                </button>
-              </div>
-            </td>
-          </tr> -->
         </tbody>
       </table>
+    </div>
+  </div>
+</div>
+<hr>
+<div *ngIf="currentModel" class="row">
+  <div class="col">
+    <div class="widget">
+      <div class="row">
+        <div class="col">
+          <h3>Model Details</h3>
+          <div class="title">
+            Name: {{currentModel.name}}
+          </div>
+          <!-- <div class="description">
+            {{currentModel.name}}
+          </div> -->
+          <!-- <h4>Name: </h4><p>{{currentModel.name}}</p> -->
+        </div>
+      </div>
+      <div class="row">
+        <div id="canvasWrapper" class="col-9">
+          <canvas id="canvas" style="border: 1px solid #ccc"></canvas>
+        </div>
+        <div *ngIf="editorService.currentLayer" class="col-3">
+          <div *ngIf="editorService.currentLayer">
+            <h6 class="primary"><b>Layer Config</b></h6>
+            <div [ngSwitch]="editorService.currentLayer.layer_type">
+              <ng-template [ngSwitchCase]="'AC'">
+                <p><b>Layer Type:</b> Activation Layer</p>
+                <p><b>Activation:</b> {{editorService.currentLayer.layerConfig.activation_fn}}</p>
+              </ng-template>
+              <ng-template [ngSwitchCase]="'PL'">
+                <p><b>Layer Type:</b> Pooling Layer</p>
+                <p><b>Pool Type:</b> {{editorService.currentLayer.layerConfig.pool_type}}</p>
+                <p><b>Kernel Size:</b> {{editorService.currentLayer.layerConfig.kernel_size}}</p>
+                <p><b>Stride:</b> {{editorService.currentLayer.layerConfig.stride}}</p>
+                <p><b>Padding:</b> {{editorService.currentLayer.layerConfig.padding}}</p>
+              </ng-template>
+              <ng-template [ngSwitchCase]="'AF'">
+                <p><b>Layer Type:</b> Affine Layer</p>
+                <p><b>In Features:</b> {{editorService.currentLayer.layerConfig.in_features}}</p>
+                <p><b>Out Features:</b> {{editorService.currentLayer.layerConfig.out_features}}</p>
+              </ng-template>
+              <ng-template [ngSwitchCase]="'CN'">
+                <p><b>Layer Type:</b> Convolution Layer</p>
+                <p><b>In Channels:</b> {{editorService.currentLayer.layerConfig.in_channels}}</p>
+                <p><b>Out Channels:</b> {{editorService.currentLayer.layerConfig.out_channels}}</p>
+                <p><b>Kernel Size:</b> {{editorService.currentLayer.layerConfig.kernel_size}}</p>
+                <p><b>Stride:</b> {{editorService.currentLayer.layerConfig.stride}}</p>
+                <p><b>Padding:</b> {{editorService.currentLayer.layerConfig.padding}}</p>
+              </ng-template>
+              <ng-template [ngSwitchCase]="'BN'">
+                <p><b>Layer Type:</b> Batch Norm Layer</p>
+                <p><b>Num Features:</b> {{editorService.currentLayer.layerConfig.num_features}}</p>
+                <p><b>Epsilon:</b> {{editorService.currentLayer.layerConfig.epsilon}}</p>
+                <p><b>Momentum:</b> {{editorService.currentLayer.layerConfig.momentum}}</p>
+              </ng-template>
+              <ng-template [ngSwitchCase]="'DR'">
+                <p><b>Layer Type:</b> Dropout Layer</p>
+                <p><b>Percent:</b> {{editorService.currentLayer.layerConfig.percent}}</p>
+              </ng-template>
+              <ng-template [ngSwitchCase]="'RS'">
+                <p><b>Layer Type:</b> Reshape Layer</p>
+                <p><b>X dim:</b> {{editorService.currentLayer.layerConfig.x}}</p>
+                <p><b>Y dim:</b> {{editorService.currentLayer.layerConfig.y}}</p>
+              </ng-template>
+            </div>
+            <!-- <div>{{editorService.currentLayer?.layer_type}}</div> -->
+          </div>
+          <hr>
+          <div *ngIf="editorService.currentLayerGrads">
+            <h6><b>Layer Grads</b></h6>
+            <p><b>Norm:</b> {{editorService.currentLayerGrads.norm}}</p>
+            <p><b>Zero Percent:</b> {{editorService.currentLayerGrads.zeros}}</p>
+            <p><b>Positive Percent:</b> {{editorService.currentLayerGrads.positive}}</p>
+            <p><b>Negative Percent:</b> {{editorService.currentLayerGrads.negative}}</p>
+            <p><b>Exploded Grads:</b> {{editorService.currentLayerGrads.exploded}}</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
