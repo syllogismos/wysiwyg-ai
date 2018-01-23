@@ -19,6 +19,10 @@ declare var ResizeSensor: any;
 export class SupervisedComponent implements OnInit {
 
   models: any
+  customDatasets: any = [
+    { name: 'MNIST', value: 'MNIST' },
+    { name: 'TINY IMAGENET', value: 'tiny-imagenet-test' }
+  ]
   datasets: any
   trainTransforms: any = []
   trainSelect: any
@@ -388,10 +392,26 @@ export class SupervisedComponent implements OnInit {
   }
 
   getDatasets(): void {
-    this.datasets = [
-      { name: 'MNIST', value: 'MNIST' },
-      { name: 'TINY IMAGENET', value: 'tiny-imagenet-test' }
-    ]
+    // this.datasets = [
+    //   { name: 'MNIST', value: 'MNIST' },
+    //   { name: 'TINY IMAGENET', value: 'tiny-imagenet-test' }
+    // ]
+    this.datasets = this.customDatasets
+    this.http.post('/api/get_datasets_list', {
+
+    }).toPromise()
+      .then(response => {
+        var db_datasets = _.map(response.json().datasets, x => {
+          return {
+            name: x.name,
+            value: x._id
+          }
+        })
+        this.datasets = this.customDatasets.concat(db_datasets)
+        console.log(this.datasets)
+        console.log(db_datasets)
+      })
+      .catch(this.handleHttpError)
   }
   private headers = new Headers({ 'Content-Type': 'application/json' })
   getModels(): void {
