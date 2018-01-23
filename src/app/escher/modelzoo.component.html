@@ -1,4 +1,4 @@
-<div class="row">
+<!-- <div class="row">
   <div class="col-12 col-lg-6">
     <div class="widget">
       <div class="btn-group btn-group-outline" role="group">
@@ -26,16 +26,16 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 <div class="row">
   <div class="widget">
     <div class="table-responsive">
       <table id="model-datatable" class="table table-hover table-bordered">
         <thead>
           <tr>
-            <th class="center">
+            <!-- <th class="center">
               <input type="checkbox">
-            </th>
+            </th> -->
             <th>Name</th>
             <th>Summary</th>
             <th>No of layers</th>
@@ -45,9 +45,9 @@
         </thead>
         <tbody>
           <tr *ngFor="let model of models">
-            <td class="center">
+            <!-- <td class="center">
               <input type="checkbox">
-            </td>
+            </td> -->
             <td><a (click)="selectModel(model)"><u>{{model.name}}</u></a></td>
             <td>{{model.description}}</td>
             <td>{{model.hidden}}</td>
