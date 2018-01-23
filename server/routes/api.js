@@ -199,6 +199,45 @@ router.post('/savennmodel', (req, res) => {
   })
 })
 
+
+router.post('/savedataset', (req, res) => {
+  mongooseConfig.DatasetModel.findOne({ name: req.body.name, user: req.user._id }, (err, datasetmodel) => {
+    if (datasetmodel) {
+      return res.json({
+        "saved": false,
+        "message": "Dataset with current name exists"
+      })
+    } else {
+      var name = req.body.name
+      var s3 = req.body.s3
+      var description = req.body.description
+      var user = req.user._id
+      
+      var newDatasetModel = new mongooseConfig.DatasetModel({
+        user: user,
+        s3: s3,
+        description: description,
+        name: name
+      })
+
+      newDatasetModel.save((err, datasetmodel) => {
+        if (err) {
+          return res.json({
+            "saved": false,
+            "message": "Unable to save"
+          })
+        } else {
+          return res.json({
+            "saved": true,
+            "message": "Saved the dataset",
+            "dataset_id": datasetmodel._id
+          })
+        }
+      })
+    }
+  })
+})
+
 router.post('/record_paypal_payment', (req, res) => {
   var user = req.user._id
   var amount = req.body.amount
@@ -562,10 +601,22 @@ router.post('/get_nnmodel_list', (req, res) => {
   // })
 })
 
-router.post('/get_database_list', (req, res) => {
-  return res.json({
-    message: "not yet implemented"
-  })
+router.post('/get_datasets_list', (req, res) => {
+  mongooseConfig.DatasetModel.find({
+    user: req.user._id
+  }).sort({ _id: 1 })
+    .exec((err, datasetmodels) => {
+      if (err) {
+        return res.json({
+          message: "failed to query for dataset models"
+        })
+      } else {
+        return res.json({
+          datasets: datasetmodels,
+          message: "queried datasets successfully"
+        })
+      }
+    })
 })
 
 router.post('/s3_object', (req, res) => {
