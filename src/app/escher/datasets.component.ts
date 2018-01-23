@@ -68,14 +68,38 @@ export class DatasetsComponent implements OnInit {
             progressBar: true,
             timeOut: 3000
           }
-          toastr.success('Dataset Created')
+          if (response.json().saved == true) {
+            toastr.success('Dataset Created')
+          } else {
+            toastr.error('Dataset with given name exists')
+          }
         })
 
     })
   }
 
   getDataSets(): void {
+    this.http.post('/api/get_datasets_list', {
 
+    }).toPromise()
+      .then(response => {
+        this.datasets = response.json().datasets
+
+        var table_id = '#datasets-datatable'
+        if ($.fn.dataTable.isDataTable(table_id)) {
+          $(table_id).DataTable().destroy()
+          setTimeout(function () {
+            $(table_id).DataTable({}, 10)
+          })
+        } else {
+          setTimeout(function () {
+            $(table_id).DataTable({}, 10)
+          })
+        }
+
+        console.log(this.datasets)
+      })
+      .catch(this.handleHttpError)
   }
 
   validateOnChange(element, rules, successMessage, errorMessage) {

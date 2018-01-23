@@ -68,6 +68,42 @@
     </div>
   </div>
 </div>
+<div class="row">
+  <div class="col">
+    <div class="widget">
+      <div class="row">
+        <div class="col">
+          <div class="table-responsive">
+            <table id="datasets-datatable" class="table table-hover table-bordered">
+              <thead>
+                <tr>
+                  <!-- <th class="center">
+                    <input type="checkbox">
+                  </th> -->
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>S3 URI</th>
+                  <th>Created At</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let dataset of datasets">
+                  <!-- <td class="center">
+                    <input type="checkbox">
+                  </td> -->
+                  <td>{{dataset.name}}</td>
+                  <td>{{dataset.description}}</td>
+                  <td>{{dataset.s3}}</td>
+                  <td>{{dataset.createdAt}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- <div class="row">
   <div class="widget">
     <div class="table-responsive">
