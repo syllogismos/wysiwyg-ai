@@ -11,7 +11,7 @@
 			<div class="left-sidebar-placeholder" *ngIf="layout == 'default-sidebar-1' || layout == 'collapsed-sidebar-1' || layout == 'off-canvas-1' || layout == 'sidebar-over-1' || layout == 'top-navigation-1' || layout == 'top-navigation-2'"></div>
 			<left-sidebar-1 *ngIf="layout == 'default-sidebar-1' || layout == 'collapsed-sidebar-1' || layout == 'off-canvas-1' || layout == 'sidebar-over-1' || layout == 'top-navigation-1' || layout == 'top-navigation-2'"></left-sidebar-1>
 			<div class="col main">
-				<jumbotron-1 *ngIf="controller != 'dashboards' && (layout == 'default-sidebar-1' || layout == 'collapsed-sidebar-1' || layout == 'off-canvas-1' || layout == 'sidebar-over-1' || layout == 'top-navigation-1')"></jumbotron-1>
+				<jumbotron-1 *ngIf="(controller != 'dashboards') && (layout == 'default-sidebar-1' || layout == 'collapsed-sidebar-1' || layout == 'off-canvas-1' || layout == 'sidebar-over-1' || layout == 'top-navigation-1')"></jumbotron-1>
 				<div class="page">
 						<router-outlet></router-outlet>
 				</div>

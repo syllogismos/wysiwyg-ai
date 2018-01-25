@@ -5,7 +5,7 @@ var client;
 if (process.env.ESCHERNODE_ENV == 'dev') {
     client = new elasticsearch.Client( {  
         hosts: [
-          '34.238.122.113:9200'
+          '54.210.132.57:9200'
         ]
     });
   } else if (process.env.ESCHERNODE_ENV == 'prod') {

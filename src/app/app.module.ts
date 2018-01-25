@@ -51,6 +51,7 @@ import { SupervisedComponent } from './escher/supervised.component';
 import { SupervisedExperimentComponent } from './escher/supervised-experiment.component';
 import { RlExperimentComponent } from './escher/rl-experiment.component';
 import { ExpCpuPlotsComponent } from './escher/exp-cpu-plots.component';
+import { IntroComponent } from './dashboards/intro.component';
 
 @NgModule({
   declarations: [
@@ -98,6 +99,7 @@ import { ExpCpuPlotsComponent } from './escher/exp-cpu-plots.component';
     SupervisedExperimentComponent,
     RlExperimentComponent,
     ExpCpuPlotsComponent,
+    IntroComponent,
   ],
   imports: [
     BrowserModule,
@@ -118,9 +120,10 @@ import { ExpCpuPlotsComponent } from './escher/exp-cpu-plots.component';
       { path: 'pages/user-profile', component: UserProfileComponent, canActivate: [LoggedInGuard] },
       { path: 'pages/login', component: LoginComponent },      
       { path: 'pages/producthunt/create-account', component: CreateAccountComponent },
+      { path: 'dashboards/intro', component: IntroComponent, canActivate: [LoggedInGuard] },
       // { path: '', component: DashboardComponent, canActivate: [LoggedInGuard] },
       // { path: '', component: DashboardComponent },  
-      { path: '', component: ConsoleComponent, canActivate: [LoggedInGuard] },
+      { path: '', component: IntroComponent, canActivate: [LoggedInGuard] },
       // { path: 'dashboards/dashboard', component: DashboardComponent, canActivate: [LoggedInGuard] },
       { path: 'dashboards/dashboard', component: DashboardComponent },
       { path: 'documentation/angular-cli', component: AngularCliComponent },
