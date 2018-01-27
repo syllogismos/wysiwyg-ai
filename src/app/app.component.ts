@@ -51,6 +51,7 @@ export class AppComponent {
 
     allUrls = allUrls.concat([
       '/',
+      '/dashboards/dashboard',
       '/dashboards/intro',
       '/escher/experiment-detail',
       '/escher/sup-experiment',

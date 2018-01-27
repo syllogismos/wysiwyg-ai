@@ -10,6 +10,13 @@ export class NavigationService {
       "title": "Menu",
       "items": [
         {
+          "url": "dashboards/intro",
+          "icon": "sli-chart",
+          "title": "Dashboard",
+          "items": [],
+          "id": "dashboard"
+        },
+        {
           "url": "escher/console",
           "icon": "sli-notebook",
           "title": "Escher Board",
@@ -57,13 +64,6 @@ export class NavigationService {
           "title": "Payment",
           "items": [],
           "id": "payment"
-        },
-        {
-          "url": "dashboards/dashboard",
-          "icon": "sli-chart",
-          "title": "Dashboard",
-          "items": [],
-          "id": "dashboard"
         },
         {
           "url": "pages/user-profile",
