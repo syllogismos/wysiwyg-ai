@@ -2,12 +2,25 @@
   <div class="col">
     <div class="widget">
       <div class="row">
+        <div class="col">
+          <h3><a routerLink="/escher/console" >Escherboard</a></h3>
+          <div class="row">
+            <div class="col-6">
+              <video src="/assets/webm/escherboard.webm" width="500" height="333" autoplay loop controls></video>
+            </div>
+            <div class="col-6">
+              <p>Here you can build deep learning models with layers</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
         <div class="col-6">
-          <h3>Supervised Learning</h3>
+          <h3><a routerLink="/escher/supervised">Supervised Learning</a></h3>
           <button class="btn btn-primary" [routerLink]="['/escher/sup-experiment', '5a48050608d1a338d21d38e4']">Sample Supervised Learning Experiment</button>
         </div>
         <div class="col-6">
-          <h3>Reinforcement Learning</h3>
+          <h3><a routerLink="/escher/rl">Reinforcement Learning</a></h3>
           <button class="btn btn-primary" [routerLink]="['/escher/rl-experiment', '5a4bc80808d1a338d21d38f1']">Sample Reinforcement Learning Experiment</button>          
           <p>Trained Agent</p>
           <video src="https://s3.amazonaws.com/karaka_test/5a4bc80808d1a338d21d38f1/0/escher/rl_exp/gym_log/openaigym.video.0.1.video000199.mp4" width="300" height="200" autoplay loop controls>
