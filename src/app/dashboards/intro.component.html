@@ -3,47 +3,144 @@
     <div class="widget">
       <div class="row">
         <div class="col">
-          <h3><a routerLink="/escher/console" >Escherboard</a></h3>
+          <h3>
+            <a routerLink="/escher/console">Escherboard</a>
+          </h3>
           <div class="row">
             <div class="col-6">
               <video src="/assets/webm/escherboard.webm" width="500" height="333" autoplay loop controls></video>
             </div>
             <div class="col-6">
-              <p>Here you can build deep learning models with layers</p>
+              <p>Here you can build deep learning models by adding layers and connecting them. Currently we support any directed
+                acyclic graph formed with the layers available.</p>
+              <p>
+                <b>Instructions</b>
+              </p>
+              <ul>
+                <li>You can add layers to the canvas by clicking on the respective layer buttons</li>
+                <li>Click on a layer to select it, or you can select multiple layers by click and drag and making a rectangle.</li>
+                <li>Select layers to copy, paste, drag, delete.</li>
+                <li>You can pan the canvas by right clicking anywhere on the canvas and dragging.</li>
+                <li>You can link layers by clicking on the link layers button, and then clicking on the input layer and then
+                  clicking on the output layer. The order in which you click matters here, as we are trying to build a directed
+                  acyclic graph.</li>
+                <li>You can save the network you built by clicking on the "Save to DB", Don't forget to name your network.</li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-6">
-          <h3><a routerLink="/escher/supervised">Supervised Learning</a></h3>
+          <h3>
+            <a routerLink="/escher/supervised">Supervised Learning</a>
+          </h3>
+          <p>Click below to see a sample supervised learning experiment page.</p>
           <button class="btn btn-primary" [routerLink]="['/escher/sup-experiment', '5a48050608d1a338d21d38e4']">Sample Supervised Learning Experiment</button>
+          <p>Notes</p>
+          <ul>
+            <li>You can create the dataset in the datasets page, it basically a http link of the data</li>
+            <li>Specify the loss function, optimizer</li>
+            <li>You can specify the hyperparameters by basically giving a comma seperated values when applicable, and we will
+              launch all the variants of the experiment based on the hyperparameters</li>
+            <li>While the training is happening, you can see layer level gradient statistics at each epoch of each hyperparamenter
+              variant of the experiment in the experiment page.</li>
+            <li>You can monitor machine level cpu/load/memory stats to see and modify if your compute resources are being used effectively</li>
+          </ul>
         </div>
         <div class="col-6">
-          <h3><a routerLink="/escher/rl">Reinforcement Learning</a></h3>
-          <button class="btn btn-primary" [routerLink]="['/escher/rl-experiment', '5a4bc80808d1a338d21d38f1']">Sample Reinforcement Learning Experiment</button>          
-          <p>Trained Agent</p>
-          <video src="https://s3.amazonaws.com/karaka_test/5a4bc80808d1a338d21d38f1/0/escher/rl_exp/gym_log/openaigym.video.0.1.video000199.mp4" width="300" height="200" autoplay loop controls>
-          </video>
-          <p>Random Agent</p>
-          <video src="https://s3.amazonaws.com/karaka_test/5a4bc80808d1a338d21d38f1/0/escher/rl_exp/gym_log/openaigym.video.0.1.video000000.mp4" width="300" height="200" autoplay loop controls>
-          </video>
+          <h3>
+            <a routerLink="/escher/datasets">Datasets</a>
+          </h3>
+          <p>Notes</p>
+          <ul>
+            <li>You can create a dataset by giving us any downloadable http link.</li>
+            <li>While training we download the data to the respective machines automatically and train.</li>
+            <li>Currently we only support image datasets.</li>
+            <li>The upload should be a zipped file with the following directory structure.</li>
+          </ul>
+          <p>Zipped folder Structure</p>
+          <ul>
+            <li>data</li>
+            <ul>
+              <li>train</li>
+              <ul>
+                <li>Cat 1</li>
+                <li>Cat 2</li>
+                <li>Cat 3</li>
+              </ul>
+              <li>val</li>
+              <ul>
+                <li>Cat 1</li>
+                <li>Cat 2</li>
+                <li>Cat 3</li>
+              </ul>
+            </ul>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h3>
+            <a routerLink="/escher/rl">Reinforcement Learning</a>
+          </h3>
+          <p>Click below to see a sample reinforcement learning experiment page.</p>
+          <button class="btn btn-primary" [routerLink]="['/escher/rl-experiment', '5a4bc80808d1a338d21d38f1']">Sample Reinforcement Learning Experiment</button>
+          <p>Notes</p>
+          <ul>
+            <li>In reinforcement learning you can train agents from the open ai gym</li>
+            <li>Similar to supervised learning you can specify the hyperparameters by giving a comma seperated value</li>
+            <li>The training results will be presented to you as training progresses.</li>
+            <li>You can monitor the cpu/machine/load statistics variant wise to see if compute resources are getting used effectively.</li>
+          </ul>
+          <div class="row">
+            <div class="col-6">
+              <h5>Random Agent</h5>
+              <video src="https://s3.amazonaws.com/karaka_test/5a4bc80808d1a338d21d38f1/0/escher/rl_exp/gym_log/openaigym.video.0.1.video000000.mp4"
+                width="300" height="200" autoplay loop controls>
+              </video>
+            </div>
+            <div class="col-6">
+              <h5>Agent Trained in the above experiment</h5>
+              <video src="https://s3.amazonaws.com/karaka_test/5a4bc80808d1a338d21d38f1/0/escher/rl_exp/gym_log/openaigym.video.0.1.video000199.mp4"
+                width="300" height="200" autoplay loop controls>
+              </video>
+            </div>
+
+          </div>
         </div>
       </div>
       <div class="row">
         <div class="col-6">
-          <p>Model builder</p>
+          <h3>
+            <a routerLink="/escher/experiment">Experiments</a>
+          </h3>
+          <p>Notes</p>
+          <ul>
+            <li>You can see all your launched supervised and rl experiments here.</li>
+            <li>After you are in an individual experiment page, you can relauch or launch a sligthly different experiment by clicking on the relaunch button on the top right</li>
+          </ul>
         </div>
         <div class="col-6">
-          <p>Datasets</p>
+          <h3>
+            <a routerLink="/escher/model-zoo">Model Zoo</a>
+          </h3>
+          <p>Notes</p>
+          <ul>
+            <li>You can view all your saved models in this page.</li>
+            <li>You can edit a model by clicking on the edit button in the model table.</li>
+          </ul>
         </div>
       </div>
       <div class="row">
         <div class="col-6">
-          <p>Hyperparameter Tuning</p>
-        </div>
-        <div class="col-6">
-          <p>Time line of events</p>
+          <h3>
+            <a routerLink="/escher/payment">Payment</a>
+          </h3>
+          <p>Notes</p>
+          <ul>
+            <li>Coming Soon.</li>
+          </ul>
         </div>
       </div>
     </div>

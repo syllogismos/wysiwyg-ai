@@ -12,14 +12,14 @@ export class NavigationService {
         {
           "url": "dashboards/intro",
           "icon": "sli-chart",
-          "title": "Dashboard",
+          "title": "Introduction",
           "items": [],
           "id": "dashboard"
         },
         {
           "url": "escher/console",
           "icon": "sli-notebook",
-          "title": "Escher Board",
+          "title": "Escherboard",
           "items": [],
           "id": "escher"
         },
@@ -72,70 +72,70 @@ export class NavigationService {
           "items": [],
           "id": "user-profile"
         },
-        {
-          "url": "#",
-          "icon": "sli-info",
-          "title": "Documentation",
-          "items": [
-            {
-              "url": "documentation/changelog",
-              "icon": "",
-              "title": "Changelog",
-              "items": [],
-              "id": "changelog"
-            },
-            {
-              "url": "documentation/code-structure",
-              "icon": "",
-              "title": "Code structure",
-              "items": [],
-              "id": "code-structure"
-            },
-            {
-              "url": "documentation/credits",
-              "icon": "",
-              "title": "Credits",
-              "items": [],
-              "id": "credits"
-            },
-            {
-              "url": "documentation/customization",
-              "icon": "",
-              "title": "Customization",
-              "items": [],
-              "id": "customization"
-            },
-            {
-              "url": "documentation/angular-cli",
-              "icon": "",
-              "title": "Angular CLI",
-              "items": [],
-              "id": "gulp-tasks"
-            },
-            {
-              "url": "documentation/installation",
-              "icon": "",
-              "title": "Installation",
-              "items": [],
-              "id": "installation"
-            },
-            {
-              "url": "documentation/layout",
-              "icon": "",
-              "title": "Layout",
-              "items": [],
-              "id": "layout"
-            },
-            {
-              "url": "documentation/styles",
-              "icon": "",
-              "title": "Styles",
-              "items": [],
-              "id": "styles"
-            }
-          ],
-          "id": "documentation"
-        }
+        // {
+        //   "url": "#",
+        //   "icon": "sli-info",
+        //   "title": "Documentation",
+        //   "items": [
+        //     {
+        //       "url": "documentation/changelog",
+        //       "icon": "",
+        //       "title": "Changelog",
+        //       "items": [],
+        //       "id": "changelog"
+        //     },
+        //     {
+        //       "url": "documentation/code-structure",
+        //       "icon": "",
+        //       "title": "Code structure",
+        //       "items": [],
+        //       "id": "code-structure"
+        //     },
+        //     {
+        //       "url": "documentation/credits",
+        //       "icon": "",
+        //       "title": "Credits",
+        //       "items": [],
+        //       "id": "credits"
+        //     },
+        //     {
+        //       "url": "documentation/customization",
+        //       "icon": "",
+        //       "title": "Customization",
+        //       "items": [],
+        //       "id": "customization"
+        //     },
+        //     {
+        //       "url": "documentation/angular-cli",
+        //       "icon": "",
+        //       "title": "Angular CLI",
+        //       "items": [],
+        //       "id": "gulp-tasks"
+        //     },
+        //     {
+        //       "url": "documentation/installation",
+        //       "icon": "",
+        //       "title": "Installation",
+        //       "items": [],
+        //       "id": "installation"
+        //     },
+        //     {
+        //       "url": "documentation/layout",
+        //       "icon": "",
+        //       "title": "Layout",
+        //       "items": [],
+        //       "id": "layout"
+        //     },
+        //     {
+        //       "url": "documentation/styles",
+        //       "icon": "",
+        //       "title": "Styles",
+        //       "items": [],
+        //       "id": "styles"
+        //     }
+        //   ],
+        //   "id": "documentation"
+        // }
       ],
       "id": "menu"
     },
