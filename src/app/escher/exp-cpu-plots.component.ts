@@ -1,5 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Http } from "@angular/http";
+
+import { ISubscription } from "rxjs/Subscription";
+import { Observable } from "rxjs/Rx";
 
 declare var $: any;
 declare var _: any;
@@ -13,19 +16,28 @@ declare var moment: any;
   templateUrl: './exp-cpu-plots.component.html',
   styleUrls: ['./exp-cpu-plots.component.scss']
 })
-export class ExpCpuPlotsComponent implements OnInit {
+export class ExpCpuPlotsComponent implements OnInit, OnDestroy {
+  
   @Input() experiment
   hits: any
   selectedMetric: any = "CPU"
   metrics: any = ["CPU", "Load", "Memory"]
   variants: any = [0]
 
+  private subscription: ISubscription
+
   constructor(
     private http: Http
   ) { }
 
   ngOnInit() {
+    this.subscription = Observable.interval(1000*60*5).subscribe(() => this.refreshData())
     this.getSystemStats()
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+    // throw new Error("Method not implemented.");
   }
 
   refreshData(): void {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from "@angular/router";
 import { Location } from "@angular/common";
 import 'rxjs/add/operator/switchMap';
@@ -8,6 +8,9 @@ import { ColorsService } from 'app/services/colors';
 import { Http, Headers } from '@angular/http';
 import { EditorService } from 'app/escher/editor.service';
 import { EscherService } from 'app/escher/escher.service';
+
+import { ISubscription } from "rxjs/Subscription";
+import { Observable } from "rxjs/Rx";
 
 declare var $: any;
 declare var _: any;
@@ -25,7 +28,7 @@ declare var toastr: any;
   styleUrls: ['./supervised-experiment.component.scss'],
   providers: [ExperimentService, ColorsService, EditorService, EscherService]
 })
-export class SupervisedExperimentComponent implements OnInit {
+export class SupervisedExperimentComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
@@ -63,6 +66,8 @@ export class SupervisedExperimentComponent implements OnInit {
   test_batch_size_var = false
   seed_var = false
 
+  private subscription: ISubscription
+
   ngOnInit() {
 
     this.canvas = new fabric.Canvas('canvas')
@@ -90,6 +95,14 @@ export class SupervisedExperimentComponent implements OnInit {
 
         this.experiment.createdAt = moment(this.experiment.createdAt).fromNow()
         this.getModel();
+
+        // refresh timeline and data every minute on the dashboard and 
+        // destroy the subscription onDestroy component
+        this.subscription = Observable.interval(1000 * 60 * 5).subscribe(() => {
+          this.refreshTimeline()
+          this.refreshData()
+        })
+
         this.getExperimentTimeline();
         this.getExperimentLogs();
       })
@@ -155,6 +168,11 @@ export class SupervisedExperimentComponent implements OnInit {
           })
       }
     })
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe()
+    // throw new Error("Method not implemented.");
   }
 
 

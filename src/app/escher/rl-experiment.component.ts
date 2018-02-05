@@ -1,10 +1,12 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from "@angular/router";
 import { Location } from "@angular/common";
 import { ColorsService } from "../services/colors";
 import 'rxjs/add/operator/switchMap';
 import { Http, Headers } from "@angular/http";
 
+import { Observable } from "rxjs/Rx";
+import { ISubscription } from "rxjs/Subscription";
 
 import { ExperimentService } from "./experiment.service";
 import { last } from '@angular/router/src/utils/collection';
@@ -24,7 +26,7 @@ declare var noUiSlider: any;
   styleUrls: ['./rl-experiment.component.scss'],
   providers: [ExperimentService, ColorsService, GymEnvsService]
 })
-export class RlExperimentComponent implements OnInit {
+export class RlExperimentComponent implements OnInit, OnDestroy {
 
   variant_table_header = ['seed', 'qf_batch_size', 'policy_batch_size',
     'qf_learning_rate', 'replay_pool_size', 'scale_reward', 'step_size',
@@ -32,6 +34,7 @@ export class RlExperimentComponent implements OnInit {
   ]
 
   actual_variants: any
+  private subscription: ISubscription
 
   constructor(
     private route: ActivatedRoute,
@@ -95,6 +98,10 @@ export class RlExperimentComponent implements OnInit {
         this.env_data = this.gymEnvService.getMetadataOfEnv(exp.config.env_name)
         this.getExperimentTimeline();
         this.getExperimentLogs();
+        this.subscription = Observable.interval(1000 * 60 * 5).subscribe(() => {
+          this.refreshData()
+          this.refreshTimeline()
+        })
         this.presentVariantDataTable();
       })
     
@@ -123,6 +130,11 @@ export class RlExperimentComponent implements OnInit {
     this.modifySlider(this.selectedDebuggingVariant)
 
 
+  }
+
+  ngOnDestroy(): void {
+    // throw new Error("Method not implemented.");
+    this.subscription.unsubscribe();
   }
 
   presentVariantDataTable(): void {
