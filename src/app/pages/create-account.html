@@ -41,6 +41,15 @@
             <button class="btn btn-primary btn-rounded" (click)="onRegClick(regEmail.value, regPassword.value)" type="submit">Register</button>
         </div>
         <p>Already have account? <a routerLink="/pages/login" routerActiveLink="active">Sign in here</a></p>
+        <p>or use github login</p>
+        <div class="form-group">
+            <button class="btn btn-primary btn-rounded btn-icon">
+                <i class="fa fa-github"></i>
+                <!-- <span class="btn-text" [routerLink]=" ['/api/auth/github'] ">Github Login</span> -->
+                <!-- <a routerLink="/api/auth/github">Github Login</a> -->
+                <a href="http://app.eschernode.com/api/auth/github">Github Login</a>
+            </button>
+        </div>
         <!-- <p>or use one of these social media services.</p>
         <div class="row">
             <div class="col">

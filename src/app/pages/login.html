@@ -17,7 +17,7 @@
     <form>
         <div class="form-description">
             <h3>Login</h3>
-            <p>Please enter your name and email to login.</p>
+            <p>Please enter your email and password to login.</p>
         </div>
         <div class="form-group">
             <label>Your email</label>
@@ -47,11 +47,26 @@
         <div class="form-group">
             <button class="btn btn-primary btn-rounded" (click)="onLoginClick(loginEmail.value, loginPassword.value)" type="submit">Login</button>
         </div>
-        <!-- <div class="links">
+        <div class="links">
             <p>New user?
-                <a routerLink="/pages/create-account" routerLinkActive="active">Sign up here</a>
+                <a routerLink="/pages/producthunt/create-account" routerLinkActive="active">Sign up here</a>
             </p>
+        </div>
+        <!-- <div class="row">
+            <div class="col-6">
+                <button class="btn btn-lg btn-twitter btn-block btn-rounded btn-icon">
+                    <i class="fa fa-github"></i>
+                    <span class="btn-text">Login using Github</span>
+                </button>
+            </div>
         </div> -->
+        <div class="form-group">
+            <button class="btn btn-primary btn-rounded btn-icon">
+                <i class="fa fa-github"></i>
+                <!-- <span class="btn-text">Github Login</span> -->
+                <a href="http://app.eschernode.com/api/auth/github">Github Login</a>
+            </button>
+        </div>
     </form>
 </div>
 <!-- end pages/login -->

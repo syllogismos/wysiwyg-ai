@@ -18,6 +18,8 @@ var UserSchema = mongoose.Schema({
   lastName: String,
   company: String,
   position: String,
+  githubid: String,
+  githubProfile: {},
   roles: [String]
 }, {timestamps: true})
 

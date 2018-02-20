@@ -9,16 +9,59 @@ const perms = require('../utils/permutations')
 const bcrypt = require('bcryptjs');
 const request = require("request");
 const aws = require('aws-sdk');
+aws.config.update({region: 'us-east-1'});
 const s3 = new aws.S3();
+const ses = new aws.SES();
 
 const bcryptSalt = bcrypt.genSaltSync(10);
+
+var userCreatedEmailParams = {
+  Destination: {
+   BccAddresses: [
+   ],
+   ToAddresses: [
+      "anil@eschernode.com"
+   ]
+  }, 
+  Message: {
+   Body: {
+    Html: {
+     Charset: "UTF-8", 
+     Data: "This message body contains HTML formatting. It can, for example, contain links like this one: <a class=\"ulink\" href=\"http://docs.aws.amazon.com/ses/latest/DeveloperGuide\" target=\"_blank\">Amazon SES Developer Guide</a>."
+    }
+   }, 
+   Subject: {
+    Charset: "UTF-8", 
+    Data: "New User Created"
+   }
+  }, 
+  ReplyToAddresses: [
+  ], 
+  Source: "anil@eschernode.com", 
+ };
+//  ses.sendEmail(params, function(err, data) {
+//    if (err) console.log(err, err.stack); // an error occurred
+//    else     console.log(data);           // successful response
+//    /*
+//    data = {
+//     MessageId: "EXAMPLE78603177f-7a5433e7-8edb-42ae-af10-f0181f34d6ee-000000"
+//    }
+//    */
+//  });
+
 
 var BACKEND_URL;
 
 if (process.env.ESCHERNODE_ENV == 'dev') {
   BACKEND_URL = 'http://localhost:8000'
+  GITHUB_CALLBACK = 'http://127.0.0.1:4200/api/auth/github/callback'
+  GITHUB_CLIENT_ID = 'a4c44567224221cf7653'
+  GITHUB_CLIENT_SECRET = 'd86dbce5e7eeab204706f684c5444db686c1dee3'
 } else if (process.env.ESCHERNODE_ENV == 'prod') {
   BACKEND_URL = 'http://172.30.0.251'
+  GITHUB_CALLBACK = 'http://app.eschernode.com/api/auth/github/callback'
+  GITHUB_CLIENT_ID = '6fb06fdccf4d935f0211'
+  GITHUB_CLIENT_SECRET = '39e78dbea78350ce4a875a3d23390564897a4fa4'
 }
 
 // basic test route
@@ -71,6 +114,49 @@ passport.serializeUser(function (user, done) {
 passport.deserializeUser(function (user, done) {
   done(null, user);
 })
+
+var GitHubStrategy = require('passport-github').Strategy;
+
+passport.use(new GitHubStrategy({
+    clientID: GITHUB_CLIENT_ID,
+    clientSecret: GITHUB_CLIENT_SECRET,
+    callbackURL: GITHUB_CALLBACK
+  },
+  function (accessToken, refreshToken, profile, cb) {
+    console.log(profile)
+    // User.findOrCreate({ githubId: profile.id }, function (err, user) {
+    //   return cb(err, user);
+    // });
+    mongooseConfig.UserModel.findOne({ githubid: profile.id }, (err, user) => {
+      if (user) {
+        // res.json(null);
+        return cb(err, user)
+      } else {
+        var newUser = new mongooseConfig.UserModel()
+        newUser.githubid = profile.id
+        newUser.githubProfile = profile
+        newUser.username = profile.username
+        newUser.save((err, user) => {
+          return cb(err, user)
+        })
+      }
+    })
+  }
+));
+
+router.get('/auth/github',
+  passport.authenticate('github'), (req, res) => {
+    console.log(req)
+    // console.log(req.user)
+    // res.json(req.user)
+  });
+
+router.get('/auth/github/callback', 
+  passport.authenticate('github', { failureRedirect: '/pages/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/');
+  });
 
 
 // logs a user in
