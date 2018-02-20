@@ -41,11 +41,13 @@ export class EditorService {
     "BN": "#388e3c",
     "DR": "#1976d2",
     "PL": "#ffa000",
-    "RS": "#dff0d8"
+    "RS": "#dff0d8",
+    "ML": "#ff5733"
   }
 
   defaultLayerConfigs = {
     "CN": {
+      conv_type: "Conv2d", // Conv2d, ConvTranspose2d
       in_channels: "64",
       out_channels: "64",
       kernel_size: "3",
@@ -76,6 +78,10 @@ export class EditorService {
     "RS": {
       x: "",
       y: ""
+    },
+    "ML": {
+      merge_type: "Sum", // concat, sum, average
+      dim: 1
     }
   }
 

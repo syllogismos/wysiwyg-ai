@@ -112,6 +112,15 @@
                         <div class="row">
                             <div class="col-2">
                                 <div class="form-group">
+                                    <select [(ngModel)]="editorService.currentLayer.layerConfig.conv_type" class="form-control" name="conv_type_name">
+                                        <option value="Conv2d">Conv2d</option>
+                                        <option value="ConvTranspose2d">ConvTranspose2d</option>
+                                    </select>
+                                    <small class="form-text text-muted">Convolution Type</small>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
                                     <input [(ngModel)]="editorService.currentLayer.layerConfig.in_channels" type="text" name="cnl_in_channels" class="form-control"
                                         placeholder="64">
                                     <small class="form-text text-muted">Conv Layer In Channel</small>
@@ -216,6 +225,32 @@
                 </div>
             </div>
         </div>
+        <div *ngIf="editorService.currentLayer && editorService.currentLayer.layer_type == 'ML'">
+            <div class="row">
+                <div class="col">
+                    <form>
+                        <div class="row">
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <select [(ngModel)]="editorService.currentLayer.layerConfig.merge_type" class="form-control" name="merge_type_name">
+                                        <option value="Sum">Sum</option>
+                                        <option value="Average">Average</option>
+                                        <option value="Concat">Concat</option>
+                                    </select>
+                                    <small class="form-text text-muted">Merge Type</small>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <input [(ngModel)]="editorService.currentLayer.layerConfig.dim" class="form-control" type="text" name="merge_dim" placeholder="">
+                                    <small class="form-text text-muted">Dimension</small>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -289,6 +324,9 @@
                     </div>
                     <div class="row">
                         <button type="button" class="btn btn-default" (click)="addNetworkLayer('RS')">Add Reshape Layer</button>
+                    </div>
+                    <div class="row">
+                        <button type="button" class="btn btn-default" (click)="addNetworkLayer('ML')">Add Merge Layer</button>
                     </div>
                     <div class="row">
                         <button type="button" class="btn btn-warning" (click)="Copy()">Copy Selection</button>

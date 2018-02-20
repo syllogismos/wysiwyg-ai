@@ -110,6 +110,7 @@
               </ng-template>
               <ng-template [ngSwitchCase]="'CN'">
                 <p><b>Layer Type:</b> Convolution Layer</p>
+                <p><b>Convolution Type:</b> {{editorService.currentLayer.layerConfig.conv_type}}</p>
                 <p><b>In Channels:</b> {{editorService.currentLayer.layerConfig.in_channels}}</p>
                 <p><b>Out Channels:</b> {{editorService.currentLayer.layerConfig.out_channels}}</p>
                 <p><b>Kernel Size:</b> {{editorService.currentLayer.layerConfig.kernel_size}}</p>
@@ -130,6 +131,10 @@
                 <p><b>Layer Type:</b> Reshape Layer</p>
                 <p><b>X dim:</b> {{editorService.currentLayer.layerConfig.x}}</p>
                 <p><b>Y dim:</b> {{editorService.currentLayer.layerConfig.y}}</p>
+              </ng-template>
+              <ng-template [ngSwitchCase]="'ML'">
+                <p><b>Merge Type:</b> {{editorService.currentLayer.layerConfig.merge_type}}</p>
+                <p><b>Dimension:</b> {{editorService.currentLayer.layerConfig.dim}}</p>
               </ng-template>
             </div>
             <!-- <div>{{editorService.currentLayer?.layer_type}}</div> -->
