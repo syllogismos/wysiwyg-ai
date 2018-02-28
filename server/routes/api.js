@@ -15,39 +15,55 @@ const ses = new aws.SES();
 
 const bcryptSalt = bcrypt.genSaltSync(10);
 
-var userCreatedEmailParams = {
+var sampleEmailParams = {
   Destination: {
-   BccAddresses: [
-   ],
-   ToAddresses: [
-      "anil@eschernode.com"
-   ]
+    BccAddresses: [],
+    ToAddresses: ["anil@eschernode.com"]
   }, 
   Message: {
-   Body: {
-    Html: {
-     Charset: "UTF-8", 
-     Data: "This message body contains HTML formatting. It can, for example, contain links like this one: <a class=\"ulink\" href=\"http://docs.aws.amazon.com/ses/latest/DeveloperGuide\" target=\"_blank\">Amazon SES Developer Guide</a>."
+    Body: {
+      Html: {
+      Charset: "UTF-8", 
+    //  Data: "This message body contains HTML formatting. It can, for example, contain links like this one: <a class=\"ulink\" href=\"http://docs.aws.amazon.com/ses/latest/DeveloperGuide\" target=\"_blank\">Amazon SES Developer Guide</a>."
+      Data: "New user Created"
+      }
+    }, 
+    Subject: {
+      Charset: "UTF-8", 
+      Data: "New User Created"
     }
-   }, 
-   Subject: {
-    Charset: "UTF-8", 
-    Data: "New User Created"
-   }
   }, 
-  ReplyToAddresses: [
-  ], 
+  ReplyToAddresses: [], 
   Source: "anil@eschernode.com", 
- };
-//  ses.sendEmail(params, function(err, data) {
-//    if (err) console.log(err, err.stack); // an error occurred
-//    else     console.log(data);           // successful response
-//    /*
-//    data = {
-//     MessageId: "EXAMPLE78603177f-7a5433e7-8edb-42ae-af10-f0181f34d6ee-000000"
-//    }
-//    */
-//  });
+};
+
+sendEmailHelper = function (subject) {
+  var sendEmailParams = {
+    Destination: {
+      BccAddresses: [],
+      ToAddresses: ["anil@eschernode.com"]
+    }, 
+    Message: {
+      Body: {
+        Html: {
+        Charset: "UTF-8", 
+        Data: "Email from routes/api.js"
+        }
+      }, 
+      Subject: {
+        Charset: "UTF-8", 
+        Data: subject
+      }
+    }, 
+    ReplyToAddresses: [], 
+    Source: "anil@eschernode.com", 
+  };
+
+  ses.sendEmail(sendEmailParams, function (err, data) {
+    if (err) console.log(err, err.stack);
+    else console.log('email sent')
+  })
+}
 
 
 var BACKEND_URL;
@@ -133,6 +149,7 @@ passport.use(new GitHubStrategy({
         return cb(err, user)
       } else {
         var newUser = new mongooseConfig.UserModel()
+        sendEmailHelper("New user created" + " " + profile.username + " " + profile.id)
         newUser.githubid = profile.id
         newUser.githubProfile = profile
         newUser.username = profile.username
@@ -194,11 +211,12 @@ router.post('/register', (req, res) => {
       return;
     } else {
       var newUser = new mongooseConfig.UserModel(req.body);
-
+      sendEmailHelper('New User created ' + newUser.email)
       // synchronously hash password and store it in db
       newUser.password = bcrypt.hashSync(newUser.password, bcryptSalt);
       newUser.roles = [];
       newUser.save((err, user) => {
+        // shitty code fix this shit wtf
         req.login(user, (err) => {
           if (err) {
             return next(err);
