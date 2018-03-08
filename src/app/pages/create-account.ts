@@ -35,7 +35,7 @@ export class CreateAccountComponent implements OnInit {
         console.log('register response');
         console.log(response.json());
         localStorage.setItem('user', JSON.stringify(response.json()));
-        this.router.navigate(['/pages/login'])
+        this.router.navigate(['/'])
       })
       .catch(this.handleHttpError)
   }

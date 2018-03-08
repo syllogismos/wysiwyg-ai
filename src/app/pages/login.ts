@@ -4,6 +4,8 @@ import { Router } from "@angular/router";
 
 import "rxjs/add/operator/toPromise";
 
+declare var toastr: any
+
 @Component({
   selector: 'login',
   templateUrl: '../pages/login.html'
@@ -34,7 +36,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('user', JSON.stringify(response.json()))
         this.router.navigate(['/']);
       })
-      .catch(this.handleHttpError)
+      .catch(this.handleLoginHttpError)
   }
 
   onRegisterClick(): void {
@@ -54,10 +56,21 @@ export class LoginComponent implements OnInit {
       .catch(this.handleHttpError)
   }
 
+  private handleLoginHttpError(error: any): Promise<any> {
+    console.error('An error occurred while logging', error);
+    toastr.options = {
+      iconClass: '',
+      positionClass: 'toast-top-right',
+      progressBar: true,
+      timeOut: 3000
+    }
+    toastr.error('Error Logging in, check your credentials.')
+    return Promise.reject(error.message || error);
+  }
+
   private handleHttpError(error: any): Promise<any> {
     console.error('An error occurred', error);
     return Promise.reject(error.message || error);
   }
-
 }
 

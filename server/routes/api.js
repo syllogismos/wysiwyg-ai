@@ -37,7 +37,8 @@ var sampleEmailParams = {
   Source: "anil@eschernode.com", 
 };
 
-sendEmailHelper = function (subject) {
+
+sendSESEmailHelper = function (subject) {
   var sendEmailParams = {
     Destination: {
       BccAddresses: [],
@@ -63,6 +64,33 @@ sendEmailHelper = function (subject) {
     if (err) console.log(err, err.stack);
     else console.log('email sent')
   })
+}
+
+sendWelcomeEmailHelper = function (email) {
+  var options = {
+    method: 'POST',
+    url: 'https://api.sparkpost.com/api/v1/transmissions',
+    qs: { num_rcpt_errors: '3' },
+    headers: {
+      Authorization: '0a442712aaa836ec3a004f2ca5353b6462a6ac2a',
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: {
+      campaign_id: 'welcome-campaign',
+      recipients: [{
+        address: email,
+        substitution_data: { name: email.split('@')[0] } // introduce first name during register and change it to that
+      }],
+      content: { template_id: 'signup-welcome-email' }
+    },
+    json: true
+  };
+
+  request(options, function (error, response, body) {
+    if (error) console.log(error);
+    console.log(body);
+  });
 }
 
 
@@ -149,7 +177,7 @@ passport.use(new GitHubStrategy({
         return cb(err, user)
       } else {
         var newUser = new mongooseConfig.UserModel()
-        sendEmailHelper("New user created" + " " + profile.username + " " + profile.id)
+        sendSESEmailHelper("New user created" + " " + profile.username + " " + profile.id)
         newUser.githubid = profile.id
         newUser.githubProfile = profile
         newUser.username = profile.username
@@ -211,7 +239,13 @@ router.post('/register', (req, res) => {
       return;
     } else {
       var newUser = new mongooseConfig.UserModel(req.body);
-      sendEmailHelper('New User created ' + newUser.email)
+      sendSESEmailHelper('New User created ' + newUser.email)
+      try {
+        sendWelcomeEmailHelper(newUser.email)
+      } catch (e){
+        console.log("Error occured during sending welcome email after register")
+        console.log(e)
+      }
       // synchronously hash password and store it in db
       newUser.password = bcrypt.hashSync(newUser.password, bcryptSalt);
       newUser.roles = [];
