@@ -29,6 +29,7 @@
         "../bower_components/nvd3/build/nv.d3.min.css",
         "../bower_components/morris.js/morris.css",
         "../bower_components/chosen/chosen.css",
+        "../bower_components/intro.js/minified/introjs.min.css",
         "app/styles/main.scss",
         "app/styles/activity-widgets/activity-widget-1.scss",
         "app/styles/activity-widgets/activity-widget-3.scss",
@@ -222,7 +223,8 @@
         "../bower_components/css-element-queries/src/ElementQueries.js",
         "../bower_components/css-element-queries/src/ResizeSensor.js",
         "../bower_components/chosen/chosen.jquery.js",
-        "../bower_components/chosen/chosen.order.jquery.js"
+        "../bower_components/chosen/chosen.order.jquery.js",
+        "../bower_components/intro.js/minified/intro.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

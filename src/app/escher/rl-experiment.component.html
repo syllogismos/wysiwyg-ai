@@ -219,12 +219,15 @@
           <div class="col-4">
             <button class="btn btn-default" (click)="relaunchExperiment()">Relaunch</button>
           </div>
-          <div class="col-4">
+          <!-- <div class="col-3">
             <button class="btn btn-warning" (click)="refreshTimeline()">Refresh</button>
+          </div> -->
+          <div class="col-4">
+            <button class="btn btn-primary" (click)="startIntroJS()">Walkthrough</button>
           </div>
         </div>
         <hr>
-        <div class="row">
+        <div id="step1" class="row">
           <div class="col">
             <div class="dropdown pull-right">
               <button type="button" class="btn btn-default btn-rounded btn-outline dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
@@ -278,7 +281,7 @@
   </div>
 </div>
 <hr>
-<div class="row">
+<div id="step2" class="row">
   <div class="col">
     <div class="widget">
       <div class="row">
@@ -379,7 +382,7 @@
           <h4>Results and Plots</h4>
         </div>
       </div>
-      <div class="row">
+      <div id="step3" class="row">
         <!-- <div class="col-3">
           <div class="title">Metric</div>
         </div> -->
@@ -477,7 +480,7 @@
 <div class="row">
   <div class="col">
     <div class="widget">
-      <div class="row">
+      <div id="step4" class="row">
         <div class="col-8">
           <h4>Debugging</h4>
           <div class="description">Variant: <b>{{selectedDebuggingVariant}}</b>, {{variantsData[selectedDebuggingVariant].iteration}} Iterations. Select an iteration using the slider to see the trained agent.</div>

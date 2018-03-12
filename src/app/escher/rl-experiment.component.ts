@@ -19,6 +19,7 @@ declare var nv: any;
 declare var d3: any;
 declare var moment: any;
 declare var noUiSlider: any;
+declare var introJs: any;
 
 @Component({
   selector: 'app-rl-experiment',
@@ -75,6 +76,7 @@ export class RlExperimentComponent implements OnInit, OnDestroy {
   selectedVariant = 'all'
   selectedMetric = 'AverageReturn'
   selectedDebuggingVariant: any = 0
+  intro = introJs();
   variantsData: any = {
     0: {
       iteration: 0
@@ -104,6 +106,42 @@ export class RlExperimentComponent implements OnInit, OnDestroy {
         })
         this.presentVariantDataTable();
       })
+    
+    this.intro.setOptions({
+      // showStepNumbers: false,
+      steps: [
+        {
+          element: '#step1',
+          intro: 'Select the variant in the dropdown to see its timeline.',
+          position: 'left'
+        },
+        {
+          element: '#step2',
+          intro: 'You can see all the variant configurations here.',
+          position: 'top'
+        },
+        {
+          element: '#step3',
+          intro: 'Select the metric you are interested in the dropdown to see how the training is progressing.',
+          position: 'below'
+        },
+        {
+          element: '#step4',
+          intro: 'Select the variant in the dropdown, and epoch in the slider below to see how the agent behaves.'
+        },
+        {
+          element: '#cpu_step',
+          intro: 'Slect any system metric to see how the compute resources are being used during training in each variant.'
+        }
+      ]
+    })
+    /**
+     * Below event handler is needed as for some reason the introjs is not showing number of the step properly
+     */
+    this.intro.onafterchange(function(targetElement) {
+      $(".introjs-helperNumberLayer").css("width", "30px");
+      $(".introjs-helperNumberLayer").css("height", "30px");
+    });
     
     this.debugSlider = document.getElementById('debug-variant-slider')
     noUiSlider.create(this.debugSlider, {
@@ -415,6 +453,10 @@ export class RlExperimentComponent implements OnInit, OnDestroy {
   relaunchExperiment(): void {
     localStorage.setItem('rl_exp_config', JSON.stringify(this.experiment.config.form_params))
     this.router.navigate(['/escher/rl'])
+  }
+
+  startIntroJS(): void {
+    this.intro.start()
   }
 
   refreshTimeline(): void {

@@ -79,7 +79,7 @@
           </div>
         </div>
       </div>
-      <div class="row">
+      <div id="step1" class="row">
         <div class="col">
           <div class="table-responsive">
             <table class="table table-hover table-bordered">
@@ -229,12 +229,15 @@
         <div class="col-4">
           <button class="btn btn-default" (click)="relaunchExperiment()">Relaunch</button>
         </div>
-        <div class="col-4">
+        <!-- <div class="col-4">
           <button class="btn btn-warning" (click)="refreshTimeline()">Refresh</button>
+        </div> -->
+        <div class="col-4">
+          <button class="btn btn-primary" (click)="startIntroJS()">Walkthrough</button>
         </div>
       </div>
       <hr>
-      <div class="row">
+      <div id="step2" class="row">
         <div class="col">
           <div class="dropdown pull-right">
             <button type="button" class="btn btn-default btn-rounded btn-outline dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
@@ -321,7 +324,7 @@
           <h4>Results and Plots</h4>
         </div>
       </div>
-      <div class="row">
+      <div id="step3" class="row">
         <div class="col-3">
           <div class="title">
             Selected Metric:
@@ -413,7 +416,7 @@
 <div class="row">
   <div class="col">
     <div class="widget">
-      <div class="row">
+      <div id="step4" class="row">
         <div class="col-8">
           <h4>Debugging</h4>
           <div class="description">Variant: <b>{{selectedDebuggingVariant}}</b>, Training done until <b>{{variantsData[selectedDebuggingVariant].epoch}}</b> Epochs. Select an epoch using the slider to get gradient stats.</div>
