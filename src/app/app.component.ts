@@ -283,7 +283,7 @@ export class AppComponent {
             self['controller'] = data[0];
             self['view'] = data[1];
           } else {
-            self['controller'] = data[0];
+            self['controller'] = "dashboards";
             self['view'] = data[1];
             $('body').attr('data-controller', data[0]);
             $('body').attr('data-view', data[1]);
