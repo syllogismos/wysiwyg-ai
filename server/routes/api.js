@@ -214,6 +214,8 @@ router.post('/login', passport.authenticate('local'), (req, res) => {
 })
 
 router.get('/yc', (req, res) => {
+
+  sendSESEmailHelper("Login from yc link")
   user = {
     _id: '59ff85dcb9ff6532d4c92a08',
     username: 'satya',

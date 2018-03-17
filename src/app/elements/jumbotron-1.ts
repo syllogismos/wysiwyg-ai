@@ -34,6 +34,14 @@ export class Jumbotron1Component implements OnInit {
     });
   }
 
+  redirectToIntro(): void {
+    this.router.navigateByUrl('/dashboards/intro')
+  }
+
+  redirectToSettings(): void {
+    this.router.navigateByUrl('/pages/user-profile')
+  }
+
   
 
 }
