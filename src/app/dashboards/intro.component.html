@@ -8,13 +8,18 @@
           </h3>
           <div class="row">
             <div class="col-6">
-              <p><b>Click below to checkout sample neural networks built on the dashboard.</b></p>
-              <button class="btn btn-primary" (click)="editModel('resnet18')">Resnet 18</button>
-              <button class="btn btn-primary" (click)="editModel('unet')">Unet</button>
-              <button class="btn btn-primary" (click)="editModel('mnist')">MNIST</button>
+              <div id="step1">
+                <p><b>Click below to checkout sample neural networks built on the dashboard.</b></p>
+                <button class="btn btn-primary" (click)="editModel('resnet18')">Resnet 18</button>
+                <button class="btn btn-primary" (click)="editModel('unet')">Unet</button>
+                <button class="btn btn-primary" (click)="editModel('mnist')">MNIST</button>
+              </div>
               <video src="/assets/webm/escherboard.webm" width="500" height="333" autoplay loop controls></video>
             </div>
             <div class="col-6">
+              <div id="step_walkthrough" class="pull-right">
+                <button class="btn btn-primary" (click)="walkThrough()">WALKTHROUGH</button>
+              </div>
               <p>Here you can build deep learning models by adding layers and connecting them. Currently we support any directed
                 acyclic graph formed with the layers available.</p>
               <p>
@@ -39,13 +44,15 @@
           <h3>
             <a routerLink="/escher/supervised">Supervised Learning</a>
           </h3>
-          <p>Click below to see a sample supervised learning experiment page.</p>
-          <ul>
-            <li><a [routerLink]="['/escher/sup-experiment', '5a48050608d1a338d21d38e4']">Sample Supervised Learning</a></li>
-            <li><a [routerLink]="['/escher/sup-experiment', '5a7874586ef1c430a0031ce8']">Cats Vs Dogs Classification</a></li>
-            <li><a [routerLink]="['/escher/sup-experiment', '5a6c8442edcf885c123f46fe']">Plates Classification</a></li>
-            <li><a [routerLink]="['/escher/sup-experiment', '5a2af7bf50ce6465c861fa42']">Sample Experiment with Variants</a></li>
-          </ul>
+          <div id="step2">
+            <p>Click below to see a sample supervised learning experiment page.</p>
+            <ul>
+              <li><a [routerLink]="['/escher/sup-experiment', '5a48050608d1a338d21d38e4']">Sample Supervised Learning</a></li>
+              <li><a [routerLink]="['/escher/sup-experiment', '5a7874586ef1c430a0031ce8']">Cats Vs Dogs Classification</a></li>
+              <li><a [routerLink]="['/escher/sup-experiment', '5a6c8442edcf885c123f46fe']">Plates Classification</a></li>
+              <li><a [routerLink]="['/escher/sup-experiment', '5a2af7bf50ce6465c861fa42']">Sample Experiment with Variants</a></li>
+            </ul>
+          </div>
           <p>Notes</p>
           <ul>
             <li>You can create the dataset in the datasets page, it basically a http link of the data</li>
@@ -93,8 +100,10 @@
           <h3>
             <a routerLink="/escher/rl">Reinforcement Learning</a>
           </h3>
-          <p>Click below to see a sample reinforcement learning experiment page.</p>
-          <button class="btn btn-primary" [routerLink]="['/escher/rl-experiment', '5a4bc80808d1a338d21d38f1']">Sample Reinforcement Learning Experiment</button>
+          <div id="step3">
+            <p>Click below to see a sample reinforcement learning experiment page.</p>
+            <button class="btn btn-primary" [routerLink]="['/escher/rl-experiment', '5a4bc80808d1a338d21d38f1']">Sample Reinforcement Learning Experiment</button>
+          </div>
           <p>Notes</p>
           <ul>
             <li>In reinforcement learning you can train agents from the open ai gym</li>
