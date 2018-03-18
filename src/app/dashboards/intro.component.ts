@@ -30,7 +30,7 @@ export class IntroComponent implements OnInit {
         },
         {
           element: '#step1',
-          intro: 'Click here to see Neural Network Editor',
+          intro: 'Click here to see sample Neural Networks in the Editor',
           position: 'right'
         },
         {
