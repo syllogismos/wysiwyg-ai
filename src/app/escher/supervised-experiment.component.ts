@@ -68,7 +68,8 @@ export class SupervisedExperimentComponent implements OnInit, OnDestroy {
   seed_var = false
   intro = introJs();
 
-  private subscription: ISubscription
+  private timeLineSubscription: ISubscription
+  private expDataSubscription: ISubscription
 
   ngOnInit() {
 
@@ -136,8 +137,11 @@ export class SupervisedExperimentComponent implements OnInit, OnDestroy {
 
         // refresh timeline and data every minute on the dashboard and 
         // destroy the subscription onDestroy component
-        this.subscription = Observable.interval(1000 * 60 * 5).subscribe(() => {
+        this.timeLineSubscription = Observable.interval(1000 * 5).subscribe(() => {
           this.refreshTimeline()
+          // this.refreshData()
+        })
+        this.expDataSubscription = Observable.interval(1000 * 60 * 2).subscribe(() => {
           this.refreshData()
         })
 
@@ -209,7 +213,8 @@ export class SupervisedExperimentComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe()
+    this.timeLineSubscription.unsubscribe()
+    this.expDataSubscription.unsubscribe()
     // throw new Error("Method not implemented.");
   }
 

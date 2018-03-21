@@ -35,7 +35,8 @@ export class RlExperimentComponent implements OnInit, OnDestroy {
   ]
 
   actual_variants: any
-  private subscription: ISubscription
+  private expDataSubscription: ISubscription
+  private timeLineSubscription: ISubscription
 
   constructor(
     private route: ActivatedRoute,
@@ -100,9 +101,12 @@ export class RlExperimentComponent implements OnInit, OnDestroy {
         this.env_data = this.gymEnvService.getMetadataOfEnv(exp.config.env_name)
         this.getExperimentTimeline();
         this.getExperimentLogs();
-        this.subscription = Observable.interval(1000 * 60 * 5).subscribe(() => {
-          this.refreshData()
+        this.timeLineSubscription = Observable.interval(1000 * 5).subscribe(() => {
+          // this.refreshData()
           this.refreshTimeline()
+        })
+        this.expDataSubscription = Observable.interval(1000 * 60 * 2).subscribe(() => {
+          this.refreshData()
         })
         this.presentVariantDataTable();
       })
@@ -172,7 +176,8 @@ export class RlExperimentComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     // throw new Error("Method not implemented.");
-    this.subscription.unsubscribe();
+    this.timeLineSubscription.unsubscribe();
+    this.expDataSubscription.unsubscribe();
   }
 
   presentVariantDataTable(): void {
