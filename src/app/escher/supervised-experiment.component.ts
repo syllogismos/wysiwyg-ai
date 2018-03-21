@@ -185,7 +185,7 @@ export class SupervisedExperimentComponent implements OnInit, OnDestroy {
                 progressBar: true,
                 timeOut: 3000
               }
-              toastr.info('Epoch not done yet, select previous epoch to get gradient data.')
+              toastr.info('Epoch data not uploaded yet, wait for a few minutes or select previous epochs.')
               // console.log("gradients s3 file doens't exist yet")
             } else {
               this.gradientData = response.json().gradients
