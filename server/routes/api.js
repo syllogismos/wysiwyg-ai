@@ -593,7 +593,7 @@ router.post('/new_rl_exp', (req, res) => {
       console.log('error while saving experiment')
       return res.json({
         "exp_started": false,
-        "message": "unalbe to save experiment object"
+        "message": "unable to save experiment object"
       })
     } else {
       var options = {
@@ -605,6 +605,7 @@ router.post('/new_rl_exp', (req, res) => {
         body: { exp_id: experiment._id },
         json: true
       };
+      sendSESEmailHelper("New rl experiment created " + experiment._id)
       request(options, function (error, response, body) {
         if (error) {
           console.log(error)
@@ -698,6 +699,7 @@ router.post('/new_supervised_exp', (req, res) => {
         body: { exp_id: experiment._id },
         json: true
       };
+      sendSESEmailHelper("New supervised experiment created " + experiment._id)      
       request(options, function (error, response, body) {
         if (error) {
           return res.json({
