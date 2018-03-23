@@ -110,6 +110,7 @@ if (process.env.ESCHERNODE_ENV == 'dev') {
 
 // basic test route
 router.get('/', (req, res) => {
+  console.log(req.connection.remoteAddress)
   res.send('api works');
 });
 
@@ -215,7 +216,7 @@ router.post('/login', passport.authenticate('local'), (req, res) => {
 
 router.get('/yc', (req, res) => {
 
-  sendSESEmailHelper("Login from yc link")
+  sendSESEmailHelper("Login through yc from " + req.connection.remoteAddress)
   user = {
     _id: '59ff85dcb9ff6532d4c92a08',
     username: 'satya',
@@ -263,7 +264,7 @@ router.post('/register', (req, res) => {
       return;
     } else {
       var newUser = new mongooseConfig.UserModel(req.body);
-      sendSESEmailHelper('New User created ' + newUser.email)
+      sendSESEmailHelper('New User created ' + newUser.email + ' from ' + req.connection.remoteAddress)
       try {
         sendWelcomeEmailHelper(newUser.email)
       } catch (e){
@@ -605,7 +606,7 @@ router.post('/new_rl_exp', (req, res) => {
         body: { exp_id: experiment._id },
         json: true
       };
-      sendSESEmailHelper("New rl experiment created " + experiment._id)
+      sendSESEmailHelper("New rl experiment created " + experiment._id + ' from ' + req.connection.remoteAddress)
       request(options, function (error, response, body) {
         if (error) {
           console.log(error)
@@ -699,7 +700,7 @@ router.post('/new_supervised_exp', (req, res) => {
         body: { exp_id: experiment._id },
         json: true
       };
-      sendSESEmailHelper("New supervised experiment created " + experiment._id)      
+      sendSESEmailHelper("New supervised experiment created " + experiment._id + ' from ' + req.connection.remoteAddress)      
       request(options, function (error, response, body) {
         if (error) {
           return res.json({
