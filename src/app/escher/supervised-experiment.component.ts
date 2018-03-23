@@ -265,7 +265,7 @@ export class SupervisedExperimentComponent implements OnInit, OnDestroy {
   modifyTimeline(variant: any = "all"): void {
     console.log(variant)
     if (variant == "all") {
-      this.exp_timeline = this.exp_timeline_all.slice(0, 5)
+      this.exp_timeline = this.exp_timeline_all.slice(0, 8)
     } else {
       this.exp_timeline = _.filter(this.exp_timeline_all, x => {
         if ('variant' in x._source.json.timeline && x._source.json.timeline.variant == variant) {
@@ -274,7 +274,7 @@ export class SupervisedExperimentComponent implements OnInit, OnDestroy {
           return false
         }
       })
-      this.exp_timeline = this.exp_timeline.slice(0, 5)
+      this.exp_timeline = this.exp_timeline.slice(0, 8)
     }
     this.selectedTimelineVariant = variant
   }
