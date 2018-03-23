@@ -6186,7 +6186,12 @@ export class GymEnvsService {
       "timestep_limit": 100000,
       "max_episode_steps": 100000,
       "reward_threshold": null
-    }
+    },
+    { "id": "LunarLander-v2", "observation_space": "Box(8,)", "action_space": "Discrete(4)", "timestep_limit": 1000, "max_episode_steps": 1000, "reward_threshold": 200 },
+    { "id": "LunarLanderContinuous-v2", "observation_space": "Box(8,)", "action_space": "Box(2,)", "timestep_limit": 1000, "max_episode_steps": 1000, "reward_threshold": 200 },
+    { "id": "BipedalWalker-v2", "observation_space": "Box(24,)", "action_space": "Box(4,)", "timestep_limit": 1600, "max_episode_steps": 1600, "reward_threshold": 300 },
+    { "id": "BipedalWalkerHardcore-v2", "observation_space": "Box(24,)", "action_space": "Box(4,)", "timestep_limit": 2000, "max_episode_steps": 2000, "reward_threshold": 300 },
+    { "id": "CarRacing-v0", "observation_space": "Box(96, 96, 3)", "action_space": "Box(3,)", "timestep_limit": 1000, "max_episode_steps": 1000, "reward_threshold": 900 }
   ]
   
   
