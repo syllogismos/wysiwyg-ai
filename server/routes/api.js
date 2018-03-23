@@ -216,7 +216,7 @@ router.post('/login', passport.authenticate('local'), (req, res) => {
 
 router.get('/yc', (req, res) => {
 
-  sendSESEmailHelper("Login through yc from " + req.connection.remoteAddress)
+  sendSESEmailHelper("Login through api/yc")
   user = {
     _id: '59ff85dcb9ff6532d4c92a08',
     username: 'satya',
@@ -264,7 +264,7 @@ router.post('/register', (req, res) => {
       return;
     } else {
       var newUser = new mongooseConfig.UserModel(req.body);
-      sendSESEmailHelper('New User created ' + newUser.email + ' from ' + req.connection.remoteAddress)
+      sendSESEmailHelper('New User created ' + newUser.email)
       try {
         sendWelcomeEmailHelper(newUser.email)
       } catch (e){
@@ -606,7 +606,7 @@ router.post('/new_rl_exp', (req, res) => {
         body: { exp_id: experiment._id },
         json: true
       };
-      sendSESEmailHelper("New rl experiment created " + experiment._id + ' from ' + req.connection.remoteAddress)
+      sendSESEmailHelper("New rl experiment created " + experiment._id)
       request(options, function (error, response, body) {
         if (error) {
           console.log(error)
@@ -700,7 +700,7 @@ router.post('/new_supervised_exp', (req, res) => {
         body: { exp_id: experiment._id },
         json: true
       };
-      sendSESEmailHelper("New supervised experiment created " + experiment._id + ' from ' + req.connection.remoteAddress)      
+      sendSESEmailHelper("New supervised experiment created " + experiment._id)      
       request(options, function (error, response, body) {
         if (error) {
           return res.json({
