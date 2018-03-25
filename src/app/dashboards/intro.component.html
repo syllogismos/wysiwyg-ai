@@ -103,6 +103,11 @@
           <div id="step3">
             <p>Click below to see a sample reinforcement learning experiment page.</p>
             <button class="btn btn-primary" [routerLink]="['/escher/rl-experiment', '5ab3b103f275b53a28c73e7f']">Sample Reinforcement Learning Experiment</button>
+            <button class="btn btn-primary" [routerLink]="['/escher/rl-experiment', '5ab57426e28e521f92a7228b']">Lunar Lander</button>
+            <button class="btn btn-primary" [routerLink]="['/escher/rl-experiment', '5ab4cd998d76b7696f2b8f13']">Bipedal Walker</button>
+            <button class="btn btn-primary" [routerLink]="['/escher/rl-experiment', '5ab4c3f68d76b7696f2b8f11']">Acrobot</button>
+            <button class="btn btn-primary" [routerLink]="['/escher/rl-experiment', '5ab4bef28d76b7696f2b8f0e']">Pendulum</button>
+            
           </div>
           <p>Notes</p>
           <ul>
@@ -123,11 +128,36 @@
               <video src="https://s3.amazonaws.com/karaka_test/5a4bc80808d1a338d21d38f1/0/escher/rl_exp/gym_log/openaigym.video.0.1.video000199.mp4"
                 width="300" height="200" autoplay loop controls>
               </video>
+            </div></div>
+            <div id="step4" class="row">
+              <div class="col-3">
+                <h5><a [routerLink]="['/escher/rl-experiment', '5ab57426e28e521f92a7228b']">Lunar Lander</a></h5>
+                <video src="https://s3.amazonaws.com/karaka_test/5ab57426e28e521f92a7228b/0/escher/rl_exp/gym_log/openaigym.video.0.1.video000033.mp4"
+                  width="270" height="200" autoplay loop controls>
+                </video>
+              </div>
+              <div class="col-3">
+                <h5><a [routerLink]="['/escher/rl-experiment', '5ab4cd998d76b7696f2b8f13']">BiPedal Walker</a></h5>
+                <video src="https://s3.amazonaws.com/karaka_test/5ab4cd998d76b7696f2b8f13/0/escher/rl_exp/gym_log/openaigym.video.0.1.video000300.mp4"
+                  width="270" height="200" autoplay loop controls>
+                </video>
+              </div>
+              <div class="col-3">
+                <h5><a [routerLink]="['/escher/rl-experiment', '5ab4c3f68d76b7696f2b8f11']">Acrobot</a></h5>
+                <video src="https://s3.amazonaws.com/karaka_test/5ab4c3f68d76b7696f2b8f11/0/escher/rl_exp/gym_log/openaigym.video.0.1.video000087.mp4"
+                  width="270" height="200" autoplay loop controls>
+                </video>
+              </div>
+              <div class="col-3">
+                <h5><a [routerLink]="['/escher/rl-experiment', '5ab4bef28d76b7696f2b8f0e']">Pendulum</a></h5>
+                <video src="https://s3.amazonaws.com/karaka_test/5ab4bef28d76b7696f2b8f0e/0/escher/rl_exp/gym_log/openaigym.video.0.1.video000399.mp4"
+                  width="270" height="200" autoplay loop controls>
+                </video>
+              </div>
+            
             </div>
-
-          </div>
-        </div>
-      </div>
+            </div>
+            </div>
       <div class="row">
         <div class="col-6">
           <h4>Musclo Skeletal Agent trained using TRPO</h4>

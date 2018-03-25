@@ -42,6 +42,11 @@ export class IntroComponent implements OnInit {
           element: '#step3',
           intro: 'Click here to check out sample Rl Experiment',
           position: 'below'
+        },
+        {
+          element: '#step4',
+          intro: 'Trained RL environments, you can go to these experiment pages, and see how agents are after each iteration',
+          position: 'below'
         }
       ]
     })
@@ -77,6 +82,11 @@ export class IntroComponent implements OnInit {
         {
           element: '#step3',
           intro: 'Click here to check out sample Rl Experiment',
+          position: 'below'
+        },
+        {
+          element: '#step4',
+          intro: 'Trained RL environments, you can go to these experiment pages, and see how agents are after each iteration',
           position: 'below'
         }
       ]
