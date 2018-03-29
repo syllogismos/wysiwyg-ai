@@ -456,7 +456,9 @@ router.post('/experiment', (req, res) => {
       })
     } else {
       // demo experiments can be accessed by anyone.
-      if (req.user && (experiment.user == req.user._id || experiment.user == "59ff85dcb9ff6532d4c92a08")) {
+      // any experiment can be accessed by demo account
+      // console.log(req.user)
+      if (req.user && (experiment.user == req.user._id || experiment.user == "59ff85dcb9ff6532d4c92a08" || req.user._id == "59ff85dcb9ff6532d4c92a08")) {
         return res.json({
           "message": "found the experiment",
           "experiment": experiment
