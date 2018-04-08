@@ -238,6 +238,53 @@ router.get('/yc', (req, res) => {
   })
 })
 
+router.get('/demo', (req, res) => {
+
+  sendSESEmailHelper("Login through api/demo")
+  user = {
+    _id: '59ff85dcb9ff6532d4c92a08',
+    username: 'satya',
+    email: 'satya',
+    __v: 0,
+    company: 'Facebook',
+    firstName: 'Anil',
+    lastName: 'Karaka',
+    position: 'ML Engineer',
+    roles: []
+  }
+
+  req.login(user, (err) => {
+    if (err) {
+      return next(err);
+    } else {
+      return res.redirect('/')
+    }
+  })
+})
+
+router.get('/techstars', (req, res) => {
+
+  sendSESEmailHelper("Login through api/techstars")
+  user = {
+    _id: '59ff85dcb9ff6532d4c92a08',
+    username: 'satya',
+    email: 'satya',
+    __v: 0,
+    company: 'Facebook',
+    firstName: 'Anil',
+    lastName: 'Karaka',
+    position: 'ML Engineer',
+    roles: []
+  }
+
+  req.login(user, (err) => {
+    if (err) {
+      return next(err);
+    } else {
+      return res.redirect('/')
+    }
+  })
+})
 
 // returns user if logged in and '0' otherwise
 router.get('/loggedin', (req, res) => {
