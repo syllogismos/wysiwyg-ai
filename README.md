@@ -1,13 +1,33 @@
-# Angular 4, Express 4 Hackathon starter
+# Introduction
+
+Neural Network Builder, launches ml experiments on the cloud, tracks experiments.
+
+## Dashboard Images.
+
+### [Demo Video](https://giant.gfycat.com/AssuredPastelAmethystsunbird.webm)
+
+### Neural Network Editor
+
+![](https://imgur.com/3oejuGg.jpeg)
+
+### Experiment Details
+
+![](https://i.imgur.com/OHGtuFU.jpeg)
+
+## Links
+
+- [Django Backend](https://github.com/syllogismos/wysiwyg-ai-backend)
+- [Landing Page](https://github.com/syllogismos/wysiwyg-ai-landing)
+- [Rllab](https://github.com/syllogismos/rllabpp)
 
 ## First
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.1.3.
 
-* `git clone`
-* Install `node`, `nodemon`
-* cd `my-app`
-* `npm install`
+- `git clone`
+- Install `node`, `nodemon`
+- cd `my-app`
+- `npm install`
 
 And after that a basic express app is set up, with `server.js` as the starting point for express, and `/server` folder containing all the `/api/` server side routes. All the `/api` routes will be served by express and the rest of the routes will be served by angular/frontend. When you build the front end using `-prod` flag all the minified and js and css front end build files will be generated in `/dist` and express is setup up to load the `/dist` directory statically.
 
@@ -22,11 +42,12 @@ While development there wont be any `/dist` files, hence you will access the `/a
 This command is also defined in the `package.json` as `npm start`
 
 So this is how you develop
-* `mongod --dbpath mongo_data` to start your mongo db
-* `nodemon server.js --watch server` in a terminal
-* `npm start` in another terminal
-* Go to `localhost:4200`
-* Modify express server side stuff(`server.js` and `./server`) and angular stuff (rest of the code)
+
+- `mongod --dbpath mongo_data` to start your mongo db
+- `nodemon server.js --watch server` in a terminal
+- `npm start` in another terminal
+- Go to `localhost:4200`
+- Modify express server side stuff(`server.js` and `./server`) and angular stuff (rest of the code)
 
 ## Code scaffolding
 
@@ -54,5 +75,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## Notes
 
 1. Generate Random Avatar https://jsfiddle.net/desaroxx/jp4pmd2u/
-2. 
-
+2.
